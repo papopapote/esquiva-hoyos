@@ -66,7 +66,7 @@ Lee `investigacion/` y escribe `data.js` (red de 12.973 tramos de OSM, 3.012 de 
 - **2026-11-08 (tarde):** pacos más insistentes (más rápidos, menos torpezas, refuerzos tras perderlos, 2 patrullas por control desde el nivel 3), colores de Carabineros, personajes del estallido, guanaco y zorrillo. Bot: los 6 niveles se completan; arreglado un error que mostraba "FALLASTE" vacío al reiniciar.
 
 ## Próximos pasos
-- Ranking compartido: pendiente de que el usuario elija servicio/cuenta gratuita.
+- Ranking compartido: descartado por ahora (decisión del usuario, 2026-11-08).
 - Decidido: solo nombres de parodia. Ideas para seguir: General y Ministro de parodia (jefe final, órdenes por radio), ferias libres, Metro L5 como atajo, micros RED.
 - Que el usuario lo pruebe en iPhone y ajustar la dificultad (barras, densidad de hoyos y velocidad).
 - Ideas: más niveles, elegir vehículo, ranking de tiempos.
