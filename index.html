@@ -151,7 +151,7 @@ const CARGO = {
   gato:      { ico:'🐱', lab:'CALMA DEL MICHI',   hoyo:22, choque:24, curva:9, agua:5,  paco:14, decay:0,    churu:9 },
   torta:     { ico:'🎂', lab:'TORTA ENTERA',      hoyo:8, choque:13, curva:7, agua:2, paco:8,  decay:0,    churu:3, fail:'¡La torta quedó hecha puré!' },
   completos: { ico:'🌭', lab:'CALORCITO',         hoyo:4,  choque:7,  curva:3, agua:10, paco:5,  decay:0.45, churu:1, fail:'Los completos llegaron fríos. Nadie se los comió.' },
-  novia:     { ico:'👰', lab:'PACIENCIA DEL NOVIO', hoyo:3, choque:5, curva:2, agua:3,  paco:8, decay:0.5,  churu:1, fail:'¡El novio se arrancó del Templo!' },
+  novia:     { ico:'👰', lab:'PACIENCIA DEL NOVIO', hoyo:3, choque:5, curva:2, agua:3,  paco:8, decay:0.4,  churu:1, fail:'¡El novio se arrancó del Templo!' },
   sopaipillas:{ ico:'🟠', lab:'CROCANCIA',        hoyo:3,  choque:5,  curva:2, agua:4, paco:5,  decay:0.22, churu:1, fail:'Sopaipillas aguachentas. Fome.' },
 };
 const STORY = {
@@ -173,6 +173,11 @@ const BUB = {
   siesta: ['Zzz...', 'Cinco minutitos más...'],
   talonario: ['¿Dónde dejé el talonario?', 'Se me cayó la gorra', '¿Cómo se escribe "infracción"?'],
   mojado: ['¡Me mojé los bototos!', '¡Glu glu glu!'],
+  perro: ['¡Sáquenme este perro!', '¡El Matapacos! ¡Corran!', '¡Me mordió el pantalón!'],
+  baile: ['¡No puedo dejar de bailar!', '¡Qué buen ritmo, tía!', 'Un pasito pa\'l lado...'],
+  pare: ['¡PARE! ...ah, ya, paré', 'Dice PARE... hay que obedecer', '¿Pare? Bueno.'],
+  escudos: ['¡Son demasiados escudos!', '¡Rebotamos!', '¿Esos escudos son de tapas de olla?'],
+  gas: ['*cof cof* ¡Nos gaseamos solos!', '¡Apaguen el zorrillo! *cof*', '¡No veo nada! *cof*'],
   cerca: ['¡Ya casi te pillo!', '¡Orille el vehículo, porfa!', '¡Te tengo! ...creo'],
 };
 
@@ -238,6 +243,10 @@ const SFX = (() => {
     lose(){ if (ok('lose', 1)) seq([67, 64, 60, 55, 48], 0.2, 0.3, 0.12, 'triangle'); },
     click(){ if (ok('cl', 0.05)) tone('square', 660, 990, 0.06, 0.05); },
     coin(){ if (ok('coin', 0.06)) seq([84, 88], 0.06, 0.08, 0.05); },
+    bark(){ if (ok('bark', 0.25)){ tone('square', 520, 260, 0.09, 0.07); tone('square', 560, 280, 0.09, 0.07, 0.14); } },
+    cough(){ if (ok('cough', 0.6)){ noise(0.12, 0.25, 1200, 400, 'bandpass'); noise(0.12, 0.25, 1100, 400, 'bandpass', 0.18); } },
+    jet(){ if (ok('jet', 0.9)) noise(1.1, 0.18, 3000, 1500, 'bandpass'); },
+    dance(){ if (ok('dance', 2)) seq([72, 76, 79, 76, 72, 76, 79, 84], 0.12, 0.1, 0.05); },
     turbo(){ if (ok('tb', 0.5)) seq([60, 67, 72, 79], 0.05, 0.1, 0.06, 'sawtooth'); },
   };
 })();
@@ -287,7 +296,11 @@ function drawCar(len, wid, body, opt = {}){
     if (k === 'colectivo'){ ctx.fillStyle = '#ffd23f'; rr(-Wd * 0.35, L * 0.02, Wd * 0.7, L * 0.12, 0.15); ctx.fill(); ctx.stroke(); }
     if (k === 'player'){ ctx.fillStyle = '#e8414c'; ctx.fillRect(-0.25, -L / 2 + 0.1, 0.5, L * 0.26); ctx.fillRect(-0.25, L * 0.38, 0.5, L * 0.1); }
     if (k === 'paco'){
-      ctx.fillStyle = '#0e6b3c'; rr(-Wd / 2, -L / 2, Wd, L * 0.24, Wd * 0.34); ctx.fill(); ctx.stroke(); rr(-Wd / 2, L * 0.36, Wd, L * 0.14, Wd * 0.3); ctx.fill(); ctx.stroke();
+      // blanco y verde, como las radiopatrullas de Carabineros
+      ctx.fillStyle = CARAB; rr(-Wd / 2, -L / 2, Wd, L * 0.27, Wd * 0.34); ctx.fill(); ctx.stroke();      // capó verde
+      ctx.fillRect(-Wd / 2 + 0.05, -L * 0.05, 0.42, L * 0.42); ctx.fillRect(Wd / 2 - 0.47, -L * 0.05, 0.42, L * 0.42); // puertas verdes (costados)
+      rr(-Wd / 2, L * 0.36, Wd, L * 0.14, Wd * 0.3); ctx.fill(); ctx.stroke();                               // maleta verde
+      ctx.fillStyle = '#fff'; ctx.fillRect(-0.5, -L / 2 + 0.25, 1.0, 0.18);                                  // franja blanca en el capó
       const f = Math.floor(G.time * 8) % 2;
       ctx.fillStyle = f ? '#ff2a2a' : '#5a1010'; rr(-Wd * 0.45, 0.05, Wd * 0.45, 0.5, 0.15); ctx.fill(); ctx.stroke();
       ctx.fillStyle = f ? '#102a6a' : '#2a7bff'; rr(0, 0.05, Wd * 0.45, 0.5, 0.15); ctx.fill(); ctx.stroke();
@@ -296,6 +309,7 @@ function drawCar(len, wid, body, opt = {}){
   ctx.fillStyle = '#fff6c8'; for (const sx of [-1, 1]){ ctx.beginPath(); ctx.ellipse(sx * Wd * 0.3, -L / 2 + 0.25, 0.3, 0.2, 0, 0, TAU); ctx.fill(); }
   ctx.fillStyle = opt.brake ? '#ff2a2a' : '#9a1818'; for (const sx of [-1, 1]){ ctx.beginPath(); ctx.ellipse(sx * Wd * 0.32, L / 2 - 0.18, 0.3, 0.16, 0, 0, TAU); ctx.fill(); }
 }
+const CARAB = '#0b6b3a';
 const NPC_T = [
   { kind:'auto', len:4.3, wid:1.9, cols:['#e8e8e8', '#3a7bd5', '#c0392b', '#7f8c8d', '#2ecc71', '#f39c12', '#8e44ad', '#34495e'] },
   { kind:'auto', len:4.3, wid:1.9, cols:['#dfe4ea', '#57606f', '#2f3542'] },
@@ -412,9 +426,69 @@ function startLevel(i){
   const r = route(nodeAhead(G.P.e, G.P.dir), G.goal.n) || [];
   G.gps = r; G.routeSet = new Set(r.map(o => o.e).concat([G.P.e]));
   G.par = Math.round(L.best / 17 + 12);
+  setupRevuelta(i, st, r);
   G.decay = G.C.decay ? G.C.decay * 100 / G.par : 0;
   scene = 'play'; menuT = 0;
   msg(L.name, 2.2, 30, '#ffe14d', -60, `${L.frm} → ${L.to}`);
+}
+// ---------- Personajes del estallido: aliados (Negro Matapacos, Tía Pikachu, Pareman, Primera Línea) y el guanaco/zorrillo ----------
+function setupRevuelta(i, st, r){
+  const path = [{ e:st.e, dir:st.dir }].concat(r); let total = 0; for (const o of path) total += ED[o.e].len;
+  const at = (frac, side) => {              // punto a una fracción de la ruta; side: 0 = pista propia, 1 = vereda derecha
+    let d = frac * total;
+    for (const o of path){ const e = ED[o.e]; if (d <= e.len){ const s = o.dir > 0 ? d : e.len - d;
+        const off = side ? o.dir * (e.hw + 2.2) : (e.ow ? 0 : o.dir * LW * 0.5); const p = pointAt(e, s, off);
+        return { x:p.x, y:p.y, a:Math.atan2(p.dy * o.dir, p.dx * o.dir), e:o.e, dir:o.dir }; } d -= e.len; }
+    const o = path[path.length - 1], e = ED[o.e], p = pointAt(e, o.dir > 0 ? e.len : 0, 0); return { x:p.x, y:p.y, a:0, e:o.e, dir:o.dir };
+  };
+  G.allies = [Object.assign(at(0.27, 0), { t:'perro' }), Object.assign(at(0.52, 1), { t:'pika' }), Object.assign(at(0.72, 1), { t:'pare' })];
+  if (i >= 1) G.allies.push(Object.assign(at(0.42, 1), { t:'linea' }));
+  if (i === 5) G.allies.push(Object.assign(at(0.85, 0), { t:'perro' }));
+  G.foes = [];
+  if ([2, 4, 5].includes(i)) G.foes.push(Object.assign(at(0.6, 1), { t:'zorrillo', tm:1 }));
+  if ([3, 5].includes(i)) G.foes.push(Object.assign(at(i === 5 ? 0.35 : 0.45, 1), { t:'guanaco', tm:0.5 }));
+  for (const f of G.foes){ const e = ED[f.e]; f.side = 1; f.reach = e.hw * 2 + 1; f.spray = 0; f.bub = ''; f.bubT = 0; }
+  G.dog = null; G.clouds = []; G.gasT = 0;
+}
+function updateRevuelta(dt, run){
+  const P = G.P;
+  for (const a of G.allies){
+    const d = Math.hypot(a.x - P.x, a.y - P.y);
+    if (a.t === 'perro' && !a.used && d < 6 && run){ a.used = true; G.dog = { t:28, bite:0, x:a.x, y:a.y }; SFX.bark(); msg('¡EL NEGRO MATAPACOS SE SUBIÓ AL CARRO!', 2, 20, '#ffd23f', 30, 'Te acompaña un rato y les muerde los pantalones a los pacos'); }
+    if (a.t === 'pika' && d < 16 && run && !a.used && G.cops.length){ a.used = true; SFX.dance(); msg('¡BAILA, TÍA PIKACHU!', 1.8, 24, '#ffe14d', 30, 'Los pacos se pusieron a bailar');
+      for (const c of G.cops) blunder(c, 'baile', 3.8); }
+  }
+  if (G.dog){
+    const g = G.dog; g.t -= dt; g.bite -= dt;
+    const p = trailAt(G.trailD - 7); g.x += (p.x + Math.cos(p.a + Math.PI / 2) * 2.2 - g.x) * Math.min(1, dt * 8); g.y += (p.y + Math.sin(p.a + Math.PI / 2) * 2.2 - g.y) * Math.min(1, dt * 8); g.a = p.a;
+    for (const c of G.cops){ if (g.bite <= 0 && c.state === 'chase' && G.trailD - c.d < 45){ g.bite = 2; blunder(c, 'perro', 3.5); SFX.bark(); pop('¡GUAU GUAU!', g.x, g.y - 2, '#ffd23f', 18); } }
+    if (Math.random() < dt * 0.3) SFX.bark();
+    if (g.t <= 0){ G.dog = null; msg('El Negro se fue a otra marcha', 1.5, 16, '#ddd', 60); }
+  }
+  // guanaco y zorrillo (los vehículos de Carabineros también hacen el ridículo)
+  for (const f of G.foes){
+    f.tm -= dt; f.bubT -= dt;
+    const d = Math.hypot(f.x - P.x, f.y - P.y);
+    if (f.t === 'guanaco'){
+      if (f.spray > 0) f.spray -= dt;
+      else if (f.tm <= 0 && d < 70){ f.tm = rnd(2.2, 3.2); f.spray = 1.3; SFX.jet();
+        if (Math.random() < 0.3){ f.bub = pick(['¡Se acabó el agua! ...ah, no', '¡Le apunté al paco!', '¿Cuál botón era?']); f.bubT = 2; } }
+      if (f.spray > 0 && run && P.inv <= 0){
+        // chorro: rectángulo perpendicular a la calle desde el guanaco hacia el centro
+        const ux = Math.cos(f.a), uy = Math.sin(f.a), rx = P.x - f.x, ry = P.y - f.y, along = rx * ux + ry * uy, side = -(rx * -uy + ry * ux);
+        if (Math.abs(along) < 3.2 && side > 0 && side < f.reach + 2){ P.inv = 0.9; P.v *= 0.55; damage('agua', 1.5); SFX.splash(); G.shake = 0.8;
+          G.fx.push({ k:'splash', x:P.vx, y:P.vy, t:0, life:0.7 }); pop(pick(['¡GUANACAZO!', '¡Me mojó el guanaco!', '¡Agua fría!']), P.vx, P.vy - 3, '#7fd3ff', 20); }
+      }
+    } else {
+      if (f.tm <= 0 && d < 90){ f.tm = rnd(3, 4.5); const back = Math.random() < 0.35;
+        G.clouds.push({ x:f.x + (back ? 0 : Math.cos(f.a + Math.PI / 2) * -4), y:f.y + (back ? 0 : Math.sin(f.a + Math.PI / 2) * -4), r:3, t:0, life:7 });
+        if (back){ f.bub = pick(BUB.gas); f.bubT = 2.2; SFX.cough(); } }
+    }
+  }
+  G.gasT = 0;
+  for (const c of G.clouds){ c.t += dt; c.r = Math.min(9, c.r + dt * 2.5);
+    if (Math.hypot(c.x - P.x, c.y - P.y) < c.r * 0.85){ G.gasT = 1; if (run){ G.meter = Math.max(0, G.meter - G.C.choque * 0.35 * dt); if (Math.random() < dt * 1.5){ SFX.cough(); pop('*cof cof*', P.vx, P.vy - 3, '#c8e6a0', 16); } } } }
+  G.clouds = G.clouds.filter(c => c.t < c.life);
 }
 function msg(s, life = 1.6, size = 26, col = '#ffe14d', dy = 0, sub){ G.msgs.push({ s, t:0, life, size, col, dy, sub }); }
 function pop(s, x, y, col = '#fff', size = 18){ G.fx.push({ k:'txt', s, x, y, t:0, life:1.1, col, size }); }
@@ -518,7 +592,7 @@ function update(dt){
   }
   // --- decaimiento de la carga ---
   if (run && G.decay){ G.meter = Math.max(0, G.meter - G.decay * dt * (G.L.rain && G.L.cargo === 'sopaipillas' ? 1 : 1)); }
-  if (G.cops.length) damage('paco', dt * 0.05);
+  if (G.cops.length && G.L.cargo === 'gato') damage('paco', dt * 0.05);
   if (G.meter <= 0 && run){
     if (G.L.cargo === 'gato'){ if (!G.cat) catEscapes(); }
     else return finish(false, G.C.fail);
@@ -530,16 +604,18 @@ function update(dt){
     if (d < 3.6){ G.cat = null; G.meter = 55; SFX.meow(); msg('¡MICHI RECUPERADO!', 1.5, 26, '#7dff8a', 40); }
     else if (d > 70 || c.t > 14){ const q = pointAhead(35); c.x = q.x; c.y = q.y; c.t = 0; msg('¡Se arrancó de nuevo!', 1.2, 20, '#ffb3b3', 40); }
   }
+  updateRevuelta(dt, run);
   updateTraffic(dt, run, hx, hy);
   updateCops(dt, run);
   // controles policiales
   for (const c of G.ctrls){
     if (c.used || !run) continue;
-    if (Math.hypot(c.x - P.x, c.y - P.y) < 30){ c.used = true; spawnCop(c.px, c.py, '🚨 ¡CONTROL POLICIAL! ¡ARRANCA!'); }
+    if (Math.hypot(c.x - P.x, c.y - P.y) < 30){ c.used = true; spawnCop(c.px, c.py, '🚨 ¡CONTROL POLICIAL! ¡ARRANCA!'); if (G.i >= 2) setTimeout(() => { if (G.state === 'run') spawnCop(null, null, '🚨 ¡Llegó otra patrulla!'); }, 2500); }
   }
   if (run && G.wrongT > 2.5 && G.copCool <= 0 && G.cops.length < 2 && Math.random() < dt * 0.5){ spawnCop(null, null, '¡Un paco te vio contra el tránsito!'); }
   if (run && G.L.night){ G.nightT -= dt; if (G.nightT <= 0 && G.cops.length < 2){ G.nightT = rnd(18, 28); spawnCop(null, null, '🚨 ¡Patrulla nocturna!'); } }
   G.copCool -= dt;
+  if (run && G.reinf > 0){ G.reinf -= dt; if (G.reinf <= 0 && G.cops.length < 3 && remaining() > 250) spawnCop(null, null, '🚨 ¡REFUERZOS! Volvieron los pacos'); }
   // opciones de giro en el próximo cruce
   const toEnd = P.dir > 0 ? E.len - P.s : P.s;
   const nA = nodeAhead(P.e, P.dir);
@@ -659,16 +735,16 @@ function updateCops(dt, run){
       c.bt -= dt; if (c.kind === 'gps' || c.kind === 'radio') c.d += c.v * dt;
       if (c.bt <= 0) c.state = 'chase';
     } else {
-      const want = gap > 20 ? Math.min(33, P.v + 7) : P.v * 0.97;
+      const want = gap > 16 ? Math.min(38, P.v + 12) : P.v * 1.04;
       c.v += clamp(want - c.v, -12 * dt, 9 * dt); c.d = Math.min(c.d + c.v * dt, G.trailD - 2.5);
       c.next -= dt;
-      if (c.next <= 0){ c.next = rnd(5, 9); const opts = ['gps', 'radio', 'sopaipa']; if (G.L.night) opts.push('siesta'); blunder(c, pick(opts), rnd(2.2, 3.5)); }
-      if (gap < 14 && Math.random() < dt * 0.9) blunder(c, pick(['talonario', 'gps', 'radio']), 2.4);
-      if (gap < 7){ c.gapT += dt;
-        if (c.gapT > 0.7 && P.inv <= 0 && run){
+      if (c.next <= 0){ c.next = rnd(9, 14); const opts = ['gps', 'radio', 'sopaipa']; if (G.L.night) opts.push('siesta'); blunder(c, pick(opts), rnd(2.2, 3.5)); }
+      if (gap < 12 && Math.random() < dt * 0.22) blunder(c, pick(['talonario', 'gps', 'radio']), 2);
+      if (gap < 9){ c.gapT += dt;
+        if (c.gapT > 0.45 && P.inv <= 0 && run){
           c.gapT = 0; G.caught++; G.pen += 8; damage('paco', 1); P.inv = 1.5; P.v *= 0.4; SFX.whistle();
           msg('¡TE PILLARON! PARTE: +8 s', 1.8, 26, '#ff6b6b', -40, c.name + ': "¡Le voy a cursar un parte!"');
-          blunder(c, 'talonario', 4);
+          blunder(c, 'talonario', 2.6);
         } } else c.gapT = Math.max(0, c.gapT - dt);
       if (gap < 30 && c.bubT <= -2 && Math.random() < dt * 0.5){ c.bub = pick(BUB.cerca); c.bubT = 1.8; }
     }
@@ -678,14 +754,20 @@ function updateCops(dt, run){
     if (c.state === 'chase'){
       for (const eid of edgesIn(c.x - 4, c.y - 4, c.x + 4, c.y + 4)){
         for (const h of HZ.get(eid) || []){
-          if ((h.t === 'hoyo' || h.t === 'agua') && !c.hoyos.has(h) && Math.hypot(h.x - c.x, h.y - c.y) < (h.t === 'agua' ? h.r : 2.6)){
-            c.hoyos.add(h); blunder(c, h.t === 'hoyo' ? 'hoyo' : 'mojado', h.t === 'hoyo' ? 3.2 : 2); break;
+          if ((h.t === 'hoyo' || h.t === 'agua') && !c.hoyos.has(h) && Math.hypot(h.x - c.x, h.y - c.y) < (h.t === 'agua' ? h.r * 0.8 : 1.6)){
+            c.hoyos.add(h); if (Math.random() < 0.55){ blunder(c, h.t === 'hoyo' ? 'hoyo' : 'mojado', h.t === 'hoyo' ? 2.2 : 1.5); break; }
           }
         }
         if (c.state !== 'chase') break;
       }
     }
-    if (gap > 150 && run){ c.lost = true; G.churus += 5; msg('¡LOS PERDISTE!', 1.6, 28, '#7dff8a', -40, c.name + ' quedó dando vueltas. +5 churus'); SFX.coin(); }
+    if (c.state === 'chase'){
+      c.met = c.met || new Set();
+      for (const a of G.allies){ if ((a.t === 'pare' || a.t === 'linea') && !c.met.has(a) && Math.hypot(a.x - c.x, a.y - c.y) < 14){ c.met.add(a); blunder(c, a.t === 'pare' ? 'pare' : 'escudos', a.t === 'pare' ? 2.4 : 3); break; } }
+      for (const f of G.foes){ if (f.t === 'guanaco' && f.spray > 0 && !c.met.has(f) && Math.hypot(f.x - c.x, f.y - c.y) < f.reach + 3){ c.met.add(f); blunder(c, 'mojado', 2.2); } }
+      for (const cl of G.clouds){ if (!c.met.has(cl) && Math.hypot(cl.x - c.x, cl.y - c.y) < cl.r){ c.met.add(cl); blunder(c, 'gas', 2.5); SFX.cough(); } }
+    }
+    if (gap > 230 && run){ c.lost = true; G.reinf = rnd(10, 16); G.churus += 5; msg('¡LOS PERDISTE!', 1.6, 28, '#7dff8a', -40, c.name + ' quedó dando vueltas. +5 churus'); SFX.coin(); }
   }
   G.cops = G.cops.filter(c => !c.lost);
 }
@@ -699,7 +781,7 @@ function finish(ok, why){
     if (!prev || G.stars > prev.stars || (G.stars === prev.stars && G.total < prev.time)) SAVE[G.L.id] = { stars:Math.max(G.stars, prev ? prev.stars : 0), time:Math.min(G.total, prev ? prev.time : 1e9) };
     store.set('prog', SAVE); SFX.win();
   } else SFX.lose();
-  setTimeout(() => { scene = 'end'; menuT = 0; }, ok ? 900 : 1300);
+  const tok = G; setTimeout(() => { if (G === tok && scene === 'play'){ scene = 'end'; menuT = 0; } }, ok ? 900 : 1300);
 }
 
 // ---------- Dibujo del mundo ----------
@@ -845,6 +927,20 @@ function drawPlay(){
       if (!c.used){ for (let k = -2; k <= 2; k++){ const p = { x:c.x + Math.cos(c.pa + Math.PI / 2) * k * 1.6, y:c.y + Math.sin(c.pa + Math.PI / 2) * k * 1.6 };
         ctx.fillStyle = '#ff7b00'; ctx.strokeStyle = '#222'; ctx.lineWidth = 0.12; ctx.beginPath(); ctx.arc(p.x + 6 * Math.cos(c.pa), p.y + 6 * Math.sin(c.pa), 0.5, 0, TAU); ctx.fill(); ctx.stroke(); } }
     }
+    // guanaco / zorrillo
+    for (const f of G.foes){
+      ctx.save(); ctx.translate(f.x, f.y); ctx.rotate(f.a + Math.PI / 2);
+      if (f.t === 'guanaco'){ drawCar(9, 2.9, '#f4f4f4', { kind:'paco' }); ctx.fillStyle = '#2b2f36'; ctx.beginPath(); ctx.arc(0, -1.5, 0.9, 0, TAU); ctx.fill(); ctx.strokeStyle = '#2b2f36'; ctx.lineWidth = 0.5; ctx.beginPath(); ctx.moveTo(0, -1.5); ctx.lineTo(-2.2, -1.5); ctx.stroke(); }
+      else drawCar(6, 2.5, '#f4f4f4', { kind:'paco' });
+      ctx.restore();
+      if (f.t === 'guanaco' && f.spray > 0){
+        const ux = Math.cos(f.a), uy = Math.sin(f.a), nx = uy, ny = -ux, L = f.reach + 2, w = Math.sin(G.time * 30) * 0.3;
+        ctx.strokeStyle = 'rgba(120,190,255,.75)'; ctx.lineWidth = 1.6; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(f.x, f.y); ctx.quadraticCurveTo(f.x + nx * L * 0.5 + ux * w, f.y + ny * L * 0.5 + uy * w - 0.5, f.x + nx * L, f.y + ny * L); ctx.stroke();
+        ctx.fillStyle = 'rgba(160,215,255,.45)'; ctx.beginPath(); ctx.arc(f.x + nx * L, f.y + ny * L, 2 + Math.random(), 0, TAU); ctx.fill();
+      }
+    }
+    for (const c of G.clouds){ const u = c.t / c.life; ctx.fillStyle = `rgba(190,215,160,${0.55 * (1 - u)})`;
+      for (let k = 0; k < 6; k++){ const a = k * 1.05 + c.t * 0.3; ctx.beginPath(); ctx.arc(c.x + Math.cos(a) * c.r * 0.45, c.y + Math.sin(a) * c.r * 0.45, c.r * 0.6, 0, TAU); ctx.fill(); } }
     // tráfico
     for (const c of G.cars){ ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.ang + Math.PI / 2); drawCar(c.len, c.wid, c.col, { kind:c.kind, brake:c.v < c.vt * 0.7 }); ctx.restore(); }
     // pacos
@@ -875,7 +971,7 @@ function drawPlay(){
   poiLabels();
   { const [gx, gy] = toScreen(G.goal.x, G.goal.y);
     if (gx > -40 && gx < W + 40 && gy > -40 && gy < H + 40){ emoji('🏁', gx, gy - 10, 34); streetSign('B: ' + G.L.to, gx, gy + 22, 12, 220); } }
-  for (const c of G.ctrls){ const [x, y] = toScreen(c.px, c.py); if (y > -30 && y < H + 30){ emoji('👮', x + 18, y - 4, 26); if (!c.used) { ctx.fillStyle = '#ff3b30'; rr(x - 32, y - 40, 64, 18, 4); ctx.fill(); txt('CONTROL', x, y - 31, 11, '#fff', 'center', false); } } }
+  for (const c of G.ctrls){ const [x, y] = toScreen(c.px, c.py); if (y > -30 && y < H + 30){ pacoFig(x + 20, y - 2, 1); if (!c.used) { ctx.fillStyle = '#ff3b30'; rr(x - 32, y - 40, 64, 18, 4); ctx.fill(); txt('CONTROL', x, y - 31, 11, '#fff', 'center', false); } } }
   for (const c of G.cops){
     const [x, y] = toScreen(c.x, c.y);
     if (c.state === 'blunder' && c.kind === 'hoyo') emoji('💫', x, y - 26, 22);
@@ -883,13 +979,22 @@ function drawPlay(){
     if (c.state === 'blunder' && c.kind === 'sopaipa') emoji('🥙', x + 18, y - 18, 20);
     if (y > -20 && y < H + 20){
       ctx.font = '900 11px Arial, sans-serif'; const w = ctx.measureText(c.name).width + 12;
-      ctx.fillStyle = '#0e6b3c'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; rr(x - w / 2, y + 22, w, 16, 4); ctx.fill(); ctx.stroke();
+      ctx.fillStyle = CARAB; ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; rr(x - w / 2, y + 22, w, 16, 4); ctx.fill(); ctx.stroke();
       ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(c.name, x, y + 30.5);
       if (c.bubT > 0) bubble(c.bub, x, y - 30);
     } else if (y >= H + 20){ // indicador de paco detrás
       ctx.fillStyle = Math.floor(G.time * 6) % 2 ? '#ff2a2a' : '#2a7bff'; ctx.beginPath(); ctx.arc(clamp(x, 20, W - 20), H - 150 - SAFE_B, 9, 0, TAU); ctx.fill();
     }
   }
+  for (const a of G.allies){ const [x, y] = toScreen(a.x, a.y); if (x < -50 || x > W + 50 || y < -60 || y > H + 50) continue;
+    if (a.t === 'perro' && !a.used){ dogFig(x, y, 1.3); tag('NEGRO MATAPACOS', x, y + 26, '#1a1a1a', '#ff3b30'); }
+    if (a.t === 'pika'){ pikaFig(x, y, 1); tag('TÍA PIKACHU', x, y + 30, '#ffd23f', '#1a1a1a'); }
+    if (a.t === 'pare'){ pareFig(x, y, 1); tag('PAREMAN', x, y + 30, '#c0392b', '#fff'); }
+    if (a.t === 'linea'){ for (let k = -1; k <= 1; k++) lineaFig(x + k * 22, y + Math.abs(k) * 4, k); tag('PRIMERA LÍNEA', x, y + 32, '#1a1a1a', '#fff'); }
+  }
+  for (const f of G.foes){ const [x, y] = toScreen(f.x, f.y); if (y < -60 || y > H + 60) continue; tag(f.t === 'guanaco' ? 'GUANACO' : 'ZORRILLO', x, y + 34, CARAB, '#fff'); if (f.bubT > 0) bubble(f.bub, x, y - 34); }
+  if (G.dog){ const [x, y] = toScreen(G.dog.x, G.dog.y); dogFig(x, y, 1.2); }
+  if (G.gasT){ ctx.fillStyle = 'rgba(180,205,150,.35)'; ctx.fillRect(0, 0, W, H); }
   if (G.cat){ const [x, y] = toScreen(G.cat.x, G.cat.y); emoji('🐈', x + Math.sin(G.time * 5) * 10, y, 34); bubble('¡Miau! ¡Atrápame!', x, y - 22); }
   // carga sobre el auto
   { const [x, y] = toScreen(P.vx, P.vy), m = G.meter;
@@ -905,6 +1010,61 @@ function drawPlay(){
   if (G.L.rain) drawRain();
   ctx.restore();
   drawHUD();
+}
+function tag(s, x, y, bg, fg){ ctx.font = '900 10px Arial, sans-serif'; const w = ctx.measureText(s).width + 10; ctx.fillStyle = bg; ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.2; rr(x - w / 2, y - 8, w, 15, 4); ctx.fill(); ctx.stroke(); ctx.fillStyle = fg; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(s, x, y); }
+// Negro Matapacos: quiltro negro con pañoleta roja
+function dogFig(x, y, sc){
+  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.strokeStyle = '#000'; ctx.lineWidth = 1.2; const run = Math.sin(G.time * 18) * 2;
+  ctx.fillStyle = '#1b1b1b'; ctx.save(); ctx.translate(-11, -4); ctx.rotate(Math.sin(G.time * 14) * 0.5); ctx.fillRect(-6, -1.5, 7, 3); ctx.restore();
+  ctx.fillRect(-8, 2, 3, 7 + run); ctx.fillRect(5, 2, 3, 7 - run);
+  ctx.beginPath(); ctx.ellipse(0, 0, 11, 6, 0, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.arc(10, -6, 6, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(7, -10); ctx.lineTo(9, -15); ctx.lineTo(11, -10); ctx.fill(); ctx.beginPath(); ctx.ellipse(15, -4, 3.5, 2.5, 0, 0, TAU); ctx.fill();
+  ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(11, -7, 1.5, 0, TAU); ctx.fill();
+  ctx.fillStyle = '#e8202a'; ctx.beginPath(); ctx.moveTo(4, -3); ctx.lineTo(13, -1); ctx.lineTo(7, 5); ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.restore();
+}
+// Tía Pikachu: disfraz amarillo, bailando
+function pikaFig(x, y, sc){
+  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.rotate(Math.sin(G.time * 6) * 0.25); ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 1.5;
+  ctx.fillStyle = '#ffd400'; rr(-10, -6, 20, 24, 9); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.arc(0, -12, 10, 0, TAU); ctx.fill(); ctx.stroke();
+  for (const sx of [-1, 1]){ ctx.fillStyle = '#ffd400'; ctx.beginPath(); ctx.moveTo(sx * 4, -20); ctx.lineTo(sx * 9, -34); ctx.lineTo(sx * 10, -19); ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#1a1a1a'; ctx.beginPath(); ctx.moveTo(sx * 7.6, -30); ctx.lineTo(sx * 9, -34); ctx.lineTo(sx * 9.5, -29); ctx.fill();
+    ctx.fillStyle = '#ff4b3e'; ctx.beginPath(); ctx.arc(sx * 6, -10, 2.5, 0, TAU); ctx.fill(); }
+  ctx.fillStyle = '#f1c27d'; ctx.beginPath(); ctx.arc(0, -11, 4.5, 0, TAU); ctx.fill(); ctx.stroke();
+  const arm = Math.sin(G.time * 8) * 6; ctx.strokeStyle = '#ffd400'; ctx.lineWidth = 4; ctx.beginPath(); ctx.moveTo(-9, 0); ctx.lineTo(-17, -8 + arm); ctx.moveTo(9, 0); ctx.lineTo(17, -8 - arm); ctx.stroke();
+  ctx.restore();
+}
+// Pareman: con su letrero PARE
+function pareFig(x, y, sc){
+  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 1.5;
+  ctx.fillStyle = '#3a3f8f'; rr(-7, -2, 14, 18, 4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#f1c27d'; ctx.beginPath(); ctx.arc(0, -8, 6, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(10, 10); ctx.lineTo(12, -18); ctx.stroke();
+  ctx.save(); ctx.translate(12, -26 + Math.sin(G.time * 4) * 2); ctx.fillStyle = '#d61f1f'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.beginPath();
+  for (let k = 0; k < 8; k++){ const a = Math.PI / 8 + k * Math.PI / 4; ctx.lineTo(Math.cos(a) * 11, Math.sin(a) * 11); } ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#fff'; ctx.font = '900 7px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('PARE', 0, 0.5); ctx.restore();
+  ctx.restore();
+}
+// Primera Línea: escudos de colores hechos a mano
+function lineaFig(x, y, k){
+  const cols = ['#e8414c', '#3a7bd5', '#ffd23f'];
+  ctx.save(); ctx.translate(x, y); ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 1.5;
+  ctx.fillStyle = '#f1c27d'; ctx.beginPath(); ctx.arc(0, -16, 5, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#222'; ctx.fillRect(-5, -18, 10, 3);
+  ctx.fillStyle = cols[(k + 1) % 3]; rr(-9, -10 + Math.sin(G.time * 5 + k) * 1.5, 18, 24, 3); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fillRect(-6, -6, 12, 2); ctx.restore();
+}
+// paco a pie (caricatura): uniforme verde oliva, gorra verde, guantes blancos
+function pacoFig(x, y, sc = 1){
+  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.lineWidth = 1.5; ctx.strokeStyle = '#1a1a1a';
+  ctx.fillStyle = '#556b3a'; rr(-7, -2, 14, 16, 4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#f1c27d'; ctx.beginPath(); ctx.arc(0, -8, 6, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = CARAB; ctx.beginPath(); ctx.ellipse(0, -13, 8, 3.5, 0, 0, TAU); ctx.fill(); ctx.stroke(); rr(-5, -18, 10, 5, 2); ctx.fill(); ctx.stroke();
+  const w = Math.sin(G.time * 8) * 4; ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(10, -4 + w, 3, 0, TAU); ctx.fill(); ctx.stroke(); ctx.beginPath(); ctx.arc(-9, 6, 3, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#1a1a1a'; ctx.fillRect(-2.5, -9, 1.5, 1.5); ctx.fillRect(1, -9, 1.5, 1.5);
+  ctx.restore();
 }
 function drawNight(sy){
   if (!nightCv){ nightCv = document.createElement('canvas'); nightCv.width = cv.width; nightCv.height = cv.height; }
@@ -1058,7 +1218,10 @@ function drawIntro(){
   for (const l of wrap(STORY[L.id], W - 80, 15, 700)){ ctx.font = '700 15px Arial'; ctx.fillStyle = '#fff'; ctx.fillText(l, W / 2, y); y += 21; }
   y += 12;
   const tips = [`${C.ico === '🟠' ? '🍩' : C.ico}  Cuida la barra "${C.lab}".`, '🕳️  Hoyos, charcos, conos y autos la bajan.', '🚨  Controles policiales: pasas y te persiguen. Los pacos son malazos: caen en todos los hoyos.',
-    '⬅ ⬆ ➡  En cada cruce elige hacia dónde ir. Si no eliges, sigues el GPS.', '👆  Arrastra el dedo para moverte de pista. ⛔ Las calles tienen su sentido real.'];
+    '⬅ ⬆ ➡  En cada cruce elige hacia dónde ir. Si no eliges, sigues el GPS.', '👆  Arrastra el dedo para moverte de pista. ⛔ Las calles tienen su sentido real.',
+    '🐕  Recoge al Negro Matapacos: muerde a los pacos. La Tía Pikachu los pone a bailar y Pareman los hace parar.'].concat(
+    [2, 4, 5].includes(G.i) ? ['💨  Ojo con el zorrillo: su gas te marea (y a los pacos también).'] : [],
+    [3, 5].includes(G.i) ? ['💦  El guanaco tira chorros cruzando la calle: pasa cuando no esté disparando.'] : []);
   for (const t of tips){ for (const l of wrap(t, W - 80, 13, 700)){ ctx.font = '700 13px Arial'; ctx.fillStyle = '#cde'; ctx.textAlign = 'left'; ctx.fillText(l, 40, y); y += 18; } y += 4; }
   button('¡VAMOS!', W / 2, H - SAFE_B - 92, 240, 60, '#7dff8a', () => startLevel(G.i), true);
   button('VOLVER', W / 2, H - SAFE_B - 38, 150, 38, '#9fd8ff', () => { scene = 'levels'; menuT = 0; });

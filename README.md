@@ -26,6 +26,11 @@ Además de los hoyos reales hay hoyos simulados para que el juego sea entretenid
 Cada nivel tiene una barra de carga (susto del michi, torta, calorcito, paciencia del novio, crocancia). Estrellas: 1 por llegar, +1 por llegar bajo la meta de tiempo y +1 si la barra está sobre 50 %.
 Pacos: controles policiales en 2 puntos de la ruta; al pasar te persiguen (nombres ACAB, 1312, PACOS QL, Cabo Donut, etc.). Caen en los hoyos, paran por sopaipillas y se pierden; si te pillan, parte de +8 s.
 
+Personajes del estallido 2019 (fuentes en `investigacion/autoridades.md`):
+- Aliados: **Negro Matapacos** (lo recoges y muerde a los pacos ~28 s), **Tía Pikachu** (pone a bailar a los pacos), **Pareman** (los hace parar), **Primera Línea** (los pacos rebotan en los escudos).
+- Vehículos de Carabineros: **guanaco** (chorro que cruza la calle; niveles 4 y 6) y **zorrillo** (nubes de gas; niveles 3, 5 y 6). También mojan y gasean a los pacos.
+- Patrullas en blanco y verde (colores de Carabineros desde 1996). Balizas rojo/azul [SUPUESTO].
+
 ## Controles
 - **Táctil:** el auto acelera solo. Arrastra el dedo para moverte de pista. En cada cruce aparecen ⬅ ⬆ ➡ con el nombre de la calle; si no eliges, sigue el GPS (que respeta los sentidos). Botón **FRENO** (o dos dedos).
 - **Teclado:** ← → pista · ↑ acelerar · ↓ / Espacio frenar · A / W / D girar en el cruce · P pausa · M sonido.
@@ -40,7 +45,10 @@ Lee `investigacion/` y escribe `data.js` (red de 12.973 tramos de OSM, 3.012 de 
 - **2026-11-07:** v1 (corredor por rutas fijas, 5 vehículos).
 - **2026-11-08:** v2: mundo abierto sobre la red real con sentidos, cámara cercana (auto 3× más grande), 6 misiones como niveles, pacos tontos, tráfico, GPS A*. Probado en Chrome con bot: los 6 niveles se completan. La v1 se respaldó solo en git (commit 08b2982).
 
+- **2026-11-08 (tarde):** pacos más insistentes (más rápidos, menos torpezas, refuerzos tras perderlos, 2 patrullas por control desde el nivel 3), colores de Carabineros, personajes del estallido, guanaco y zorrillo. Bot: los 6 niveles se completan; arreglado un error que mostraba "FALLASTE" vacío al reiniciar.
+
 ## Próximos pasos
+- Pendiente de decisión del usuario: caricaturas de autoridades reales (nombres reales o de parodia).
 - Que el usuario lo pruebe en iPhone y ajustar la dificultad (barras, densidad de hoyos y velocidad).
 - Ideas: más niveles, elegir vehículo, ranking de tiempos.
 - 30 de los 43 puntos de Senapred siguen sin ubicar en la red.
