@@ -31,6 +31,9 @@ Personajes del estallido 2019 (fuentes en `investigacion/autoridades.md`):
 - Vehículos de Carabineros: **guanaco** (chorro que cruza la calle; niveles 4 y 6) y **zorrillo** (nubes de gas; niveles 3, 5 y 6). También mojan y gasean a los pacos.
 - Patrullas en blanco y verde (colores de Carabineros desde 1996). Balizas rojo/azul [SUPUESTO].
 
+**Alcalde Todonovic** (parodia, personaje ficticio): aparece 4 veces por nivel haciendo él mismo las pegas de la muni: tapa hoyos con pala (desaparecen), pinta la calle (pintura fresca = patinazo), corta el pasto, barre, cambia ampolletas (de noche ilumina), dirige el tránsito (detiene a los pacos), atiende en un escritorio en la vereda (anula partes) y transmite en vivo (+churus). Frases de orgullo: "¡Maipú: el mejor país de Chile!".
+Aviso en portada: parodia, nombres ficticios, cualquier similitud con personas reales es no intencional.
+
 ## Controles
 - **Táctil:** el auto acelera solo. Arrastra el dedo para moverte de pista. En cada cruce aparecen ⬅ ⬆ ➡ con el nombre de la calle; si no eliges, sigue el GPS (que respeta los sentidos). Botón **FRENO** (o dos dedos).
 - **Teclado:** ← → pista · ↑ acelerar · ↓ / Espacio frenar · A / W / D girar en el cruce · P pausa · M sonido.
@@ -48,7 +51,7 @@ Lee `investigacion/` y escribe `data.js` (red de 12.973 tramos de OSM, 3.012 de 
 - **2026-11-08 (tarde):** pacos más insistentes (más rápidos, menos torpezas, refuerzos tras perderlos, 2 patrullas por control desde el nivel 3), colores de Carabineros, personajes del estallido, guanaco y zorrillo. Bot: los 6 niveles se completan; arreglado un error que mostraba "FALLASTE" vacío al reiniciar.
 
 ## Próximos pasos
-- Pendiente de decisión del usuario: caricaturas de autoridades reales (nombres reales o de parodia).
+- Decidido: solo nombres de parodia. Ideas para seguir: General y Ministro de parodia (jefe final, órdenes por radio), ferias libres, Metro L5 como atajo, micros RED.
 - Que el usuario lo pruebe en iPhone y ajustar la dificultad (barras, densidad de hoyos y velocidad).
 - Ideas: más niveles, elegir vehículo, ranking de tiempos.
 - 30 de los 43 puntos de Senapred siguen sin ubicar en la red.

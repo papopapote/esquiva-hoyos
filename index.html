@@ -151,8 +151,8 @@ const CARGO = {
   gato:      { ico:'🐱', lab:'CALMA DEL MICHI',   hoyo:22, choque:24, curva:9, agua:5,  paco:14, decay:0,    churu:9 },
   torta:     { ico:'🎂', lab:'TORTA ENTERA',      hoyo:8, choque:13, curva:7, agua:2, paco:8,  decay:0,    churu:3, fail:'¡La torta quedó hecha puré!' },
   completos: { ico:'🌭', lab:'CALORCITO',         hoyo:4,  choque:7,  curva:3, agua:10, paco:5,  decay:0.45, churu:1, fail:'Los completos llegaron fríos. Nadie se los comió.' },
-  novia:     { ico:'👰', lab:'PACIENCIA DEL NOVIO', hoyo:3, choque:5, curva:2, agua:3,  paco:8, decay:0.4,  churu:1, fail:'¡El novio se arrancó del Templo!' },
-  sopaipillas:{ ico:'🟠', lab:'CROCANCIA',        hoyo:3,  choque:5,  curva:2, agua:4, paco:5,  decay:0.22, churu:1, fail:'Sopaipillas aguachentas. Fome.' },
+  novia:     { ico:'👰', lab:'PACIENCIA DEL NOVIO', hoyo:3, choque:5, curva:2, agua:3,  paco:8, decay:0.35,  churu:1, fail:'¡El novio se arrancó del Templo!' },
+  sopaipillas:{ ico:'🟠', lab:'CROCANCIA',        hoyo:3,  choque:5,  curva:2, agua:4, paco:5,  decay:0.18, churu:1, fail:'Sopaipillas aguachentas. Fome.' },
 };
 const STORY = {
   michi: 'Un michi de la Plaza Bueras lleva 3 días sin churu y ya está maullando ópera. Llévalo al Mercado de Maipú. Cada hoyo lo asusta: si se asusta mucho, ¡salta del auto y hay que pillarlo!',
@@ -173,6 +173,7 @@ const BUB = {
   siesta: ['Zzz...', 'Cinco minutitos más...'],
   talonario: ['¿Dónde dejé el talonario?', 'Se me cayó la gorra', '¿Cómo se escribe "infracción"?'],
   mojado: ['¡Me mojé los bototos!', '¡Glu glu glu!'],
+  alcalde: ['¡Sí, señor alcalde!', 'El alcalde dice que paremos...', '¿Y usted no estaba cortando el pasto?'],
   perro: ['¡Sáquenme este perro!', '¡El Matapacos! ¡Corran!', '¡Me mordió el pantalón!'],
   baile: ['¡No puedo dejar de bailar!', '¡Qué buen ritmo, tía!', 'Un pasito pa\'l lado...'],
   pare: ['¡PARE! ...ah, ya, paré', 'Dice PARE... hay que obedecer', '¿Pare? Bueno.'],
@@ -448,8 +449,54 @@ function setupRevuelta(i, st, r){
   if ([2, 4, 5].includes(i)) G.foes.push(Object.assign(at(0.6, 1), { t:'zorrillo', tm:1 }));
   if ([3, 5].includes(i)) G.foes.push(Object.assign(at(i === 5 ? 0.35 : 0.45, 1), { t:'guanaco', tm:0.5 }));
   for (const f of G.foes){ const e = ED[f.e]; f.side = 1; f.reach = e.hw * 2 + 1; f.spray = 0; f.bub = ''; f.bubT = 0; }
-  G.dog = null; G.clouds = []; G.gasT = 0;
+  G.dog = null; G.clouds = []; G.gasT = 0; G.flash = 0; G.paint = 0;
+  // Alcalde Todonovic (personaje ficticio): hace TODAS las pegas de la muni él mismo
+  const tasks = ['pala', 'pintura', 'pasto', 'selfie', 'ampolleta', 'transito', 'escritorio', 'barrer'];
+  G.mayor = [0.14, 0.36, 0.62, 0.86].map((f, k) => {
+    const t = tasks[(i * 3 + k * (i % 2 ? 3 : 5)) % tasks.length], p = at(f, 1), m = Object.assign(p, { t, seen:false, used:false, bub:MAYOR[t][0], bubT:0 });
+    if (t === 'pala' || t === 'pintura'){
+      const e = ED[p.e], q = at(f, 0), sp = projectS(e, q.x, q.y);
+      const h = t === 'pala' ? { t:'hoyo', s:sp, off:q.dir * LW * 0.5 * (e.ow ? 0 : 1), r:1.5, mayor:true } : { t:'pintura', s:sp + q.dir * 6, off:0, r:4 };
+      const pp = pointAt(e, h.s, h.off); Object.assign(h, { x:pp.x, y:pp.y, a:Math.atan2(pp.dy, pp.dx), e:p.e }); populate(p.e).push(h); m.h = h;
+    }
+    return m;
+  });
 }
+function projectS(e, x, y){ let best = 0, bd = 1e9; for (let s = 0; s <= e.len; s += 1){ const p = pointAt(e, s, 0), d = Math.hypot(p.x - x, p.y - y); if (d < bd){ bd = d; best = s; } } return best; }
+const MAYOR = {
+  pala:      ['¡Hoyo que veo, hoyo que tapo!', 'Paleando por Maipú', 'Este no estaba en la lista... ¡ahora sí!'],
+  pintura:   ['¡Pintura fresca, vecino!', 'Yo mismo pinto las líneas', '¿Este blanco o el otro blanco?'],
+  pasto:     ['Corto el pasto los domingos... y los lunes', '¡Ojo con las piedritas!', 'La plaza queda regia'],
+  selfie:    ['¡Hola vecinos! En vivo desde la calle', 'Denle like y compartan', 'Grabando para el TikTok municipal'],
+  ampolleta: ['¡Ampolleta nueva! ¿Era de 220?', 'Sosténganme la escalera', 'Vecinos: ¡se hizo la luz!'],
+  transito:  ['¡Pasen, pasen! ¡Ustedes no, pacos!', 'Dirijo el tránsito, la muni y el coro', '¡Piiiiii!'],
+  escritorio:['Alcaldía móvil: atiendo aquí mismo', 'Firmo, timbro y archivo', '¿Trajo fotocopia del carnet?'],
+  barrer:    ['Barriendo Maipú de punta a punta', 'Después boto la basura yo mismo', 'Hoja que cae, hoja que barro'],
+};
+const ORGULLO = ['¡Maipú: el mejor país de Chile!', 'Somos el mejor país de Chile, vecinos', 'Cuando Maipú se independice, Chile va a ser nuestra comuna',
+  'Si tuviéramos mar, seríamos Viña', 'Más hoyos que quesos en Suiza... ¡pero los tapo yo!', 'Maipú: capital mundial del michi sin churu',
+  'Próxima obra: metro a la Luna con paradero en Pajaritos', 'Atiendo a cada vecino personalmente. A TODOS.', '¡Maipú no es comuna, es estilo de vida!',
+  'Aquí se dio el Abrazo... yo abrazo a todos los vecinos', 'Maipú tiene de todo: hasta un alcalde que hace de todo'];
+function updateMayor(dt, run){
+  const P = G.P;
+  G.flash = Math.max(0, G.flash - dt); G.paint = Math.max(0, G.paint - dt);
+  for (const m of G.mayor){
+    m.bubT -= dt;
+    const d = Math.hypot(m.x - P.x, m.y - P.y);
+    if (!m.seen && d < 70){ m.seen = true; G.mayorSeen = (G.mayorSeen || 0) + 1;
+      msg(G.mayorSeen === 1 ? '¡APARECIÓ EL ALCALDE TODONOVIC!' : pick(['¿OTRA VEZ EL ALCALDE?', '¿¡CÓMO LLEGÓ ANTES QUE YO!?', '¡EL ALCALDE ESTÁ EN TODAS!']), 1.6, 20, '#ffb347', 70,
+        G.mayorSeen === 1 ? 'Hace todas las pegas de la muni él mismo' : null); }
+    if (m.bubT <= -1.5 && d < 60){ m.bub = Math.random() < 0.45 ? pick(ORGULLO) : pick(MAYOR[m.t]); m.bubT = 2.8; }
+    if (!run || m.used) continue;
+    if (m.t === 'pala' && d < 30 && m.h && !m.h.cool){ m.used = true; m.h.gone = true; G.churus += 3; SFX.boing(); G.fx.push({ k:'dust', x:m.h.x, y:m.h.y, t:0, life:1 }); msg('¡HOYO TAPADO EN VIVO!', 1.4, 20, '#7dff8a', 100, 'El alcalde lo tapó con su propia pala. +3 churus'); }
+    if (m.t === 'selfie' && d < 16){ m.used = true; G.flash = 0.25; G.churus += 5; SFX.coin(); msg('¡SALISTE EN EL LIVE DEL ALCALDE!', 1.4, 18, '#ff8ad8', 100, '+5 churus por los likes'); }
+    if (m.t === 'escritorio' && d < 16){ m.used = true;
+      if (G.pen > 0){ G.pen = Math.max(0, G.pen - 6); msg('¡EL ALCALDE TE ANULÓ UN PARTE!', 1.6, 18, '#7dff8a', 100, '-6 s. "Trámite express, vecino"'); }
+      else { G.churus += 4; msg('TE FIRMÓ UN CERTIFICADO DE RESIDENCIA', 1.6, 16, '#9fd8ff', 100, 'No lo pediste, pero ya está timbrado. +4 churus'); } SFX.coin(); }
+    if (m.t === 'ampolleta' && d < 20){ m.used = true; m.lit = true; SFX.coin(); pop('¡Se hizo la luz!', m.x, m.y - 3, '#fff6a8', 18); }
+  }
+}
+
 function updateRevuelta(dt, run){
   const P = G.P;
   for (const a of G.allies){
@@ -567,7 +614,7 @@ function update(dt){
     for (const eid of [P.e]) for (const h of populate(eid)){
       if (h.gone) continue;
       const ds = Math.abs(h.s - P.s), dl = Math.abs(h.off - offW);
-      const hit = h.t === 'agua' ? ds < h.r * 1.3 + 1.6 && dl < h.r * (h.real ? 0.75 : 0.6) + 0.9 : ds < 2.2 + h.r * 0.5 && dl < 1.05 + h.r * 0.6;
+      const hit = h.t === 'pintura' ? ds < h.r : h.t === 'agua' ? ds < h.r * 1.3 + 1.6 && dl < h.r * (h.real ? 0.75 : 0.6) + 0.9 : ds < 2.2 + h.r * 0.5 && dl < 1.05 + h.r * 0.6;
       if (!hit){ h.cool = false; continue; }
       if (h.cool) continue; h.cool = true;
       if (h.t === 'hoyo'){
@@ -579,6 +626,9 @@ function update(dt){
         P.v *= 0.75; damage('agua'); SFX.splash(); G.fx.push({ k:'splash', x:P.vx, y:P.vy, t:0, life:0.7 });
         pop('¡SPLASH!', P.vx, P.vy - 3, '#7fd3ff', 20);
         if (h.real) msg('CALLE QUE SE ANEGA (REAL)', 2.2, 16, '#7fd3ff', 120, h.n + ' — ' + h.src);
+      } else if (h.t === 'pintura'){
+        G.paint = 3; P.tgtLat += rnd(-2.5, 2.5); P.spin = 0.6; SFX.squeal(); pop(pick(['¡PINTURA FRESCA!', '¡Patinazo!', '¡Me pintó las ruedas!']), P.vx, P.vy - 3, '#ffffff', 20);
+        const m = G.mayor.find(m => m.h === h); if (m){ m.bub = '¡NOOO, MI PINTURA!'; m.bubT = 2.2; }
       } else if (h.t === 'cono' || h.t === 'obraSign'){
         h.gone = true; P.v *= 0.8; damage('choque', 0.35); SFX.boing();
         G.fx.push({ k:'fly', x:h.x, y:h.y, vx:hx * 10 + rnd(-4, 4), vy:hy * 10 + rnd(-4, 4), t:0, life:0.9, em:'🚧' });
@@ -605,6 +655,7 @@ function update(dt){
     else if (d > 70 || c.t > 14){ const q = pointAhead(35); c.x = q.x; c.y = q.y; c.t = 0; msg('¡Se arrancó de nuevo!', 1.2, 20, '#ffb3b3', 40); }
   }
   updateRevuelta(dt, run);
+  updateMayor(dt, run);
   updateTraffic(dt, run, hx, hy);
   updateCops(dt, run);
   // controles policiales
@@ -764,6 +815,7 @@ function updateCops(dt, run){
     if (c.state === 'chase'){
       c.met = c.met || new Set();
       for (const a of G.allies){ if ((a.t === 'pare' || a.t === 'linea') && !c.met.has(a) && Math.hypot(a.x - c.x, a.y - c.y) < 14){ c.met.add(a); blunder(c, a.t === 'pare' ? 'pare' : 'escudos', a.t === 'pare' ? 2.4 : 3); break; } }
+      for (const m of G.mayor){ if (m.t === 'transito' && !c.met.has(m) && Math.hypot(m.x - c.x, m.y - c.y) < 16){ c.met.add(m); blunder(c, 'alcalde', 3); m.bub = '¡Alto ahí, pacos! Pasa el vecino'; m.bubT = 2.2; } }
       for (const f of G.foes){ if (f.t === 'guanaco' && f.spray > 0 && !c.met.has(f) && Math.hypot(f.x - c.x, f.y - c.y) < f.reach + 3){ c.met.add(f); blunder(c, 'mojado', 2.2); } }
       for (const cl of G.clouds){ if (!c.met.has(cl) && Math.hypot(cl.x - c.x, cl.y - c.y) < cl.r){ c.met.add(cl); blunder(c, 'gas', 2.5); SFX.cough(); } }
     }
@@ -887,6 +939,10 @@ function drawWorld(cx, cy, ang, z, sy, opt = {}){
       const b = Math.sin(G.time * 6 + h.s) * 0.15;
       ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.a + 0.6); ctx.fillStyle = '#b06ad9'; ctx.strokeStyle = '#3a1450'; ctx.lineWidth = 0.12;
       rr(-0.25, -0.8 - b, 0.5, 1.6, 0.2); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#ffd23f'; ctx.fillRect(-0.25, -0.15 - b, 0.5, 0.3); ctx.restore();
+    } else if (h.t === 'pintura'){
+      ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.a); const e = ED[h.e];
+      ctx.fillStyle = 'rgba(255,255,255,.92)'; for (let k = -e.hw + 0.5; k < e.hw - 0.5; k += 1.4) ctx.fillRect(-h.r, k, h.r * 2, 0.8);
+      ctx.fillStyle = 'rgba(180,220,255,.5)'; ctx.fillRect(-h.r * 0.6, -0.4 + Math.sin(G.time * 3) * e.hw * 0.5, 1.2, 0.3); ctx.restore();
     } else if (h.t === 'turbo'){
       const b = 1 + Math.sin(G.time * 5) * 0.08;
       ctx.fillStyle = 'rgba(255,210,63,.35)'; ctx.beginPath(); ctx.arc(h.x, h.y, 1.4 * b, 0, TAU); ctx.fill();
@@ -994,6 +1050,9 @@ function drawPlay(){
   }
   for (const f of G.foes){ const [x, y] = toScreen(f.x, f.y); if (y < -60 || y > H + 60) continue; tag(f.t === 'guanaco' ? 'GUANACO' : 'ZORRILLO', x, y + 34, CARAB, '#fff'); if (f.bubT > 0) bubble(f.bub, x, y - 34); }
   if (G.dog){ const [x, y] = toScreen(G.dog.x, G.dog.y); dogFig(x, y, 1.2); }
+  for (const m of G.mayor){ const [x, y] = toScreen(m.x, m.y); if (x < -60 || x > W + 60 || y < -80 || y > H + 60) continue;
+    mayorFig(x, y, m.t, m.lit); tag('ALCALDE TODONOVIC', x, y + 44, '#ff8c1a', '#1a1a1a'); if (m.bubT > 0) bubble(m.bub, x, y - 58, '#fff4e0'); }
+  if (G.flash > 0){ ctx.fillStyle = `rgba(255,255,255,${G.flash * 3})`; ctx.fillRect(0, 0, W, H); }
   if (G.gasT){ ctx.fillStyle = 'rgba(180,205,150,.35)'; ctx.fillRect(0, 0, W, H); }
   if (G.cat){ const [x, y] = toScreen(G.cat.x, G.cat.y); emoji('🐈', x + Math.sin(G.time * 5) * 10, y, 34); bubble('¡Miau! ¡Atrápame!', x, y - 22); }
   // carga sobre el auto
@@ -1056,6 +1115,37 @@ function lineaFig(x, y, k){
   ctx.fillStyle = cols[(k + 1) % 3]; rr(-9, -10 + Math.sin(G.time * 5 + k) * 1.5, 18, 24, 3); ctx.fill(); ctx.stroke();
   ctx.fillStyle = 'rgba(255,255,255,.5)'; ctx.fillRect(-6, -6, 12, 2); ctx.restore();
 }
+// Alcalde Todonovic (ficticio): cabezón, chaleco reflectante de la muni, con la herramienta de turno
+function mayorFig(x, y, t, lit){
+  ctx.save(); ctx.translate(x, y); ctx.scale(1.45, 1.45); ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 1.5; const T = G.time, bob = Math.sin(T * 6) * 1.5;
+  if (t === 'escritorio'){ ctx.fillStyle = '#8b5a2b'; rr(-22, 4, 44, 14, 2); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#fff'; for (let k = 0; k < 3; k++){ ctx.fillRect(-18 + k * 5, 0 - k * 2, 12, 4); } ctx.fillStyle = '#c0392b'; ctx.fillRect(10, -2 + (Math.sin(T * 10) > 0 ? -4 : 0), 6, 6); }
+  if (t === 'ampolleta'){ ctx.strokeStyle = '#8a8a8a'; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(18, 22); ctx.lineTo(18, -52); ctx.lineTo(4, -52); ctx.stroke();
+    ctx.fillStyle = lit || Math.sin(T * 9) > 0.6 ? '#fff6a8' : '#777'; ctx.beginPath(); ctx.arc(4, -48, 4, 0, TAU); ctx.fill(); ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.strokeStyle = '#c99a5b'; ctx.lineWidth = 2; for (let k = 0; k < 4; k++){ ctx.beginPath(); ctx.moveTo(-12, 20 - k * 10); ctx.lineTo(-2, 20 - k * 10); ctx.stroke(); } ctx.beginPath(); ctx.moveTo(-12, 22); ctx.lineTo(-12, -20); ctx.moveTo(-2, 22); ctx.lineTo(-2, -20); ctx.stroke();
+    ctx.translate(-6, -26); ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 1.5; }
+  // cuerpo
+  ctx.fillStyle = '#2c3e66'; rr(-8, -2 + bob, 16, 18, 4); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#ff8c1a'; rr(-8, -2 + bob, 16, 13, 3); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#fff36b'; ctx.fillRect(-8, 3 + bob, 16, 2.5);
+  ctx.fillStyle = '#1a1a1a'; ctx.font = '900 4px Arial'; ctx.textAlign = 'center'; ctx.fillText('MUNI', 0, 9 + bob);
+  // cabeza grande
+  ctx.fillStyle = '#f1c27d'; ctx.beginPath(); ctx.arc(0, -14 + bob, 10, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#3b2a1a'; ctx.beginPath(); ctx.arc(0, -18 + bob, 10, Math.PI * 1.05, Math.PI * 1.95); ctx.fill();
+  ctx.fillStyle = '#1a1a1a'; ctx.beginPath(); ctx.arc(-3.5, -14 + bob, 1.4, 0, TAU); ctx.arc(3.5, -14 + bob, 1.4, 0, TAU); ctx.fill();
+  ctx.beginPath(); ctx.arc(0, -10 + bob, 4, 0.15 * Math.PI, 0.85 * Math.PI); ctx.stroke();
+  if (t === 'transito'){ ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(0, -25 + bob, 0, 0, TAU); ctx.fill(); }
+  // herramienta
+  const sw = Math.sin(T * 8);
+  ctx.lineWidth = 2.5;
+  if (t === 'pala'){ ctx.strokeStyle = '#8b5a2b'; ctx.beginPath(); ctx.moveTo(8, 2 + bob); ctx.lineTo(20, 14 + sw * 4); ctx.stroke(); ctx.fillStyle = '#9aa0a6'; ctx.beginPath(); ctx.ellipse(22, 17 + sw * 4, 5, 3.5, 0.7, 0, TAU); ctx.fill(); ctx.lineWidth = 1; ctx.stroke(); }
+  if (t === 'pintura'){ ctx.strokeStyle = '#8b5a2b'; ctx.beginPath(); ctx.moveTo(8, 2 + bob); ctx.lineTo(18, 10 + sw * 5); ctx.stroke(); ctx.fillStyle = '#fff'; ctx.fillRect(16, 9 + sw * 5, 6, 5); ctx.fillStyle = '#dfe6ee'; rr(-24, 8, 10, 10, 2); ctx.fill(); ctx.lineWidth = 1; ctx.stroke(); }
+  if (t === 'pasto'){ ctx.fillStyle = '#d63031'; rr(10, 8, 16, 10, 2); ctx.fill(); ctx.lineWidth = 1; ctx.stroke(); ctx.strokeStyle = '#555'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(6, 2 + bob); ctx.lineTo(12, 9); ctx.stroke();
+    ctx.fillStyle = '#4caf50'; for (let k = 0; k < 6; k++){ const a = T * 7 + k; ctx.fillRect(24 + Math.cos(a) * 9, 10 + Math.sin(a * 1.3) * 7, 2, 4); } }
+  if (t === 'selfie'){ ctx.strokeStyle = '#333'; ctx.beginPath(); ctx.moveTo(8, 0 + bob); ctx.lineTo(18, -26); ctx.stroke(); ctx.fillStyle = '#111'; rr(15, -34, 9, 12, 2); ctx.fill(); ctx.fillStyle = Math.sin(T * 6) > 0 ? '#ff3b30' : '#400'; ctx.beginPath(); ctx.arc(19.5, -36, 1.8, 0, TAU); ctx.fill(); }
+  if (t === 'transito'){ ctx.strokeStyle = '#f1c27d'; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.moveTo(7, 0 + bob); ctx.lineTo(14 + sw * 3, -14); ctx.moveTo(-7, 0 + bob); ctx.lineTo(-16, 4 - sw * 6); ctx.stroke(); ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(14 + sw * 3, -16, 3, 0, TAU); ctx.fill(); ctx.lineWidth = 1; ctx.stroke(); }
+  if (t === 'barrer'){ ctx.strokeStyle = '#8b5a2b'; ctx.beginPath(); ctx.moveTo(6, 0 + bob); ctx.lineTo(14 + sw * 6, 18); ctx.stroke(); ctx.fillStyle = '#e1b12c'; rr(8 + sw * 6, 16, 14, 5, 1); ctx.fill(); ctx.lineWidth = 1; ctx.stroke();
+    ctx.fillStyle = '#b5651d'; for (let k = 0; k < 4; k++) ctx.fillRect(18 + sw * 10 + k * 4, 20 - k * 2, 3, 2); }
+  ctx.restore();
+}
 // paco a pie (caricatura): uniforme verde oliva, gorra verde, guantes blancos
 function pacoFig(x, y, sc = 1){
   ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.lineWidth = 1.5; ctx.strokeStyle = '#1a1a1a';
@@ -1073,6 +1163,7 @@ function drawNight(sy){
   n.globalCompositeOperation = 'destination-out';
   const hole = (x, y, r, a = 1) => { const g = n.createRadialGradient(x, y, 0, x, y, r); g.addColorStop(0, `rgba(0,0,0,${a})`); g.addColorStop(1, 'rgba(0,0,0,0)'); n.fillStyle = g; n.beginPath(); n.arc(x, y, r, 0, TAU); n.fill(); };
   hole(W / 2, sy - 150, 190, 0.95); hole(W / 2, sy, 70, 0.8);
+  for (const m of G.mayor || []){ const [x, y] = toScreen(m.x, m.y); hole(x, y, m.t === 'ampolleta' && m.lit ? 220 : 50, m.t === 'ampolleta' && m.lit ? 0.95 : 0.6); }
   const R = Math.hypot(W / 2, H) / CAM.z;
   for (const id of edgesIn(CAM.x - R, CAM.y - R, CAM.x + R, CAM.y + R)){ const e = ED[id]; if (e.cls > 4) continue;
     for (const nn of [e.a, e.b]){ if (NE[nn].length < 3) continue; const [x, y] = toScreen(NX[nn], NY[nn]); if (x > -60 && x < W + 60 && y > -60 && y < H + 60) hole(x, y, 9 * CAM.z, 0.55); } }
@@ -1177,6 +1268,7 @@ function drawTitle(){
   ctx.save(); ctx.translate(W / 2, y0); ctx.rotate(Math.sin(t * 2) * 0.03);
   txt('ESQUIVA', 0, 0, 52, '#ffd23f'); txt('HOYOS', 0, 54, 64, '#ff6b4a'); ctx.restore();
   streetSign('MAIPÚ · CALLES REALES', W / 2, y0 + 108, 15);
+  txt('¡EL MEJOR PAÍS DE CHILE!', W / 2, y0 + 140, 16, '#ffe14d');
   // escena: auto con michi, pacos detrás cayendo en un hoyo
   const cy = y0 + 230; ctx.save(); ctx.translate(W / 2 + Math.sin(t * 1.5) * 30, cy); ctx.scale(13, 13); ctx.rotate(Math.PI / 2); drawCar(4.8, 2.4, '#ffcf3f', { kind:'player' }); ctx.restore();
   emoji('😺', W / 2 + Math.sin(t * 1.5) * 30, cy, 30);
@@ -1188,6 +1280,7 @@ function drawTitle(){
   ctx.font = '600 10px Arial'; ctx.fillStyle = 'rgba(255,255,255,.65)'; ctx.textAlign = 'center';
   ctx.fillText('Calles © colaboradores de OpenStreetMap (ODbL) · Hoyos: La Batalla de Maipú', W / 2, H - SAFE_B - 70);
   ctx.fillText('Anegamientos: Senapred · Obras: MTT, Red, Municipalidad · Juego de humor, sin fines oficiales', W / 2, H - SAFE_B - 55);
+  ctx.fillText('Parodia. Personajes y nombres ficticios: cualquier similitud con personas reales es no intencional.', W / 2, H - SAFE_B - 40);
   UI.push({ x:W - 56, y:SAFE_T + 8, w:48, h:44, fn:() => SFX.toggle() }); emoji(SFX.on ? '🔊' : '🔇', W - 32, SAFE_T + 30, 22);
 }
 function drawLevels(){
@@ -1219,6 +1312,7 @@ function drawIntro(){
   y += 12;
   const tips = [`${C.ico === '🟠' ? '🍩' : C.ico}  Cuida la barra "${C.lab}".`, '🕳️  Hoyos, charcos, conos y autos la bajan.', '🚨  Controles policiales: pasas y te persiguen. Los pacos son malazos: caen en todos los hoyos.',
     '⬅ ⬆ ➡  En cada cruce elige hacia dónde ir. Si no eliges, sigues el GPS.', '👆  Arrastra el dedo para moverte de pista. ⛔ Las calles tienen su sentido real.',
+    '🦺  El Alcalde Todonovic aparece en todas partes haciendo él mismo las pegas de la muni: tapa hoyos, pinta (¡pintura fresca!), atiende en la vereda y transmite en vivo.',
     '🐕  Recoge al Negro Matapacos: muerde a los pacos. La Tía Pikachu los pone a bailar y Pareman los hace parar.'].concat(
     [2, 4, 5].includes(G.i) ? ['💨  Ojo con el zorrillo: su gas te marea (y a los pacos también).'] : [],
     [3, 5].includes(G.i) ? ['💦  El guanaco tira chorros cruzando la calle: pasa cuando no esté disparando.'] : []);
@@ -1238,8 +1332,10 @@ function drawEnd(){
     const lines = [`Tiempo: ${fmtT(G.t)}${G.pen ? `  + partes ${G.pen} s = ${fmtT(G.total)}` : ''}`, `Meta ★: ${fmtT(G.par)}`, `${G.C.lab}: ${Math.round(G.meter)} %`, `Churus: ${G.churus}   ·   Hoyos: ${G.hits}   ·   Partes: ${G.caught}`];
     if (G.L.cargo === 'gato' && G.escaped) lines.push(`El michi se arrancó ${G.escaped} ${G.escaped > 1 ? 'veces' : 'vez'}`);
     for (const l of lines){ ctx.font = '800 15px Arial'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(l, W / 2, y); y += 26; }
+    if (!G.orgullo) G.orgullo = pick(ORGULLO);
     const fin = { michi:'😻 ¡El michi tiene su churu!', torta:'🎂 ¡Feliz cumpleaños, tía!', compl:'🌭 ¡La galería feliz!', novia:'💒 ¡Sí, acepto!', sopa:'🟠 ¡Sopaipillas crocantes!', noche:'😼 Michi rescatado y pacos perdidos' }[G.L.id];
     y += 8; txt(fin, W / 2, y, 18, '#ffd23f', 'center', true, W - 60);
+    y += 34; ctx.font = '800 13px Arial'; ctx.fillStyle = '#ffb347'; ctx.textAlign = 'center'; ctx.fillText('Alcalde Todonovic: "' + G.orgullo + '"', W / 2, y, W - 60);
   } else {
     for (const l of wrap(G.why || '', W - 80, 18, 800)){ txt(l, W / 2, y, 18, '#fff', 'center', true); y += 28; }
     ctx.font = '700 13px Arial'; ctx.fillStyle = '#cde'; ctx.textAlign = 'center'; ctx.fillText('Tip: frena antes de las curvas y esquiva los hoyos (los pacos no).', W / 2, y + 16, W - 60);
