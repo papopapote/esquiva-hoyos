@@ -13,3 +13,9 @@
 - Pareman, "Baila Pikachu", Primera Línea, Estúpido y Sensual Spider-Man: íconos virales. https://www.chilevision.cl/noticias/negro-matapacos-pareman-y-baila-pikachu-los-iconos-del-estallido ; https://www.cnnchile.com/pais/primera-linea-baila-pikachu-matapaco-conceptos-estallido-social-patentados/
 - "Guanaco" (carro lanzaaguas) y "zorrillo" (carro lanzagases) de Carabineros, usados en las marchas de 2019. https://www.theclinic.cl/2019/11/15/videos-y-fotos-carabineros-actua-con-el-guanaco-y-el-zorillo-ante-pacifica-marcha-en-plaza-italia/ ; https://www.chilevision.cl/noticias/carabineros-se-alista-para-duplicar-flota-de-carros-lanzaguas-y-lanzagases-para-marzo/
 - Colores de radiopatrullas: blanco y verde desde 1996 (antes blanco y negro). https://ninos.kiddle.co/Carabineros_de_Chile . Color de balizas: [SIN VERIFICAR] (en el juego: rojo/azul [SUPUESTO]).
+
+# Datos para niveles nuevos (consultado 2026-11-08)
+- Batalla de Maipú: 5 de abril de 1818, llanos de Maipú; Abrazo O'Higgins–San Martín en el campo de batalla (hoy monumento y Templo Votivo). O'Higgins venía herido de Cancha Rayada (16-03-1818). https://en.wikipedia.org/wiki/Battle_of_Maip%C3%BA ; https://www.t13.cl/noticia/nacional/que-es-abrazo-maipu-y-es-tan-importante
+- Santiago "Huaso" Bueras, héroe de la batalla: https://www.biobiochile.cl/noticias/sociedad/curiosidades/2018/09/22/santiago-el-huaso-bueras-el-heroe-olvidado-de-la-historica-batalla-de-maipu.shtml
+- Feria libre en Av. El Descanso (miércoles y sábado, cerca de El Descanso 690) y en Av. Longitudinal: La Batalla 2020-2021 https://labatalla.cl/?p=85682 ; https://labatalla.cl/?p=85626 — [SIN VERIFICAR vigencia 2026]
+- Metro Línea 5 en Maipú (orden): Plaza de Maipú, Santiago Bueras, Del Sol, Monte Tabor, Las Parcelas [SIN VERIFICAR fuente; coordenadas desde OSM]

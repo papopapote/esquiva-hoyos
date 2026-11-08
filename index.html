@@ -152,6 +152,8 @@ const CARGO = {
   torta:     { ico:'🎂', lab:'TORTA ENTERA',      hoyo:8, choque:13, curva:7, agua:2, paco:8,  decay:0,    churu:3, fail:'¡La torta quedó hecha puré!' },
   completos: { ico:'🌭', lab:'CALORCITO',         hoyo:4,  choque:7,  curva:3, agua:10, paco:5,  decay:0.45, churu:1, fail:'Los completos llegaron fríos. Nadie se los comió.' },
   novia:     { ico:'👰', lab:'PACIENCIA DEL NOVIO', hoyo:3, choque:5, curva:2, agua:3,  paco:8, decay:0.35,  churu:1, fail:'¡El novio se arrancó del Templo!' },
+  huevos:    { ico:'🥚', lab:'HUEVOS SANOS',      hoyo:8, choque:10, curva:5, agua:2, paco:7,  decay:0,    churu:2, fail:'Llegó puro omelette. La abuela no está contenta.' },
+  procer:    { ico:'🫡', lab:'ÁNIMO DEL PRÓCER',  hoyo:2.5, choque:4, curva:2, agua:3, paco:6,  decay:0.22,  churu:1, fail:'O’Higgins llegó tarde y San Martín se fue a almorzar.' },
   sopaipillas:{ ico:'🟠', lab:'CROCANCIA',        hoyo:3,  choque:5,  curva:2, agua:4, paco:5,  decay:0.18, churu:1, fail:'Sopaipillas aguachentas. Fome.' },
 };
 const STORY = {
@@ -160,9 +162,16 @@ const STORY = {
   compl: 'Hay partido en el Estadio Santiago Bueras y la galería quiere completos calientitos. Se enfrían con el tiempo y con los charcos.',
   novia: 'La novia se quedó dormida. El novio espera en el Templo Votivo y se le acaba la paciencia. Hora punta en Pajaritos: ¡suerte!',
   sopa: 'Llueve en Maipú: tiempo de sopaipillas. Llévalas a Parque Tres Poniente sin que se pongan aguachentas. Ojo con las calles que se anegan (puntos reales de Senapred).',
-  noche: 'De noche, otro michi sin churu. Hay pacos por todos lados... y siguen igual de perdidos.',
+  feria: 'La abuela necesita una docena de huevos de la feria de Av. El Descanso. Cuidado con los puestos en la calle, los carros de feria y cada hoyo: ¡los huevos se quiebran!',
+  abrazo: '5 de abril de 1818 (más o menos). O’Higgins viene herido de Cancha Rayada y no quiere perderse el Abrazo con San Martín. Llévalo al Monumento al Abrazo. Los "realistas" se modernizaron y andan en patrulla.',
+  noche: 'De noche, otro michi sin churu. Hay pacos por todos lados... y a mitad de camino aparece el JEFE FINAL: el General Bigotón. Quítale sus 3 medallas haciéndolo caer en hoyos y trampas.',
 };
 const LV = D.levels;
+const L5 = ['Metro Plaza de Maipú', 'Metro Santiago Bueras', 'Metro Del Sol', 'Metro Monte Tabor', 'Metro Las Parcelas'];
+let METRO = null;
+function metroInit(){ if (METRO) return; METRO = L5.map(n => D.pois.find(p => p.n === n)).filter(Boolean).map(p => {
+  let best = 0, bd = 1e9; for (let k = 0; k < NN; k++){ if (!OUT[k].length || OUT[k].every(o => ED[o[0]].cls >= 6)) continue; const d = Math.hypot(NX[k] - p.x, NY[k] - p.y); if (d < bd){ bd = d; best = k; } }
+  return { n:p.n.replace('Metro ', ''), x:NX[best], y:NY[best], node:best }; }); }
 const COPNAMES = ['ACAB', '1312', 'PACOS QL', 'CABO DONUT', 'SGTO. SOPAIPA', 'TTE. LENTO', 'PATRULLA ZZZ', 'PACO SIESTA', 'CABO GPS'];
 const BUB = {
   spawn: ['¡Alto ahí... ay, mi espalda!', '¡Deténgase en nombre de... eh... se me olvidó!', '¡Pare, pare! ¿Me puede esperar?', '¡Ese auto! ¿O era el otro?'],
@@ -173,6 +182,9 @@ const BUB = {
   siesta: ['Zzz...', 'Cinco minutitos más...'],
   talonario: ['¿Dónde dejé el talonario?', 'Se me cayó la gorra', '¿Cómo se escribe "infracción"?'],
   mojado: ['¡Me mojé los bototos!', '¡Glu glu glu!'],
+  general: ['¡En mis 40 años de servicio nunca vi un michi tan rápido!', '¡Que alguien me sostenga el bigote!', '¡Orden de arresto para ese Tico amarillo!',
+    '¡Atención! ...¿dónde dejé los anteojos?', '¡Esto va directo a mis memorias!', '¡Firmes! ...no, ustedes no, el auto', '¡Por la gloria de mi bigote!'],
+  medalla: ['¡MI MEDALLA AL MÉRITO!', '¡Esa me la dieron por puntualidad!', '¡Nooo, la de asistencia perfecta!', '¡Esa era de chocolate igual!'],
   orden: ['¡Sí, ministro! ¡Las palomas!', '¿Contar conos? Bueno...', 'Orden del ministro, ni modo', '¿Y el ladrón? Después'],
   decreto: ['¡Decreto es decreto!', 'A 30, como dice el ministro', 'Más lento no se puede... ¿o sí?'],
   alcalde: ['¡Sí, señor alcalde!', 'El alcalde dice que paremos...', '¿Y usted no estaba cortando el pasto?'],
@@ -228,7 +240,30 @@ const SFX = (() => {
     s.connect(fl); fl.connect(g); g.connect(master); s.start(t, Math.random()); s.stop(t + dur + 0.02);
   }
   const seq = (notes, step, len, vol, type = 'square') => notes.forEach((m, i) => tone(type, 440 * 2 ** ((m - 69) / 12), 0, len, vol, i * step));
+  // música: secuenciador simple en 16 pasos
+  let mus = null, musNext = 0, musStep = 0, musInt = 0;
+  const SCALES = [[0, 2, 4, 5, 7, 9, 11], [0, 2, 3, 5, 7, 8, 10]];
+  function setMusic(cfg){ mus = cfg; musStep = 0; if (ac) musNext = ac.currentTime + 0.1; }
+  function musicTick(intense){
+    musInt = intense ? 1 : 0;
+    if (!mus || !ready()) return; const now = ac.currentTime; if (musNext < now) musNext = now + 0.05;
+    while (musNext < now + 0.25){ playStep(musNext - now, musStep++); musNext += mus.step * (musInt ? 0.88 : 1); }
+  }
+  const midi = m => 440 * 2 ** ((m - 69) / 12);
+  function playStep(at, i){
+    const k = i % 16, bar = Math.floor(i / 16) % 4, sc = SCALES[mus.minor ? 1 : 0], root = mus.root + [0, 5, 7, 5][bar] * (mus.prog ? 1 : 0);
+    if (k % 2 === 0) noise(0.04, k % 4 === 0 ? 0.05 : 0.03, 7000, 0, 'highpass', at);                       // güiro
+    if (k === 0 || k === 6 || k === 8 || k === 14) tone('triangle', midi(root - 24 + (k === 6 || k === 14 ? 7 : 0)), 0, 0.22, 0.11, at);  // bajo cumbiero
+    if (k === 4 || k === 12) tone('square', 1250, 0, 0.05, 0.025, at);                                      // cencerro
+    if (musInt && (k === 4 || k === 12)) noise(0.08, 0.06, 2000, 600, 'bandpass', at);                     // caja en persecución
+    const m = mus.mel[(i + bar * 3) % mus.mel.length];
+    if (m !== null && k % 2 === 0) tone(mus.lead, midi(root + 12 + sc[((m % 7) + 7) % 7] + 12 * Math.floor(m / 7)), 0, mus.step * 1.6, 0.028, at);
+  }
   return {
+    music(i){ if (i === null){ setMusic(null); return; } const R = mulberry(77 + i * 31), mel = [];
+      for (let k = 0; k < 16; k++) mel.push(R() < 0.3 ? null : Math.floor(R() * 9) - 1);
+      setMusic({ root:[60, 62, 57, 64, 59, 55, 60, 57][i % 8], minor:[0, 0, 0, 0, 1, 0, 1, 1][i % 8], mel, step:60 / ([104, 110, 116, 98, 100, 108, 112, 120][i % 8]) / 4, lead:i % 2 ? 'square' : 'triangle', prog:true }); },
+    musicTick,
     init, get on(){ return on; },
     toggle(){ on = !on; store.set('snd', on); if (on) init(); if (ac) master.gain.setTargetAtTime(on ? 0.6 : 0, ac.currentTime, 0.02); },
     engine(kmh, active){ if (!ac) return; const t = ac.currentTime; engG.gain.setTargetAtTime(active ? 0.06 : 0, t, 0.1); eng.frequency.setTargetAtTime(45 + kmh * 1.3, t, 0.1); },
@@ -249,6 +284,7 @@ const SFX = (() => {
     cumbia(){ if (!ready()) return; const bass = [45, 52, 45, 52, 43, 50, 43, 50];
       for (let i = 0; i < 8; i++){ noise(0.05, 0.06, 7000, 0, 'highpass', i * 0.2); if (i % 2 === 0) tone('triangle', 440 * 2 ** ((bass[i] - 69) / 12), 0, 0.18, 0.13, i * 0.2);
         if (i % 4 === 1) tone('square', 440 * 2 ** ((76 + (i % 3) - 69) / 12), 0, 0.1, 0.03, i * 0.2); } },
+    alarm(){ if (ok('al', 1.2)) for (let i = 0; i < 3; i++) tone('sawtooth', 520, 900, 0.2, 0.06, i * 0.25); },
     bark(){ if (ok('bark', 0.25)){ tone('square', 520, 260, 0.09, 0.07); tone('square', 560, 280, 0.09, 0.07, 0.14); } },
     cough(){ if (ok('cough', 0.6)){ noise(0.12, 0.25, 1200, 400, 'bandpass'); noise(0.12, 0.25, 1100, 400, 'bandpass', 0.18); } },
     jet(){ if (ok('jet', 0.9)) noise(1.1, 0.18, 3000, 1500, 'bandpass'); },
@@ -316,6 +352,14 @@ function drawCar(len, wid, body, opt = {}){
   ctx.fillStyle = opt.brake ? '#ff2a2a' : '#9a1818'; for (const sx of [-1, 1]){ ctx.beginPath(); ctx.ellipse(sx * Wd * 0.32, L / 2 - 0.18, 0.3, 0.16, 0, 0, TAU); ctx.fill(); }
 }
 const CARAB = '#0b6b3a';
+const VEH = [
+  { id:'tico', n:'TICO AMARILLO', d:'Equilibrado. El de siempre.', col:'#ffcf3f', kind:'player', len:4.8, wid:2.4, vmax:22, acc:1, steer:8, cargo:1, hgt:1.3 },
+  { id:'colectivo', n:'COLECTIVO', d:'Rápido y choro. Cobra pasaje: +1 churu extra.', col:'#1e1e1e', kind:'colectivo', len:4.9, wid:2.3, vmax:24, acc:1.1, steer:8, cargo:1.2, hgt:1.3, churu:1 },
+  { id:'micro', n:'MICRO RED', d:'Lenta y enorme. La carga casi no sufre.', col:'#e8414c', kind:'micro', len:10, wid:2.8, vmax:18, acc:0.7, steer:5.5, cargo:0.55, hgt:2.8 },
+  { id:'moto', n:'MOTO DELIVERY', d:'Rapidísima y ágil, pero la carga sufre más.', col:'#ff5d5d', kind:'auto', len:2.4, wid:1.1, vmax:27, acc:1.4, steer:11, cargo:1.5, hgt:1.1, moto:true },
+  { id:'furgon', n:'FURGÓN ESCOLAR', d:'Firme y amarillo. Protege la carga.', col:'#ffb300', kind:'auto', len:5.6, wid:2.5, vmax:20, acc:0.9, steer:7, cargo:0.8, hgt:2.0 },
+];
+let VSEL = clamp(store.get('veh', 0), 0, VEH.length - 1);
 const NPC_T = [
   { kind:'auto', len:4.3, wid:1.9, cols:['#e8e8e8', '#3a7bd5', '#c0392b', '#7f8c8d', '#2ecc71', '#f39c12', '#8e44ad', '#34495e'] },
   { kind:'auto', len:4.3, wid:1.9, cols:['#dfe4ea', '#57606f', '#2f3542'] },
@@ -422,7 +466,7 @@ function chooseTurn(k){ if (!G.opts || !G.opts.cat[k]) return; G.choice = G.choi
 
 // ---------- Partida ----------
 function startLevel(i){
-  const L = LV[i]; HZ.clear();
+  const L = LV[i]; HZ.clear(); metroInit(); SFX.music(i);
   G = { i, L, C:CARGO[L.cargo], seed:1234 + i * 977, time:0, t:0, pen:0, state:'count', cd:2.4, paused:false,
         meter:100, churus:0, caught:0, escaped:0, hits:0, cars:[], cops:[], trail:[], trailD:0, fx:[], msgs:[], shake:0,
         copName:0, choice:null, opts:null, wrongT:0, copCool:0, nightT:20, spawnT:0, Z:13, cat:null };
@@ -456,13 +500,21 @@ function setupRevuelta(i, st, r){
     const o = path[path.length - 1], e = ED[o.e], p = pointAt(e, o.dir > 0 ? e.len : 0, 0); return { x:p.x, y:p.y, a:0, e:o.e, dir:o.dir };
   };
   G.allies = [Object.assign(at(0.27, 0), { t:'perro' }), Object.assign(at(0.52, 1), { t:'pika' }), Object.assign(at(0.72, 1), { t:'pare' })];
+  const id = LV[i].id;
   if (i >= 1) G.allies.push(Object.assign(at(0.42, 1), { t:'linea' }));
-  if (i === 5) G.allies.push(Object.assign(at(0.85, 0), { t:'perro' }));
+  if (id === 'noche') G.allies.push(Object.assign(at(0.85, 0), { t:'perro' }));
   G.foes = [];
-  if ([2, 4, 5].includes(i)) G.foes.push(Object.assign(at(0.6, 1), { t:'zorrillo', tm:1 }));
-  if ([3, 5].includes(i)) G.foes.push(Object.assign(at(i === 5 ? 0.35 : 0.45, 1), { t:'guanaco', tm:0.5 }));
+  if (['compl', 'sopa', 'abrazo', 'noche'].includes(id)) G.foes.push(Object.assign(at(0.6, 1), { t:'zorrillo', tm:1 }));
+  if (['novia', 'feria', 'noche'].includes(id)) G.foes.push(Object.assign(at(id === 'noche' ? 0.35 : 0.45, 1), { t:'guanaco', tm:0.5 }));
   for (const f of G.foes){ const e = ED[f.e]; f.side = 1; f.reach = e.hw * 2 + 1; f.spray = 0; f.bub = ''; f.bubT = 0; }
-  G.dog = null; G.clouds = []; G.gasT = 0; G.flash = 0; G.paint = 0;
+  G.dog = null; G.clouds = []; G.gasT = 0; G.flash = 0; G.paint = 0; G.stalls = [];
+  if (LV[i].feria){
+    for (const o of path){ const e = ED[o.e]; if (!/El Descanso|Longitudinal/.test(e.name) || e.len < 30) continue; const list = populate(o.e);
+      for (let ss = 12; ss < e.len - 12; ss += 9){ if (Math.random() < 0.3) continue; const side = (Math.floor(ss / 60) % 2 ? 1 : -1) * o.dir, off = side * (e.hw - 1.4), pp = pointAt(e, ss, off);
+        const h = { t:'puesto', s:ss, off, r:1.4, x:pp.x, y:pp.y, a:Math.atan2(pp.dy, pp.dx), e:o.e, fruta:pick(['🥑', '🍅', '🍋', '🥬', '🍉', '🧅', '🥚']), col:pick(['#e8414c', '#3a7bd5', '#2ecc71', '#f39c12', '#8e44ad']) };
+        list.push(h); G.stalls.push(h);
+        if (Math.random() < 0.18){ const q = pointAt(e, ss + 3, -side * LW * 0.4); list.push({ t:'carro', s:ss + 3, off:-side * LW * 0.4, r:0.8, x:q.x, y:q.y, a:Math.atan2(q.dy, q.dx), e:o.e }); } } }
+  }
   // Ministro Bagatela: inauguración en plena calle (cinta roja de lado a lado)
   { const q = at(0.79, 0), w = at(0.79, 1), e = ED[q.e], sp = projectS(e, q.x, q.y);
     const hs = clamp(sp + q.dir * 7, 2, e.len - 2), hp = pointAt(e, hs, q.dir * LW * 0.5 * (e.ow ? 0 : 1));
@@ -509,6 +561,26 @@ const ORGULLO = ['¡Maipú: el mejor país de Chile!', 'Somos el mejor país de 
   'Si tuviéramos mar, seríamos Viña', 'Más hoyos que quesos en Suiza... ¡pero los tapo yo!', 'Maipú: capital mundial del michi sin churu',
   'Próxima obra: metro a la Luna con paradero en Pajaritos', 'Atiendo a cada vecino personalmente. A TODOS.', '¡Maipú no es comuna, es estilo de vida!',
   'Aquí se dio el Abrazo... yo abrazo a todos los vecinos', 'Maipú tiene de todo: hasta un alcalde que hace de todo'];
+function metroTarget(st){
+  const gx = G.goal.x, gy = G.goal.y, here = Math.hypot(st.x - gx, st.y - gy);
+  let best = null; for (const o of METRO){ if (o === st) continue; const d = Math.hypot(o.x - gx, o.y - gy); if (d < here - 150 && (!best || d < best.d)) best = { st:o, d }; }
+  return best && best.st;
+}
+function takeMetro(){
+  const st = G.metroNear, to = st && metroTarget(st); if (!to || G.ride || G.state !== 'run') return;
+  const stops = Math.abs(METRO.indexOf(to) - METRO.indexOf(st));
+  G.ride = { t:0, from:st, to, stops }; G.pen += 3 * stops; SFX.coin();
+}
+function endMetro(){
+  const R = G.ride, P = G.P, r = route(R.to.node, G.goal.n); G.ride = null;
+  if (!r || !r.length){ return; }
+  const e = ED[r[0].e]; P.e = r[0].e; P.dir = r[0].dir; P.s = P.dir > 0 ? 1 : e.len - 1; P.lat = P.tgtLat = e.ow ? 0 : LW * 0.5; P.v = 6;
+  const p = pointAt(e, P.s, P.lat * P.dir); P.x = P.vx = p.x; P.y = P.vy = p.y; P.ang = G.camAng = Math.atan2(p.dy * P.dir, p.dx * P.dir);
+  G.gps = r.slice(1); for (const o of G.gps) G.routeSet.add(o.e); G.trail = []; G.metroCool = 6;
+  const boss = G.cops.find(c => c.boss); if (boss) G.bossWait = { c:boss, t:9 };
+  const n = G.cops.filter(c => !c.boss).length; G.cops = [];
+  msg(`🚇 ${R.to.n}`, 2, 24, '#ffd23f', 0, `${R.stops} estación${R.stops > 1 ? 'es' : ''}: +${3 * R.stops} s${n ? ' · ¡Los pacos se quedaron en el torniquete!' : ''}`);
+}
 function updateMinistro(dt, run){
   const P = G.P, I = G.inaug;
   // decretos absurdos
@@ -607,7 +679,8 @@ function msg(s, life = 1.6, size = 26, col = '#ffe14d', dy = 0, sub){
 }
 function pop(s, x, y, col = '#fff', size = 18){ G.fx.push({ k:'txt', s, x, y, t:0, life:1.8, col, size }); }
 function damage(kind, mult = 1){
-  const v = G.C[kind] * mult; if (!v) return;
+  const v = G.C[kind] * mult * VEH[VSEL].cargo; if (!v) return;
+  G.dlog = G.dlog || {}; G.dlog[kind] = (G.dlog[kind] || 0) + v;
   G.meter = Math.max(0, G.meter - v);
 }
 
@@ -621,6 +694,8 @@ function update(dt){
   while (!G.msgs.length && G.msgQ && G.msgQ.length){ const m = G.msgQ.shift(); if (G.time - m.born < 7) G.msgs.push(m); }  // los avisos viejos se descartan
   for (const f of G.fx) f.t += dt; G.fx = G.fx.filter(f => f.t < f.life);
   G.shake = Math.max(0, G.shake - dt * 3);
+  if (G.ride){ G.ride.t += dt; G.t += dt; if (G.ride.t > 2.6) endMetro(); SFX.engine(0, false); SFX.siren(0); return; }
+  if (G.bossWait){ G.bossWait.t -= dt; if (G.bossWait.t <= 0 && G.trail.length > 5){ const c = G.bossWait.c; G.bossWait = null; c.d = Math.max(G.trail[0].d, G.trailD - 120); c.state = 'chase'; const p = trailAt(c.d); c.x = p.x; c.y = p.y; G.cops.push(c); msg('¡El General encontró la salida del metro!', 1.6, 18, '#ff9f43', -60); } }
   if (G.state === 'count'){ G.cd -= dt; if (G.cd <= 0){ G.state = 'run'; G.msgs = []; msg('¡YA!', 0.5, 46); SFX.horn(); } }
   const run = G.state === 'run';
   if (run) G.t += dt;
@@ -629,15 +704,15 @@ function update(dt){
   for (const q of ptrs.values()){ if (q.kind === 'steer') steerCount++; if (q.kind === 'hold' && q.id === 'brake') brakeHeld = true; }
   const braking = run && (brakeHeld || keys.Space || keys.ArrowDown || steerCount >= 2);
   P.turbo = Math.max(0, P.turbo - dt); P.inv = Math.max(0, P.inv - dt); P.bump = Math.max(0, P.bump - dt * 2.5); P.spin = Math.max(0, P.spin - dt);
-  const vmax = P.turbo > 0 ? 30 : (keys.ArrowUp ? 24.5 : 22);
+  const V = VEH[VSEL], vmax = P.turbo > 0 ? V.vmax + 8 : (keys.ArrowUp ? V.vmax + 2.5 : V.vmax);
   if (!run) P.v = 0;
   else if (braking) P.v = Math.max(0, P.v - 16 * dt);
-  else if (P.v < vmax) P.v = Math.min(vmax, P.v + (P.turbo > 0 ? 14 : P.v < 8 ? 8 : 5) * dt);
+  else if (P.v < vmax) P.v = Math.min(vmax, P.v + (P.turbo > 0 ? 14 : P.v < 8 ? 8 : 5) * V.acc * dt);
   else P.v = Math.max(vmax, P.v - 6 * dt);
   if (keys.ArrowLeft) P.tgtLat -= 9 * dt; if (keys.ArrowRight) P.tgtLat += 9 * dt;
   const latLim = () => { const e = ED[P.e]; return P.dir > 0 ? [e.lo + 1.2, e.hi - 1.2] : [-e.hi + 1.2, -e.lo - 1.2]; };
   let [l0, l1] = latLim(); P.tgtLat = clamp(P.tgtLat, l0, l1);
-  P.lat += clamp(P.tgtLat - P.lat, -8 * dt, 8 * dt);
+  P.lat += clamp(P.tgtLat - P.lat, -V.steer * dt, V.steer * dt);
   // avance y cruces
   P.s += P.dir * P.v * dt;
   let guard = 0;
@@ -684,7 +759,7 @@ function update(dt){
     for (const eid of [P.e]) for (const h of populate(eid)){
       if (h.gone) continue;
       const ds = Math.abs(h.s - P.s), dl = Math.abs(h.off - offW);
-      const hit = h.t === 'pintura' ? ds < h.r : h.t === 'agua' ? ds < h.r * 1.3 + 1.6 && dl < h.r * (h.real ? 0.75 : 0.6) + 0.9 : ds < 2.2 + h.r * 0.5 && dl < 1.05 + h.r * 0.6;
+      const hit = h.t === 'puesto' ? ds < 3.2 && dl < 2.2 : h.t === 'carro' ? ds < 2.2 && dl < 1.6 : h.t === 'pintura' ? ds < h.r : h.t === 'agua' ? ds < h.r * 1.3 + 1.6 && dl < h.r * (h.real ? 0.75 : 0.6) + 0.9 : ds < 2.2 + h.r * 0.5 && dl < 1.05 + h.r * 0.6;
       if (!hit){ h.cool = false; continue; }
       if (h.cool) continue; h.cool = true;
       if (h.t === 'hoyo'){
@@ -697,6 +772,10 @@ function update(dt){
         P.v *= 0.75; damage('agua'); SFX.splash(); G.fx.push({ k:'splash', x:P.vx, y:P.vy, t:0, life:0.7 });
         pop('¡SPLASH!', P.vx, P.vy - 3, '#7fd3ff', 20);
         if (h.real) msg('CALLE QUE SE ANEGA (REAL)', 2.2, 16, '#7fd3ff', 120, h.n + ' — ' + h.src);
+      } else if (h.t === 'puesto' || h.t === 'carro'){
+        h.gone = true; P.v *= h.t === 'puesto' ? 0.55 : 0.75; damage('choque', h.t === 'puesto' ? 0.45 : 0.3); SFX.crash(); G.shake = 0.7;
+        for (let k = 0; k < 5; k++) G.fx.push({ k:'fly', x:h.x, y:h.y, vx:rnd(-8, 8), vy:rnd(-8, 8), t:0, life:1, em:h.fruta || '🛒' });
+        pop(h.t === 'puesto' ? pick(['¡Mi puesto, casero!', '¡Las paltas, noo!', '¡Me las paga!']) : '¡El carro de feria!', P.vx, P.vy - 3, '#ffb347', 20);
       } else if (h.t === 'pintura'){
         G.paint = 3; P.tgtLat += rnd(-2.5, 2.5); P.spin = 0.6; SFX.squeal(); pop(pick(['¡PINTURA FRESCA!', '¡Patinazo!', '¡Me pintó las ruedas!']), P.vx, P.vy - 3, '#ffffff', 20);
         const m = G.mayor.find(m => m.h === h); if (m){ m.bub = '¡NOOO, MI PINTURA!'; m.bubT = 3.5; }
@@ -705,7 +784,7 @@ function update(dt){
         G.fx.push({ k:'fly', x:h.x, y:h.y, vx:hx * 10 + rnd(-4, 4), vy:hy * 10 + rnd(-4, 4), t:0, life:0.9, em:'🚧' });
         if (h.real) msg('OBRA REAL', 2, 16, '#ff9f43', 120, h.n);
       } else if (h.t === 'churu'){
-        h.gone = true; G.churus += G.decree && G.decree.k === 'churu2' ? 2 : 1; G.meter = Math.min(100, G.meter + G.C.churu); SFX.coin(); pop('+1 churu', h.x, h.y - 2, '#e5b3ff', 14);
+        h.gone = true; G.churus += (G.decree && G.decree.k === 'churu2' ? 2 : 1) + (VEH[VSEL].churu || 0); G.meter = Math.min(100, G.meter + G.C.churu); SFX.coin(); pop('+1 churu', h.x, h.y - 2, '#e5b3ff', 14);
       } else if (h.t === 'turbo'){
         h.gone = true; P.turbo = 3.5; SFX.turbo(); msg('¡TURBO MOTE CON HUESILLO!', 1.4, 22, '#ffd23f', 80);
       }
@@ -730,6 +809,7 @@ function update(dt){
   updateMinistro(dt, run);
   updateTraffic(dt, run, hx, hy);
   updateCops(dt, run);
+  if (run && G.L.id === 'noche' && !G.bossOn && remaining() < G.L.best * 0.65) spawnBoss();
   // controles policiales
   for (const c of G.ctrls){
     if (c.used || !run) continue;
@@ -739,6 +819,9 @@ function update(dt){
   if (run && G.L.night){ G.nightT -= dt; if (G.nightT <= 0 && G.cops.length < 2){ G.nightT = rnd(18, 28); spawnCop(null, null, '🚨 ¡Patrulla nocturna!'); } }
   G.copCool -= dt;
   if (run && G.reinf > 0){ G.reinf -= dt; if (G.reinf <= 0 && G.cops.length < 3 && remaining() > 250) spawnCop(null, null, '🚨 ¡REFUERZOS! Volvieron los pacos'); }
+  // metro cercano
+  G.metroCool = (G.metroCool || 0) - dt; G.metroNear = null;
+  if (METRO && G.metroCool <= 0) for (const st of METRO){ if (Math.hypot(st.x - P.x, st.y - P.y) < 30 && metroTarget(st)){ G.metroNear = st; break; } }
   // opciones de giro en el próximo cruce
   const toEnd = P.dir > 0 ? E.len - P.s : P.s;
   const nA = nodeAhead(P.e, P.dir);
@@ -818,7 +901,7 @@ function updateTraffic(dt, run, hx, hy){
     if (run && P.inv <= 0){
       const rx = c.x - P.vx, ry = c.y - P.vy, along = rx * hx + ry * hy, side = rx * -hy + ry * hx;
       const ca = Math.abs(Math.cos(angDiff(c.ang, P.ang))), lenC = c.len * ca + c.wid * (1 - ca), widC = c.wid * ca + c.len * (1 - ca);
-      if (Math.abs(along) < (4.8 + lenC) / 2 * 0.85 && Math.abs(side) < (2.4 + widC) / 2 * 0.8){
+      if (Math.abs(along) < (VEH[VSEL].len + lenC) / 2 * 0.85 && Math.abs(side) < (VEH[VSEL].wid + widC) / 2 * 0.8){
         P.inv = 1.1; P.v = Math.min(P.v * 0.3, 6); c.stun = 1.6; c.v = 0; G.shake = 1.3; damage('choque'); SFX.crash(); G.hits++;
         P.tgtLat -= Math.sign(side || 1) * 1.6;
         pop(pick(['¡CRASH!', '¡Fíjate po!', '¡La patente, weón!', '¡Oye, el seguro!', '¡Chocaste!']), P.vx, P.vy - 3, '#ff6b6b', 22);
@@ -838,15 +921,26 @@ function trailAt(d){
   const a = T[lo], b = T[hi], u = clamp((d - a.d) / ((b.d - a.d) || 1), 0, 1);
   return { x:a.x + (b.x - a.x) * u, y:a.y + (b.y - a.y) * u, a:Math.atan2(b.y - a.y, b.x - a.x) };
 }
+function spawnBoss(){
+  const d = Math.max(0, G.trailD - 90), p = trailAt(d);
+  G.cops.push({ boss:true, hp:3, d, v:G.P.v, x:p.x, y:p.y, ang:p.a, state:'chase', bt:0, kind:'', next:rnd(8, 12), name:'GRAL. BIGOTÓN', bub:'¡ALTO! ¡Soy el General Bigotón!', bubT:4, gapT:0, hoyos:new Set(), callT:12, shortT:0 });
+  G.bossOn = true; SFX.alarm(); SFX.whistle();
+  G.msgs = []; msg('⚠️ JEFE FINAL: GRAL. BIGOTÓN', 3, 26, '#ff6b6b', -30, 'Quítale sus 3 medallas: hazlo caer en hoyos, charcos y trampas de tus aliados');
+}
 function spawnCop(x, y, text){
-  if (G.cops.length >= 3) return;
+  if (G.cops.filter(c => !c.boss).length >= 3) return;
   const d = Math.max(0, G.trailD - (x === null ? 70 : 32)), p = trailAt(d);
-  const name = COPNAMES[G.copName++ % COPNAMES.length];
+  const names = G.L.id === 'abrazo' ? ['REALISTA 1', 'CABO OSORIO', 'TAMBOR MAYOR', 'GRANADERO PERDIDO', 'SGTO. MAPA AL REVÉS'] : COPNAMES;
+  const name = names[G.copName++ % names.length];
   G.cops.push({ d, v:G.P.v, x:x ?? p.x, y:y ?? p.y, ang:p.a, state:'chase', bt:0, kind:'', next:rnd(3.5, 7), name, bub:pick(BUB.spawn), bubT:3.8, gapT:0, hoyos:new Set() });
   G.copCool = 12; SFX.whistle(); msg(text, 1.8, 22, '#ff6b6b', -10, name + ' te persigue');
 }
+const MEDALLA = ['hoyo', 'mojado', 'perro', 'baile', 'pare', 'escudos', 'gas', 'alcalde', 'orden'];
 function blunder(c, kind, t){
-  c.state = 'blunder'; c.kind = kind; c.bt = t; c.bub = pick(BUB[kind]); c.bubT = Math.max(t, 3.2); c.v = kind === 'gps' || kind === 'radio' ? c.v * 0.3 : 0;
+  if (c.boss){ t *= 1.1; if (MEDALLA.includes(kind) && c.state === 'chase' && (c.medT || 0) <= 0){ c.medT = 6; c.hp--; G.fx.push({ k:'fly', x:c.x, y:c.y, vx:rnd(-6, 6), vy:rnd(-6, 6), t:0, life:1.2, em:'🎖️' }); SFX.boing();
+      if (c.hp <= 0){ c.lost = true; c.defeated = true; G.bossDown = true; G.churus += 15; SFX.win(); G.msgs = []; msg('¡EL GENERAL SE RINDIÓ!', 3, 28, '#7dff8a', -30, '"¡Me voy a escribir mis memorias!" +15 churus'); return; }
+      msg(`¡SE LE CAYÓ UNA MEDALLA AL GENERAL! (${3 - c.hp}/3)`, 2, 18, '#ffd23f', -60); } }
+  c.state = 'blunder'; c.kind = kind; c.bt = t; c.bub = pick(c.boss && MEDALLA.includes(kind) ? BUB.medalla : BUB[kind]); c.bubT = Math.max(t, 3.2); c.v = kind === 'gps' || kind === 'radio' ? c.v * 0.3 : 0;
   if (kind === 'hoyo'){ SFX.plop(); G.fx.push({ k:'dust', x:c.x, y:c.y, t:0, life:1 }); }
   if (kind === 'mojado') SFX.splash();
 }
@@ -859,16 +953,18 @@ function updateCops(dt, run){
       c.bt -= dt; if (c.kind === 'gps' || c.kind === 'radio') c.d += c.v * dt;
       if (c.bt <= 0) c.state = 'chase';
     } else {
-      let want = gap > 16 ? Math.min(38, P.v + 12) : P.v * 1.04;
+      let want = gap > 16 ? Math.min(c.boss ? 40 : 38, P.v + (c.boss ? 14 : 12)) : P.v * 1.04;
       if (G.decree && G.decree.k === 'pacos30'){ want = Math.min(want, 8.3); if (c.bubT <= -3){ c.bub = pick(BUB.decreto); c.bubT = 3; } }
       c.v += clamp(want - c.v, -12 * dt, 9 * dt); c.d = Math.min(c.d + c.v * dt, G.trailD - 2.5);
       c.next -= dt;
-      if (c.next <= 0){ c.next = rnd(9, 14); const opts = ['gps', 'radio', 'sopaipa']; if (G.L.night) opts.push('siesta'); blunder(c, pick(opts), rnd(2.2, 3.5)); }
+      if (c.boss){ c.callT -= dt; if (c.callT <= 0 && run){ c.callT = rnd(15, 20); c.bub = '¡REFUERZOS! ¡Que venga todo el cuartel!'; c.bubT = 3.5; spawnCop(null, null, '📢 ¡El General pidió refuerzos!'); }
+        if (c.bubT <= -4 && Math.random() < dt * 0.4){ c.bub = pick(BUB.general); c.bubT = 4; } }
+      if (c.next <= 0){ c.next = c.boss ? rnd(14, 20) : rnd(9, 14); const opts = ['gps', 'radio', 'sopaipa']; if (G.L.night) opts.push('siesta'); blunder(c, pick(opts), rnd(2.2, 3.5)); }
       if (gap < 12 && Math.random() < dt * 0.22) blunder(c, pick(['talonario', 'gps', 'radio']), 2);
       if (gap < 9){ c.gapT += dt;
         if (c.gapT > 0.45 && P.inv <= 0 && run){
-          c.gapT = 0; G.caught++; G.pen += 8; damage('paco', 1); P.inv = 1.5; P.v *= 0.4; SFX.whistle();
-          msg('¡TE PILLARON! PARTE: +8 s', 1.8, 26, '#ff6b6b', -40, c.name + ': "¡Le voy a cursar un parte!"');
+          const pen = c.boss ? 12 : 8; c.gapT = 0; G.caught++; G.pen += pen; damage('paco', c.boss ? 1.6 : 1); P.inv = 1.5; P.v *= 0.4; SFX.whistle();
+          msg(c.boss ? '¡EL GENERAL TE PILLÓ! +12 s' : '¡TE PILLARON! PARTE: +8 s', 1.8, 26, '#ff6b6b', -40, c.boss ? 'Gral. Bigotón: "¡Esto va a mis memorias!"' : c.name + ': "¡Le voy a cursar un parte!"');
           blunder(c, 'talonario', 2.6);
         } } else c.gapT = Math.max(0, c.gapT - dt);
       if (gap < 30 && c.bubT <= -3 && Math.random() < dt * 0.5){ c.bub = pick(BUB.cerca); c.bubT = 3; }
@@ -880,7 +976,7 @@ function updateCops(dt, run){
       for (const eid of edgesIn(c.x - 4, c.y - 4, c.x + 4, c.y + 4)){
         for (const h of HZ.get(eid) || []){
           if ((h.t === 'hoyo' || h.t === 'agua') && !c.hoyos.has(h) && Math.hypot(h.x - c.x, h.y - c.y) < (h.t === 'agua' ? h.r * 0.8 : 1.6)){
-            c.hoyos.add(h); if (Math.random() < 0.55){ blunder(c, h.t === 'hoyo' ? 'hoyo' : 'mojado', h.t === 'hoyo' ? 2.2 : 1.5); break; }
+            c.hoyos.add(h); if (Math.random() < (c.boss ? 0.4 : 0.55)){ blunder(c, h.t === 'hoyo' ? 'hoyo' : 'mojado', h.t === 'hoyo' ? 2.2 : 1.5); break; }
           }
         }
         if (c.state !== 'chase') break;
@@ -893,13 +989,15 @@ function updateCops(dt, run){
       for (const f of G.foes){ if (f.t === 'guanaco' && f.spray > 0 && !c.met.has(f) && Math.hypot(f.x - c.x, f.y - c.y) < f.reach + 3){ c.met.add(f); blunder(c, 'mojado', 2.2); } }
       for (const cl of G.clouds){ if (!c.met.has(cl) && Math.hypot(cl.x - c.x, cl.y - c.y) < cl.r){ c.met.add(cl); blunder(c, 'gas', 2.5); SFX.cough(); } }
     }
-    if (gap > 230 && run){ c.lost = true; G.reinf = rnd(10, 16); G.churus += 5; msg('¡LOS PERDISTE!', 1.6, 28, '#7dff8a', -40, c.name + ' quedó dando vueltas. +5 churus'); SFX.coin(); }
+    if (c.boss && gap > 200 && run){ c.d = G.trailD - 110; c.state = 'chase'; if (c.shortT <= 0){ c.shortT = 15; msg('¡El General tomó un atajo!', 1.5, 18, '#ff9f43', -60); } }
+    if (c.boss){ c.shortT -= dt; c.medT = (c.medT || 0) - dt; }
+    if (!c.boss && gap > 230 && run){ c.lost = true; G.reinf = rnd(10, 16); G.churus += 5; msg('¡LOS PERDISTE!', 1.6, 28, '#7dff8a', -40, c.name + ' quedó dando vueltas. +5 churus'); SFX.coin(); }
   }
   G.cops = G.cops.filter(c => !c.lost);
 }
 
 function finish(ok, why){
-  G.state = 'done'; G.ok = ok; G.why = why; G.endT = 0; G.total = G.t + G.pen;
+  G.state = 'done'; G.ok = ok; G.why = why; menuMusic = false; G.endT = 0; G.total = G.t + G.pen;
   SFX.siren(0); SFX.engine(0, false); SFX.rain(false);
   if (ok){
     G.stars = 1 + (G.total <= G.par ? 1 : 0) + (G.meter >= 50 ? 1 : 0);
@@ -1102,6 +1200,11 @@ function drawWorld(cx, cy, ang, z, sy, opt = {}){
       const b = Math.sin(G.time * 6 + h.s) * 0.15;
       ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.a + 0.6); ctx.fillStyle = '#b06ad9'; ctx.strokeStyle = '#3a1450'; ctx.lineWidth = 0.12;
       rr(-0.25, -0.8 - b, 0.5, 1.6, 0.2); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#ffd23f'; ctx.fillRect(-0.25, -0.15 - b, 0.5, 0.3); ctx.restore();
+    } else if (h.t === 'puesto'){
+      ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.a); ctx.fillStyle = 'rgba(0,0,0,.25)'; ctx.fillRect(-2.6, -1.1, 6, 3.2);
+      for (let k = 0; k < 5; k++){ ctx.fillStyle = k % 2 ? '#fff' : h.col; ctx.fillRect(-3 + k * 1.2, -1.6, 1.2, 3.2); } ctx.strokeStyle = '#333'; ctx.lineWidth = 0.12; ctx.strokeRect(-3, -1.6, 6, 3.2); ctx.restore();
+    } else if (h.t === 'carro'){
+      ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.a); ctx.strokeStyle = '#555'; ctx.lineWidth = 0.15; ctx.fillStyle = '#b0b8c0'; ctx.fillRect(-0.6, -0.5, 1.2, 1); ctx.strokeRect(-0.6, -0.5, 1.2, 1); ctx.restore();
     } else if (h.t === 'pintura'){
       ctx.save(); ctx.translate(h.x, h.y); ctx.rotate(h.a); const e = ED[h.e];
       ctx.fillStyle = 'rgba(255,255,255,.92)'; for (let k = -e.hw + 0.5; k < e.hw - 0.5; k += 1.4) ctx.fillRect(-h.r, k, h.r * 2, 0.8);
@@ -1173,7 +1276,8 @@ function drawPlay(){
     // pacos
     for (const c of G.cops){
       const wob = (c.state === 'blunder' && c.kind === 'hoyo' ? Math.sin(G.time * 20) * 0.15 : 0) + (c.state === 'blunder' && c.kind === 'mojado' ? G.time * 6 : 0);
-      car3d(c.x, c.y, c.ang + wob, 4.8, 2.3, '#f4f4f4', { kind:'paco' }, c.state === 'blunder' && c.kind === 'hoyo' ? 0.7 : 1.35);
+      if (c.boss) car3d(c.x, c.y, c.ang + wob, 7.6, 3.1, '#f4f4f4', { kind:'paco' }, c.state === 'blunder' && c.kind === 'hoyo' ? 1.4 : 2.5);
+      else car3d(c.x, c.y, c.ang + wob, 4.8, 2.3, '#f4f4f4', { kind:'paco' }, c.state === 'blunder' && c.kind === 'hoyo' ? 0.7 : 1.35);
     }
     // efectos en el mundo
     for (const f of G.fx){
@@ -1187,11 +1291,14 @@ function drawPlay(){
     // jugador (encima de todo)
     const ang = P.ang + (P.spin > 0 ? Math.sin(P.spin * 30) * 0.12 : 0) + (P.lat - P.tgtLat) * -0.03;
     if (P.turbo > 0){ ctx.save(); ctx.translate(P.vx, P.vy); ctx.rotate(ang + Math.PI / 2); ctx.fillStyle = `rgba(255,${150 + Math.random() * 100 | 0},40,.8)`; ctx.beginPath(); ctx.moveTo(-0.8, 2.4); ctx.lineTo(0, 2.4 + rnd(2, 4)); ctx.lineTo(0.8, 2.4); ctx.fill(); ctx.restore(); }
-    car3d(P.vx, P.vy, ang, 4.8, 2.4, '#ffcf3f', { kind:'player', brake:brakeHeld || keys.Space || keys.ArrowDown, after:() => {
+    const V = VEH[VSEL];
+    car3d(P.vx, P.vy, ang, V.len, V.wid, V.col, { kind:V.kind, brake:brakeHeld || keys.Space || keys.ArrowDown, after:() => {
+      if (V.moto){ ctx.fillStyle = '#fff'; ctx.strokeStyle = '#222'; ctx.lineWidth = 0.12; ctx.beginPath(); ctx.arc(0, 0.1, 0.5, 0, TAU); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#e8414c'; ctx.fillRect(-0.55, 0.5, 1.1, 0.8); }
+      if (V.id === 'furgon'){ ctx.fillStyle = '#1a1a1a'; ctx.fillRect(-0.9, -1.2, 1.8, 0.5); }
       if (G.L.cargo !== 'torta') return; const t = G.meter / 100; ctx.rotate(Math.sin(G.time * 3) * (1 - t) * 0.2);
       ctx.fillStyle = '#fff3f8'; ctx.strokeStyle = '#222'; ctx.lineWidth = 0.12; ctx.beginPath(); ctx.arc(0, 0.3, 1.0, 0, TAU); ctx.fill(); ctx.stroke();
       if (t > 0.33){ ctx.fillStyle = '#ffb3d1'; ctx.beginPath(); ctx.arc(0, 0.3, 0.7, 0, TAU); ctx.fill(); ctx.stroke(); }
-      if (t > 0.66){ ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(0, 0.3, 0.4, 0, TAU); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#e8414c'; ctx.beginPath(); ctx.arc(0, 0.3, 0.15, 0, TAU); ctx.fill(); } } }, 1.3 * (1 + Math.sin(P.bump * 12) * 0.35 * P.bump));
+      if (t > 0.66){ ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(0, 0.3, 0.4, 0, TAU); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#e8414c'; ctx.beginPath(); ctx.arc(0, 0.3, 0.15, 0, TAU); ctx.fill(); } } }, V.hgt * (1 + Math.sin(P.bump * 12) * 0.35 * P.bump));
   });
   drawSky();
   // noche: oscuridad con focos
@@ -1200,18 +1307,19 @@ function drawPlay(){
   poiLabels();
   { const [gx, gy] = toScreen(G.goal.x, G.goal.y);
     if (gx > -40 && gx < W + 40 && gy > -40 && gy < H + 40){ emoji('🏁', gx, gy - 10, 34); streetSign('B: ' + G.L.to, gx, gy + 22, 12, 220); } }
+  if (METRO) for (const st of METRO){ const [x, y] = toScreen(st.x, st.y, 3); if (x > -30 && x < W + 30 && y > -30 && y < H + 30){ ctx.fillStyle = '#e8414c'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(x, y, 13, 0, TAU); ctx.fill(); ctx.stroke(); txt('M', x, y + 1, 14, '#fff', 'center', false); } }
   for (const c of G.ctrls){ const [x, y] = toScreen(c.px, c.py); if (y > -30 && y < H + 30){ pacoFig(x + 20, y - 2, 1); if (!c.used) { ctx.fillStyle = '#ff3b30'; rr(x - 32, y - 40, 64, 18, 4); ctx.fill(); txt('CONTROL', x, y - 31, 11, '#fff', 'center', false); } } }
   for (const c of G.cops){
-    const [x, y] = toScreen(c.x, c.y, 1.4);
+    const [x, y] = toScreen(c.x, c.y, c.boss ? 2.6 : 1.4);
     if (c.state === 'blunder' && c.kind === 'hoyo') emoji('💫', x, y - 26, 22);
     if (c.state === 'blunder' && c.kind === 'siesta') emoji('💤', x + 16, y - 22, 20);
     if (c.state === 'blunder' && c.kind === 'sopaipa') emoji('🥙', x + 18, y - 18, 20);
     if (y > -20 && y < H + 20){
-      pacoHead(x, y - 8, 1.1);
+      if (c.boss) generalFig(x, y - 6, 1.25, c.hp); else pacoHead(x, y - 8, 1.1);
       ctx.font = '900 11px Arial, sans-serif'; const w = ctx.measureText(c.name).width + 12;
       ctx.fillStyle = CARAB; ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; rr(x - w / 2, y + 22, w, 16, 4); ctx.fill(); ctx.stroke();
       ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(c.name, x, y + 30.5);
-      if (c.bubT > 0) bubble(c.bub, x, y - 30);
+      if (c.bubT > 0) bubble(c.bub, x, y - (c.boss ? 64 : 30), c.boss ? '#fff0d0' : '#fff');
     } else if (y >= H + 20){ // indicador de paco detrás
       ctx.fillStyle = Math.floor(G.time * 6) % 2 ? '#ff2a2a' : '#2a7bff'; ctx.beginPath(); ctx.arc(clamp(x, 20, W - 20), H - 150 - SAFE_B, 9, 0, TAU); ctx.fill();
     }
@@ -1230,11 +1338,15 @@ function drawPlay(){
     if (x > -60 && x < W + 60 && y > -80 && y < H + 60){ pacoFig(x + 34, y + 2, 0.7); ministroFig(x, y, 1.3, I.state === 'speech'); tag('MINISTRO BAGATELA', x, y + 30, '#111', '#ffd23f');
       ctx.font = '700 9px Arial'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText('de Temas Poco Importantes', x, y + 42);
       if (I.bubT > 0) bubble(I.bub, x, y - 52, '#fffbe6'); } }
+  for (const h of G.stalls || []){ if (h.gone) continue; const [x, y] = toScreen(h.x, h.y, 1.6); if (x < -30 || x > W + 30 || y < -30 || y > H + 30) continue; emoji(h.fruta, x, y, 16);
+    if ((Math.floor(G.time / 3) + Math.round(h.s)) % 9 === 0) bubble(['¡A luca la palta, casera!', '¡Lleve, lleve!', '¡Caserito, la yapa!', '¡Barato, barato!'][Math.round(h.s) % 4], x, y - 12); }
   if (G.flash > 0){ ctx.fillStyle = `rgba(255,255,255,${G.flash * 3})`; ctx.fillRect(0, 0, W, H); }
   if (G.gasT){ ctx.fillStyle = 'rgba(180,205,150,.35)'; ctx.fillRect(0, 0, W, H); }
   if (G.cat){ const [x, y] = toScreen(G.cat.x, G.cat.y); emoji('🐈', x + Math.sin(G.time * 5) * 10, y, 34); bubble('¡Miau! ¡Atrápame!', x, y - 22); }
   // carga sobre el auto
-  { const [x, y] = toScreen(P.vx, P.vy, 1.5), m = G.meter;
+  { const [x, y] = toScreen(P.vx, P.vy, VEH[VSEL].hgt + 0.2), m = G.meter;
+    if (G.L.cargo === 'huevos'){ for (let k = 0; k < 3; k++) emoji(k < Math.ceil(m / 34) ? '🥚' : '🍳', x - 12 + k * 12, y + 6 - (k % 2) * 4, 16); }
+    if (G.L.cargo === 'procer') emoji(m > 50 ? '🫡' : '🤕', x, y + 6, 26);
     if (G.L.cargo === 'gato' && !G.cat) emoji(m > 60 ? '😺' : m > 30 ? '😾' : '🙀', x, y + 6, 28);
     if (G.L.cargo === 'completos'){ emoji('🌭', x, y + 6, 26); if (m > 40) for (let i = -1; i <= 1; i++){ ctx.strokeStyle = 'rgba(255,255,255,.7)'; ctx.lineWidth = 2; ctx.beginPath(); const yy = y - 12 - (G.time * 20 + i * 7) % 18; ctx.moveTo(x + i * 8, yy + 8); ctx.quadraticCurveTo(x + i * 8 + 4, yy + 4, x + i * 8, yy); ctx.stroke(); } }
     if (G.L.cargo === 'novia'){ emoji('👰', x, y + 6, 26); if (m < 50 && Math.floor(G.time / 3) % 2 === 0) bubble(m < 25 ? '¡¡APÚRATE!!' : '¡Llegamos tarde!', x, y - 26, '#fff0f6'); }
@@ -1350,6 +1462,27 @@ function pacoFig(x, y, sc = 1){
   ctx.fillStyle = '#d4884a'; ctx.beginPath(); ctx.arc(-11, 6, 4, 0, TAU); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#ff8ad8'; ctx.beginPath(); ctx.arc(-11, 6, 2.6, 0, TAU); ctx.fill(); ctx.fillStyle = '#d4884a'; ctx.beginPath(); ctx.arc(-11, 6, 1.1, 0, TAU); ctx.fill(); // donut
   ctx.restore();
 }
+// General Bigotón (ficticio): gorra con trenza dorada del tamaño de una pizza, bigote de manubrio, charreteras con flecos y medallas por todos lados
+function generalFig(x, y, sc = 1, hp = 3){
+  ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.lineWidth = 1.4; ctx.strokeStyle = '#1a1a1a'; const T = G.time;
+  ctx.fillStyle = '#4f6b34'; rr(-12, -2, 24, 20, 5); ctx.fill(); ctx.stroke();
+  for (const sx of [-1, 1]){ ctx.fillStyle = '#ffd23f'; rr(sx > 0 ? 8 : -17, -3, 9, 5, 2); ctx.fill(); ctx.stroke(); ctx.strokeStyle = '#e0a800'; for (let k = 0; k < 4; k++){ ctx.beginPath(); ctx.moveTo((sx > 0 ? 9 : -16) + k * 2, 2); ctx.lineTo((sx > 0 ? 9 : -16) + k * 2 + Math.sin(T * 8 + k), 7); ctx.stroke(); } ctx.strokeStyle = '#1a1a1a'; }
+  const cols = ['#ffd23f', '#e8414c', '#3a7bd5', '#7dff8a', '#ff9f43', '#b28dff'];
+  for (let k = 0; k < 4 + hp * 3; k++){ ctx.fillStyle = cols[k % cols.length]; ctx.beginPath(); ctx.arc(-8 + (k % 5) * 4, 3 + Math.floor(k / 5) * 4.5, 1.7, 0, TAU); ctx.fill(); }
+  ctx.fillStyle = '#f1c27d'; ctx.beginPath(); ctx.arc(0, -9, 8, 0, TAU); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#ff9f9f'; ctx.beginPath(); ctx.arc(-4.5, -6, 1.8, 0, TAU); ctx.arc(4.5, -6, 1.8, 0, TAU); ctx.fill();
+  ctx.fillStyle = '#e8e8e8'; const wv = Math.sin(T * 6) * 1.5;
+  ctx.beginPath(); ctx.moveTo(0, -5); ctx.quadraticCurveTo(-8, -9 + wv, -15, -8 + wv); ctx.quadraticCurveTo(-13, -3, -8, -3); ctx.quadraticCurveTo(-3, -3, 0, -4);
+  ctx.quadraticCurveTo(3, -3, 8, -3); ctx.quadraticCurveTo(13, -3, 15, -8 - wv); ctx.quadraticCurveTo(8, -9 - wv, 0, -5); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = '#1a1a1a'; ctx.fillRect(-4, -12, 2, 2); ctx.fillRect(2, -12, 2, 2);
+  ctx.beginPath(); ctx.moveTo(-6, -15); ctx.lineTo(-2, -14); ctx.moveTo(6, -15); ctx.lineTo(2, -14); ctx.stroke();
+  ctx.fillStyle = CARAB; ctx.beginPath(); ctx.ellipse(0, -18, 19, 6, 0, 0, TAU); ctx.fill(); ctx.stroke(); rr(-11, -31, 22, 13, 4); ctx.fill(); ctx.stroke();
+  ctx.strokeStyle = '#ffd23f'; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(-17, -18); ctx.quadraticCurveTo(0, -12, 17, -18); ctx.stroke(); ctx.beginPath(); ctx.moveTo(-10, -22); ctx.lineTo(10, -22); ctx.stroke();
+  ctx.fillStyle = '#ffd23f'; ctx.beginPath(); ctx.arc(0, -26, 3.2, 0, TAU); ctx.fill();
+  ctx.strokeStyle = '#4f6b34'; ctx.lineWidth = 3.5; ctx.beginPath(); ctx.moveTo(10, 2); ctx.lineTo(22, -10 + Math.sin(T * 5) * 3); ctx.stroke();
+  ctx.fillStyle = '#222'; ctx.save(); ctx.translate(-20, -4); ctx.rotate(Math.PI); rr(-3, -5, 6, 10, 2); ctx.fill(); rr(3, -5, 6, 10, 2); ctx.fill(); ctx.restore(); // binoculares al revés
+  ctx.restore();
+}
 // cabeza de paco asomada sobre la patrulla
 function pacoHead(x, y, sc = 1){
   ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.lineWidth = 1.3; ctx.strokeStyle = '#1a1a1a';
@@ -1423,8 +1556,13 @@ function drawHUD(){
   ctx.save(); ctx.translate(44, top + 112); ctx.rotate(ga + Math.PI / 2); ctx.fillStyle = '#7dff8a'; ctx.strokeStyle = '#1a1a1a'; ctx.lineWidth = 2.5;
   ctx.beginPath(); ctx.moveTo(0, -14); ctx.lineTo(10, 8); ctx.lineTo(0, 3); ctx.lineTo(-10, 8); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.restore();
   txt(dg > 950 ? (dg / 1000).toFixed(1) + ' km' : Math.round(dg / 10) * 10 + ' m', W - 44, top + 112, 15, '#7dff8a');
+  // jefe final
+  const boss = G.cops.find(c => c.boss);
+  if (boss){ const y = top + 132; ctx.fillStyle = 'rgba(60,20,20,.92)'; rr(W / 2 - 130, y, 260, 30, 10); ctx.fill(); ctx.strokeStyle = '#ffd23f'; ctx.lineWidth = 2; ctx.stroke();
+    ctx.font = '900 12px Arial'; ctx.fillStyle = '#fff'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText('GRAL. BIGOTÓN', W / 2 - 120, y + 15);
+    for (let k = 0; k < 3; k++){ ctx.globalAlpha = k < boss.hp ? 1 : 0.2; emoji('🎖️', W / 2 + 40 + k * 26, y + 15, 18); } ctx.globalAlpha = 1; }
   // persecución
-  if (G.cops.length){ const c = G.cops.reduce((a, b) => (G.trailD - a.d < G.trailD - b.d ? a : b)), gap = Math.round(G.trailD - c.d);
+  if (G.cops.length && !boss){ const c = G.cops.reduce((a, b) => (G.trailD - a.d < G.trailD - b.d ? a : b)), gap = Math.round(G.trailD - c.d);
     const f = Math.floor(G.time * 4) % 2; ctx.fillStyle = f ? 'rgba(200,30,30,.9)' : 'rgba(30,70,200,.9)'; rr(W / 2 - 150, top + 132, 300, 28, 10); ctx.fill();
     txt(`🚨 ${c.name} a ${gap} m${c.state === 'blunder' ? ' (haciendo el loco)' : ''}`, W / 2, top + 146, 13, '#fff', 'center', false, 290); }
   // decreto vigente
@@ -1461,6 +1599,14 @@ function drawHUD(){
     });
     txt(`cruce en ${Math.max(0, Math.round(o.dist))} m`, 186, by - 14, 12, '#fff');
   }
+  // metro
+  if (G.metroNear && !G.ride){ const to = metroTarget(G.metroNear), y = by - 150; ctx.fillStyle = '#e8414c'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; rr(W / 2 - 150, y, 300, 44, 12); ctx.fill(); ctx.stroke();
+    txt(`🚇 METRO a ${to.n}`, W / 2, y + 22, 16, '#fff', 'center', false, 280); UI.push({ x:W / 2 - 150, y, w:300, h:44, fn:takeMetro }); }
+  if (G.ride){ const u = G.ride.t / 2.6; ctx.fillStyle = '#10151c'; ctx.fillRect(0, 0, W, H);
+    const x = -260 + u * (W + 520); ctx.fillStyle = '#e8414c'; for (let k = 0; k < 3; k++){ rr(x - k * 150, H * 0.45, 140, 60, 14); ctx.fill(); ctx.fillStyle = '#9fd8ff'; for (let w = 0; w < 4; w++) ctx.fillRect(x - k * 150 + 12 + w * 32, H * 0.45 + 12, 22, 20); ctx.fillStyle = '#e8414c'; }
+    ctx.fillStyle = '#555'; ctx.fillRect(0, H * 0.45 + 62, W, 6);
+    txt('LÍNEA 5', W / 2, H * 0.3, 30, '#e8414c'); txt(`Próxima estación: ${G.ride.to.n}`, W / 2, H * 0.62, 18, '#fff', 'center', true, W - 30);
+    ctx.font = '700 13px Arial'; ctx.fillStyle = '#ccd'; ctx.textAlign = 'center'; ctx.fillText('Pagaste con la Bip! · Los pacos no tienen tarjeta', W / 2, H * 0.68); }
   // freno
   const bx = W - 104, bh = 84; UI.push({ x:bx, y:by, w:96, h:bh, id:'brake', hold:true });
   ctx.fillStyle = brakeHeld ? '#ff2a2a' : 'rgba(200,40,40,.85)'; rr(bx, by, 96, bh, 18); ctx.fill(); ctx.strokeStyle = '#fff'; ctx.lineWidth = 3; ctx.stroke();
@@ -1488,8 +1634,9 @@ function menuBg(){
   drawWorld(NX[L.goal] + Math.cos(menuT * 0.03) * 300, NY[L.goal] + Math.sin(menuT * 0.03) * 200, a, 9, H * 0.5, { haz:false });
   ctx.fillStyle = 'rgba(15,18,24,.45)'; ctx.fillRect(0, 0, W, H);
 }
+let menuMusic = false;
 function drawTitle(){
-  UI = []; menuBg();
+  UI = []; menuBg(); if (!menuMusic){ menuMusic = true; SFX.music(6); }
   const t = menuT, y0 = SAFE_T + H * 0.13;
   ctx.save(); ctx.translate(W / 2, y0); ctx.rotate(Math.sin(t * 2) * 0.03);
   txt('ESQUIVA', 0, 0, 52, '#ffd23f'); txt('HOYOS', 0, 54, 64, '#ff6b4a'); ctx.restore();
@@ -1511,8 +1658,13 @@ function drawTitle(){
 }
 function drawLevels(){
   UI = []; menuBg();
-  txt('NIVELES', W / 2, SAFE_T + 46, 36, '#ffd23f');
-  const top = SAFE_T + 86, h = Math.min(96, (H - top - SAFE_B - 90) / LV.length - 10);
+  txt('NIVELES', W / 2, SAFE_T + 40, 32, '#ffd23f');
+  { const V = VEH[VSEL], y = SAFE_T + 70; ctx.fillStyle = 'rgba(30,36,46,.92)'; ctx.strokeStyle = '#9fd8ff'; ctx.lineWidth = 2; rr(16, y, W - 32, 62, 14); ctx.fill(); ctx.stroke();
+    ctx.save(); ctx.translate(82, y + 31); ctx.scale(7, 7); ctx.rotate(Math.PI / 2); drawCar(Math.min(V.len, 7), V.wid, V.col, { kind:V.kind }); ctx.restore();
+    txt(V.n, 140, y + 20, 16, '#fff', 'left', true, W - 230); ctx.font = '700 11px Arial'; ctx.fillStyle = '#bcd'; ctx.textAlign = 'left'; ctx.fillText(V.d, 140, y + 44, W - 230);
+    const nx = d => () => { VSEL = (VSEL + d + VEH.length) % VEH.length; store.set('veh', VSEL); };
+    txt('◀', 34, y + 31, 22, '#9fd8ff'); txt('▶', W - 34, y + 31, 22, '#9fd8ff'); UI.push({ x:16, y, w:44, h:62, fn:nx(-1) }); UI.push({ x:W - 60, y, w:44, h:62, fn:nx(1) }); }
+  const top = SAFE_T + 142, h = Math.min(96, (H - top - SAFE_B - 90) / LV.length - 10);
   LV.forEach((L, i) => {
     const y = top + i * (h + 10), ok = unlocked(i), sv = SAVE[L.id];
     ctx.fillStyle = ok ? 'rgba(30,36,46,.92)' : 'rgba(30,36,46,.6)'; ctx.strokeStyle = ok ? '#ffd23f' : '#555'; ctx.lineWidth = 2; rr(16, y, W - 32, h, 14); ctx.fill(); ctx.stroke();
@@ -1538,10 +1690,10 @@ function drawIntro(){
   y += 12;
   const tips = [`${C.ico === '🟠' ? '🍩' : C.ico}  Cuida la barra "${C.lab}": hoyos, charcos, conos y choques la bajan.`,
     '⬅ ⬆ ➡  Elige en cada cruce (si no, sigue el GPS). 👆 Arrastra para cambiar de pista. ⛔ Sentidos reales.',
-    '🚨  Controles policiales: pasas y te persiguen.',
+    '🚨  Controles policiales: pasas y te persiguen. 🚇 Junto al Metro L5 puedes tomar el metro como atajo (+3 s por estación).',
     '🦺  Alcalde Todonovic hace todas las pegas. 🎩 Ministro Bagatela: decretos absurdos y ¡frena en su inauguración!',
     '🐕  Negro Matapacos, Tía Pikachu, Pareman y la Primera Línea te ayudan.'].concat(
-    [2, 4, 5].includes(G.i) ? ['💨  Zorrillo: su gas te marea.'] : [], [3, 5].includes(G.i) ? ['💦  Guanaco: pasa cuando no esté disparando.'] : []);
+    ['compl', 'sopa', 'abrazo', 'noche'].includes(L.id) ? ['💨  Zorrillo: su gas te marea.'] : [], ['novia', 'feria', 'noche'].includes(L.id) ? ['💦  Guanaco: pasa cuando no esté disparando.'] : [], L.feria ? ['🧺  Feria libre: esquiva los puestos y los carros.'] : [], L.id === 'noche' ? ['🎖️  JEFE FINAL: General Bigotón. Cada hoyo, charco o trampa le bota una medalla. Si te pilla: +12 s.'] : []);
   const yMax = y0 + ch - 8;
   for (const t of tips){ for (const l of wrap(t, W - 80, 12, 700)){ if (y > yMax) break; ctx.font = '700 12px Arial'; ctx.fillStyle = '#cde'; ctx.textAlign = 'left'; ctx.fillText(l, 40, y); y += 16; } y += 3; }
   button('¡VAMOS!', W / 2, H - SAFE_B - 92, 240, 60, '#7dff8a', () => startLevel(G.i), true);
@@ -1557,10 +1709,11 @@ function drawEnd(){
     for (let k = 0; k < 3; k++){ const sh = menuT > 0.3 + k * 0.3; txt('★', W / 2 - 70 + k * 70, y + 10, sh ? 58 : 40, k < G.stars && sh ? '#ffd23f' : '#444'); if (sh && k < G.stars && menuT < 0.4 + k * 0.3) SFX.coin(); }
     y += 70;
     const lines = [`Tiempo: ${fmtT(G.t)}${G.pen ? `  + partes ${G.pen} s = ${fmtT(G.total)}` : ''}`, `Meta ★: ${fmtT(G.par)}`, `${G.C.lab}: ${Math.round(G.meter)} %`, `Churus: ${G.churus}   ·   Hoyos: ${G.hits}   ·   Partes: ${G.caught}`];
+    if (G.bossDown) lines.push('🎖️ ¡Derrotaste al General Bigotón!'); else if (G.bossOn) lines.push('El General Bigotón conservó alguna medalla');
     if (G.L.cargo === 'gato' && G.escaped) lines.push(`El michi se arrancó ${G.escaped} ${G.escaped > 1 ? 'veces' : 'vez'}`);
     for (const l of lines){ ctx.font = '800 15px Arial'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(l, W / 2, y); y += 26; }
     if (!G.orgullo) G.orgullo = pick(ORGULLO);
-    const fin = { michi:'😻 ¡El michi tiene su churu!', torta:'🎂 ¡Feliz cumpleaños, tía!', compl:'🌭 ¡La galería feliz!', novia:'💒 ¡Sí, acepto!', sopa:'🟠 ¡Sopaipillas crocantes!', noche:'😼 Michi rescatado y pacos perdidos' }[G.L.id];
+    const fin = { feria:'🥚 ¡Huevos sanos para la abuela!', abrazo:'🤝 ¡Abrazo de Maipú! «¡Gloria al salvador de Chile!»', michi:'😻 ¡El michi tiene su churu!', torta:'🎂 ¡Feliz cumpleaños, tía!', compl:'🌭 ¡La galería feliz!', novia:'💒 ¡Sí, acepto!', sopa:'🟠 ¡Sopaipillas crocantes!', noche:'😼 Michi rescatado y pacos perdidos' }[G.L.id];
     y += 8; txt(fin, W / 2, y, 18, '#ffd23f', 'center', true, W - 60);
     y += 34; ctx.font = '800 13px Arial'; ctx.fillStyle = '#ffb347'; ctx.textAlign = 'center'; ctx.fillText('Alcalde Todonovic: "' + G.orgullo + '"', W / 2, y, W - 60);
   } else {
@@ -1578,6 +1731,7 @@ function drawEnd(){
 let lastT = performance.now(), lastErr = null;
 function frame(dt){
   update(dt);
+  if (scene === 'play' && !G.paused && G.state !== 'done') SFX.musicTick(G.cops && G.cops.length > 0); else SFX.musicTick(false);
   ctx.setTransform(KPX, 0, 0, KPX, 0, 0); ctx.globalAlpha = 1;
   if (scene === 'title') drawTitle();
   else if (scene === 'levels') drawLevels();
@@ -1586,7 +1740,7 @@ function frame(dt){
   else if (scene === 'end') drawEnd();
 }
 function loop(now){
-  const dt = Math.min(0.05, (now - lastT) / 1000); lastT = now;
+  const dt = window.__freeze ? 0 : Math.min(0.05, (now - lastT) / 1000); lastT = now;
   try { frame(dt); }
   catch (e){
     if (!lastErr) console.error(e);
@@ -1598,7 +1752,7 @@ function loop(now){
 }
 resize();
 requestAnimationFrame(loop);
-window.EH = { get G(){ return G; }, startLevel, frame, update, hz:populate, get scene(){ return scene; }, ED, route };
+window.EH = { goLevels(){ scene = 'levels'; }, get G(){ return G; }, startLevel, frame, update, hz:populate, get scene(){ return scene; }, ED, route, takeMetro, setVeh:v => { VSEL = v; } };
 </script>
 </body>
 </html>

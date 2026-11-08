@@ -35,6 +35,8 @@ LEVELS = [
   dict(id='compl',  name='Completos calientes',   frm='Metro Santiago Bueras',    to='Estadio Santiago Bueras', cargo='completos'),
   dict(id='novia',  name='La novia atrasada',     frm='Boulevard Terrazas Maipú', to='Templo Votivo de Maipú', cargo='novia', rush=True),
   dict(id='sopa',   name='Sopaipillas con lluvia',frm='Polideportivo Martín Vargas', to='Parque Tres Poniente', cargo='sopaipillas', rain=True),
+  dict(id='feria',  name='Huevos de la feria',    frm='El Descanso Boulevard',    to='Mall Arauco Maipú', cargo='huevos', feria=True),
+  dict(id='abrazo', name='El Abrazo de Maipú',    frm='Plaza Coronel Santiago Bueras', to='Monumento al Abrazo de Maipú', cargo='procer'),
   dict(id='noche',  name='El michi de noche',     frm='Metro Las Parcelas',       to='Puesto de Mando de San Martín', cargo='gato', night=True),
 ]
 pts = [poi(L['frm']) for L in LEVELS] + [poi(L['to']) for L in LEVELS]
@@ -198,7 +200,7 @@ for L in LEVELS:
         ctrl.append(path[i])
     # arco de partida: el primero de la ruta
     L2 = dict(id=L['id'], name=L['name'], frm=L['frm'], to=L['to'], cargo=L['cargo'], night=bool(L.get('night')), rain=bool(L.get('rain')),
-              rush=bool(L.get('rush')), start=dict(e=eis[0], dir=1 if EDGES[eis[0]]['a'] == path[0] else -1),
+              rush=bool(L.get('rush')), feria=bool(L.get('feria')), start=dict(e=eis[0], dir=1 if EDGES[eis[0]]['a'] == path[0] else -1),
               A=[round(A[0]), round(A[1])], B=[round(B[0]), round(B[1])], goal=nb, ctrl=ctrl, best=round(total))
     levels.append(L2)
     print(f"{L['name']:24s} {total/1000:4.1f} km  calles: " + ' → '.join(dict.fromkeys(names[EDGES[ei]['name']] for ei in eis)), file=sys.stderr)

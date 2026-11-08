@@ -41,6 +41,14 @@ Aviso en portada: parodia, nombres ficticios, cualquier similitud con personas r
 
 **Gráfica (desde 2026-11-08 noche): maqueta 2.5D**: cámara inclinada, casas y edificios con altura, ventanas, techos a dos aguas, sombras y autos con volumen. Personajes con rasgos exagerados según su rol (pacos de gorra gigante, bigotón, medallas y donut; Todonovic con casco, capa y brazos extra).
 
+**Jefe final: General Bigotón** (parodia, ficticio) en el nivel 8: furgón enorme que te persigue, pide refuerzos y toma atajos. Pierde una medalla (de 3) cuando cae en hoyos o trampas de tus aliados; si te pilla, +12 s.
+
+**Más (2026-11-08 noche):**
+- 2 niveles nuevos: *Huevos de la feria* (feria libre de Av. El Descanso / Longitudinal, con puestos y carros en la calle) y *El Abrazo de Maipú* (5-4-1818, O'Higgins herido hacia el Monumento al Abrazo; los "realistas" andan en patrulla).
+- Metro Línea 5 como atajo: cerca de una estación aparece el botón 🚇 (+3 s por estación, los pacos se quedan en el torniquete).
+- 5 vehículos: Tico amarillo, colectivo, micro RED, moto delivery y furgón escolar (cambian velocidad, agilidad y cuánto sufre la carga).
+- Música: cumbia sintetizada distinta por nivel; más intensa en persecución.
+
 ## Controles
 - **Táctil:** el auto acelera solo. Arrastra el dedo para moverte de pista. En cada cruce aparecen ⬅ ⬆ ➡ con el nombre de la calle; si no eliges, sigue el GPS (que respeta los sentidos). Botón **FRENO** (o dos dedos).
 - **Teclado:** ← → pista · ↑ acelerar · ↓ / Espacio frenar · A / W / D girar en el cruce · P pausa · M sonido.
@@ -58,6 +66,7 @@ Lee `investigacion/` y escribe `data.js` (red de 12.973 tramos de OSM, 3.012 de 
 - **2026-11-08 (tarde):** pacos más insistentes (más rápidos, menos torpezas, refuerzos tras perderlos, 2 patrullas por control desde el nivel 3), colores de Carabineros, personajes del estallido, guanaco y zorrillo. Bot: los 6 niveles se completan; arreglado un error que mostraba "FALLASTE" vacío al reiniciar.
 
 ## Próximos pasos
+- Ranking compartido: pendiente de que el usuario elija servicio/cuenta gratuita.
 - Decidido: solo nombres de parodia. Ideas para seguir: General y Ministro de parodia (jefe final, órdenes por radio), ferias libres, Metro L5 como atajo, micros RED.
 - Que el usuario lo pruebe en iPhone y ajustar la dificultad (barras, densidad de hoyos y velocidad).
 - Ideas: más niveles, elegir vehículo, ranking de tiempos.
