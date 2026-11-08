@@ -514,7 +514,7 @@ function updateMinistro(dt, run){
   // decretos absurdos
   G.decT -= dt;
   if (G.decree){ G.decree.t -= dt; if (G.decree.t <= 0){ msg('Decreto derogado', 1, 16, '#ddd', 140); G.decree = null; } }
-  if (run && G.decT <= 0 && !G.decree){ G.decT = rnd(26, 38); const d = pick(DECRETOS.filter(d => !(d.k === 'pacos30' && !G.cops.length))); G.decree = Object.assign({ t:14, n:Math.floor(rnd(1000, 9999)) }, d); SFX.whistle(); }
+  if (run && G.decT <= 0 && !G.decree){ G.decT = rnd(26, 38); const d = pick(DECRETOS.filter(d => !(d.k === 'pacos30' && !G.cops.length))); G.decree = Object.assign({ t:18, n:Math.floor(rnd(1000, 9999)) }, d); SFX.whistle(); }
   if (G.decree && run){
     if (G.decree.k === 'recto') P.tgtLat += Math.sin(G.t * 2.6) * dt * 5;
     if (G.decree.k === 'cumbia'){ G.cumT -= dt; if (G.cumT <= 0){ G.cumT = 1.6; SFX.cumbia(); } }
@@ -529,13 +529,13 @@ function updateMinistro(dt, run){
   I.bubT -= dt;
   const e = ED[I.e], rel = (P.s - I.s) * I.dir, onE = P.e === I.e && P.dir === I.dir;
   const d = Math.hypot(I.mx - P.x, I.my - P.y); I.d = d;
-  if (I.state === 'wait' && d < 36 && run){ I.state = 'speech'; I.tT = 3.4; I.k = 0; msg('🎩 ¡INAUGURACIÓN! FRENA', 1.4, 20, '#ffd23f', 40, 'El Ministro de Temas Poco Importantes inaugura ' + I.obj); }
+  if (I.state === 'wait' && d < 36 && run){ I.state = 'speech'; I.tT = 4.2; I.k = 0; msg('🎩 ¡INAUGURACIÓN! FRENA', 1.4, 20, '#ffd23f', 40, 'El Ministro de Temas Poco Importantes inaugura ' + I.obj); }
   if (I.state === 'speech'){
-    I.tT -= dt; const k = Math.min(DISCURSO.length - 1, Math.floor((3.4 - I.tT) / 0.7)); if (k !== I.k || I.bubT <= 0){ I.k = k; I.bub = DISCURSO[k]; I.bubT = 0.8; }
-    if (I.tT <= 0){ I.state = 'done'; I.bub = '¡Queda inaugurado ' + I.obj + '!'; I.bubT = 2.5; SFX.win(); G.churus += 3; for (let k = 0; k < 14; k++) G.fx.push({ k:'conf', x:I.mx, y:I.my, vx:rnd(-6, 6), vy:rnd(-6, 6), t:0, life:1.4, c:pick(['#e8414c', '#ffd23f', '#3a7bd5', '#7dff8a']) }); }
+    I.tT -= dt; const k = Math.min(DISCURSO.length - 1, Math.floor((4.2 - I.tT) / 1.4) * 2); if (k !== I.k || I.bubT <= 0){ I.k = k; I.bub = DISCURSO[k]; I.bubT = 1.4; }
+    if (I.tT <= 0){ I.state = 'done'; I.bub = '¡Queda inaugurado ' + I.obj + '!'; I.bubT = 4; SFX.win(); G.churus += 3; for (let k = 0; k < 14; k++) G.fx.push({ k:'conf', x:I.mx, y:I.my, vx:rnd(-6, 6), vy:rnd(-6, 6), t:0, life:1.4, c:pick(['#e8414c', '#ffd23f', '#3a7bd5', '#7dff8a']) }); }
   }
   if ((I.state === 'wait' || I.state === 'speech') && onE && I.side < 0 && rel >= 0 && run){
-    I.state = 'broken'; G.pen += 3; SFX.crash(); I.bub = '¡ERA CINTA IMPORTADA!'; I.bubT = 2.5; msg('¡ROMPISTE LA CINTA INAUGURAL!', 1.6, 22, '#ff6b6b', 40, 'Multa ministerial: +3 s');
+    I.state = 'broken'; G.pen += 3; SFX.crash(); I.bub = '¡ERA CINTA IMPORTADA!'; I.bubT = 4; msg('¡ROMPISTE LA CINTA INAUGURAL!', 1.6, 22, '#ff6b6b', 40, 'Multa ministerial: +3 s');
   }
   I.side = onE ? Math.sign(rel) || -1 : 0;
 }
@@ -548,7 +548,7 @@ function updateMayor(dt, run){
     if (!m.seen && d < 70){ m.seen = true; G.mayorSeen = (G.mayorSeen || 0) + 1;
       msg(G.mayorSeen === 1 ? '¡APARECIÓ EL ALCALDE TODONOVIC!' : pick(['¿OTRA VEZ EL ALCALDE?', '¿¡CÓMO LLEGÓ ANTES QUE YO!?', '¡EL ALCALDE ESTÁ EN TODAS!']), 1.6, 20, '#ffb347', 70,
         G.mayorSeen === 1 ? 'Hace todas las pegas de la muni él mismo' : null); }
-    if (m.bubT <= -1.5 && d < 60){ m.bub = Math.random() < 0.45 ? pick(ORGULLO) : pick(MAYOR[m.t]); m.bubT = 2.8; }
+    if (m.bubT <= -3 && d < 70){ m.bub = Math.random() < 0.45 ? pick(ORGULLO) : pick(MAYOR[m.t]); m.bubT = Math.max(4, m.bub.length / 8); }
     if (!run || m.used) continue;
     if (m.t === 'pala' && d < 30 && m.h && !m.h.cool){ m.used = true; m.h.gone = true; G.churus += 3; SFX.boing(); G.fx.push({ k:'dust', x:m.h.x, y:m.h.y, t:0, life:1 }); msg('¡HOYO TAPADO EN VIVO!', 1.4, 20, '#7dff8a', 100, 'El alcalde lo tapó con su propia pala. +3 churus'); }
     if (m.t === 'selfie' && d < 16){ m.used = true; G.flash = 0.25; G.churus += 5; SFX.coin(); msg('¡SALISTE EN EL LIVE DEL ALCALDE!', 1.4, 18, '#ff8ad8', 100, '+5 churus por los likes'); }
@@ -581,7 +581,7 @@ function updateRevuelta(dt, run){
     if (f.t === 'guanaco'){
       if (f.spray > 0) f.spray -= dt;
       else if (f.tm <= 0 && d < 70){ f.tm = rnd(2.2, 3.2); f.spray = 1.3; SFX.jet();
-        if (Math.random() < 0.3){ f.bub = pick(['¡Se acabó el agua! ...ah, no', '¡Le apunté al paco!', '¿Cuál botón era?']); f.bubT = 2; } }
+        if (Math.random() < 0.3){ f.bub = pick(['¡Se acabó el agua! ...ah, no', '¡Le apunté al paco!', '¿Cuál botón era?']); f.bubT = 3.5; } }
       if (f.spray > 0 && run && P.inv <= 0){
         // chorro: rectángulo perpendicular a la calle desde el guanaco hacia el centro
         const ux = Math.cos(f.a), uy = Math.sin(f.a), rx = P.x - f.x, ry = P.y - f.y, along = rx * ux + ry * uy, side = -(rx * -uy + ry * ux);
@@ -591,7 +591,7 @@ function updateRevuelta(dt, run){
     } else {
       if (f.tm <= 0 && d < 90){ f.tm = rnd(3, 4.5); const back = Math.random() < 0.35;
         G.clouds.push({ x:f.x + (back ? 0 : Math.cos(f.a + Math.PI / 2) * -4), y:f.y + (back ? 0 : Math.sin(f.a + Math.PI / 2) * -4), r:3, t:0, life:7 });
-        if (back){ f.bub = pick(BUB.gas); f.bubT = 2.2; SFX.cough(); } }
+        if (back){ f.bub = pick(BUB.gas); f.bubT = 3.5; SFX.cough(); } }
     }
   }
   G.gasT = 0;
@@ -599,8 +599,13 @@ function updateRevuelta(dt, run){
     if (Math.hypot(c.x - P.x, c.y - P.y) < c.r * 0.85){ G.gasT = 1; if (run){ G.meter = Math.max(0, G.meter - G.C.choque * 0.35 * dt); if (Math.random() < dt * 1.5){ SFX.cough(); pop('*cof cof*', P.vx, P.vy - 3, '#c8e6a0', 16); } } } }
   G.clouds = G.clouds.filter(c => c.t < c.life);
 }
-function msg(s, life = 1.6, size = 26, col = '#ffe14d', dy = 0, sub){ G.msgs.push({ s, t:0, life, size, col, dy, sub }); }
-function pop(s, x, y, col = '#fff', size = 18){ G.fx.push({ k:'txt', s, x, y, t:0, life:1.1, col, size }); }
+function msg(s, life = 1.6, size = 26, col = '#ffe14d', dy = 0, sub){
+  life = Math.max(life * 1.6, 2.4, (s.length + (sub ? sub.length : 0)) / 12);   // tiempo para leer con calma
+  const m = { s, t:0, life, size, col, dy, sub, born:G.time };
+  if (!G.msgQ) G.msgQ = [];
+  if (G.msgs.length) { G.msgQ.push(m); if (G.msgQ.length > 4) G.msgQ.shift(); } else G.msgs.push(m);
+}
+function pop(s, x, y, col = '#fff', size = 18){ G.fx.push({ k:'txt', s, x, y, t:0, life:1.8, col, size }); }
 function damage(kind, mult = 1){
   const v = G.C[kind] * mult; if (!v) return;
   G.meter = Math.max(0, G.meter - v);
@@ -611,10 +616,12 @@ function update(dt){
   G.time = (G.time || 0) + dt; menuT += dt;
   if (scene !== 'play' || G.paused || G.state === 'done'){ SFX.engine(0, false); SFX.siren(0); return; }
   const P = G.P, e0 = ED[P.e];
-  for (const m of G.msgs) m.t += dt; G.msgs = G.msgs.filter(m => m.t < m.life);
+  for (const m of G.msgs){ m.t += dt; if (G.msgQ && G.msgQ.length && m.t < m.life - 0.4) m.t += dt * 0.6; }  // si hay fila, avanza un poco más rápido
+  G.msgs = G.msgs.filter(m => m.t < m.life);
+  while (!G.msgs.length && G.msgQ && G.msgQ.length){ const m = G.msgQ.shift(); if (G.time - m.born < 7) G.msgs.push(m); }  // los avisos viejos se descartan
   for (const f of G.fx) f.t += dt; G.fx = G.fx.filter(f => f.t < f.life);
   G.shake = Math.max(0, G.shake - dt * 3);
-  if (G.state === 'count'){ G.cd -= dt; if (G.cd <= 0){ G.state = 'run'; msg('¡YA!', 0.8, 46); SFX.horn(); } }
+  if (G.state === 'count'){ G.cd -= dt; if (G.cd <= 0){ G.state = 'run'; G.msgs = []; msg('¡YA!', 0.5, 46); SFX.horn(); } }
   const run = G.state === 'run';
   if (run) G.t += dt;
   // --- conducción ---
@@ -692,7 +699,7 @@ function update(dt){
         if (h.real) msg('CALLE QUE SE ANEGA (REAL)', 2.2, 16, '#7fd3ff', 120, h.n + ' — ' + h.src);
       } else if (h.t === 'pintura'){
         G.paint = 3; P.tgtLat += rnd(-2.5, 2.5); P.spin = 0.6; SFX.squeal(); pop(pick(['¡PINTURA FRESCA!', '¡Patinazo!', '¡Me pintó las ruedas!']), P.vx, P.vy - 3, '#ffffff', 20);
-        const m = G.mayor.find(m => m.h === h); if (m){ m.bub = '¡NOOO, MI PINTURA!'; m.bubT = 2.2; }
+        const m = G.mayor.find(m => m.h === h); if (m){ m.bub = '¡NOOO, MI PINTURA!'; m.bubT = 3.5; }
       } else if (h.t === 'cono' || h.t === 'obraSign'){
         h.gone = true; P.v *= 0.8; damage('choque', 0.35); SFX.boing();
         G.fx.push({ k:'fly', x:h.x, y:h.y, vx:hx * 10 + rnd(-4, 4), vy:hy * 10 + rnd(-4, 4), t:0, life:0.9, em:'🚧' });
@@ -835,11 +842,11 @@ function spawnCop(x, y, text){
   if (G.cops.length >= 3) return;
   const d = Math.max(0, G.trailD - (x === null ? 70 : 32)), p = trailAt(d);
   const name = COPNAMES[G.copName++ % COPNAMES.length];
-  G.cops.push({ d, v:G.P.v, x:x ?? p.x, y:y ?? p.y, ang:p.a, state:'chase', bt:0, kind:'', next:rnd(3.5, 7), name, bub:pick(BUB.spawn), bubT:2.5, gapT:0, hoyos:new Set() });
+  G.cops.push({ d, v:G.P.v, x:x ?? p.x, y:y ?? p.y, ang:p.a, state:'chase', bt:0, kind:'', next:rnd(3.5, 7), name, bub:pick(BUB.spawn), bubT:3.8, gapT:0, hoyos:new Set() });
   G.copCool = 12; SFX.whistle(); msg(text, 1.8, 22, '#ff6b6b', -10, name + ' te persigue');
 }
 function blunder(c, kind, t){
-  c.state = 'blunder'; c.kind = kind; c.bt = t; c.bub = pick(BUB[kind]); c.bubT = t; c.v = kind === 'gps' || kind === 'radio' ? c.v * 0.3 : 0;
+  c.state = 'blunder'; c.kind = kind; c.bt = t; c.bub = pick(BUB[kind]); c.bubT = Math.max(t, 3.2); c.v = kind === 'gps' || kind === 'radio' ? c.v * 0.3 : 0;
   if (kind === 'hoyo'){ SFX.plop(); G.fx.push({ k:'dust', x:c.x, y:c.y, t:0, life:1 }); }
   if (kind === 'mojado') SFX.splash();
 }
@@ -853,7 +860,7 @@ function updateCops(dt, run){
       if (c.bt <= 0) c.state = 'chase';
     } else {
       let want = gap > 16 ? Math.min(38, P.v + 12) : P.v * 1.04;
-      if (G.decree && G.decree.k === 'pacos30'){ want = Math.min(want, 8.3); if (c.bubT <= -2){ c.bub = pick(BUB.decreto); c.bubT = 1.8; } }
+      if (G.decree && G.decree.k === 'pacos30'){ want = Math.min(want, 8.3); if (c.bubT <= -3){ c.bub = pick(BUB.decreto); c.bubT = 3; } }
       c.v += clamp(want - c.v, -12 * dt, 9 * dt); c.d = Math.min(c.d + c.v * dt, G.trailD - 2.5);
       c.next -= dt;
       if (c.next <= 0){ c.next = rnd(9, 14); const opts = ['gps', 'radio', 'sopaipa']; if (G.L.night) opts.push('siesta'); blunder(c, pick(opts), rnd(2.2, 3.5)); }
@@ -864,7 +871,7 @@ function updateCops(dt, run){
           msg('¡TE PILLARON! PARTE: +8 s', 1.8, 26, '#ff6b6b', -40, c.name + ': "¡Le voy a cursar un parte!"');
           blunder(c, 'talonario', 2.6);
         } } else c.gapT = Math.max(0, c.gapT - dt);
-      if (gap < 30 && c.bubT <= -2 && Math.random() < dt * 0.5){ c.bub = pick(BUB.cerca); c.bubT = 1.8; }
+      if (gap < 30 && c.bubT <= -3 && Math.random() < dt * 0.5){ c.bub = pick(BUB.cerca); c.bubT = 3; }
     }
     const p = trailAt(c.d), k = Math.min(1, dt * (c.state === 'blunder' && c.kind !== 'gps' ? 0 : 6));
     c.x += (p.x - c.x) * k; c.y += (p.y - c.y) * k; if (k) c.ang += angDiff(c.ang, p.a) * Math.min(1, dt * 8);
@@ -882,7 +889,7 @@ function updateCops(dt, run){
     if (c.state === 'chase'){
       c.met = c.met || new Set();
       for (const a of G.allies){ if ((a.t === 'pare' || a.t === 'linea') && !c.met.has(a) && Math.hypot(a.x - c.x, a.y - c.y) < 14){ c.met.add(a); blunder(c, a.t === 'pare' ? 'pare' : 'escudos', a.t === 'pare' ? 2.4 : 3); break; } }
-      for (const m of G.mayor){ if (m.t === 'transito' && !c.met.has(m) && Math.hypot(m.x - c.x, m.y - c.y) < 16){ c.met.add(m); blunder(c, 'alcalde', 3); m.bub = '¡Alto ahí, pacos! Pasa el vecino'; m.bubT = 2.2; } }
+      for (const m of G.mayor){ if (m.t === 'transito' && !c.met.has(m) && Math.hypot(m.x - c.x, m.y - c.y) < 16){ c.met.add(m); blunder(c, 'alcalde', 3); m.bub = '¡Alto ahí, pacos! Pasa el vecino'; m.bubT = 3.5; } }
       for (const f of G.foes){ if (f.t === 'guanaco' && f.spray > 0 && !c.met.has(f) && Math.hypot(f.x - c.x, f.y - c.y) < f.reach + 3){ c.met.add(f); blunder(c, 'mojado', 2.2); } }
       for (const cl of G.clouds){ if (!c.met.has(cl) && Math.hypot(cl.x - c.x, cl.y - c.y) < cl.r){ c.met.add(cl); blunder(c, 'gas', 2.5); SFX.cough(); } }
     }
@@ -1421,12 +1428,12 @@ function drawHUD(){
     const f = Math.floor(G.time * 4) % 2; ctx.fillStyle = f ? 'rgba(200,30,30,.9)' : 'rgba(30,70,200,.9)'; rr(W / 2 - 150, top + 132, 300, 28, 10); ctx.fill();
     txt(`🚨 ${c.name} a ${gap} m${c.state === 'blunder' ? ' (haciendo el loco)' : ''}`, W / 2, top + 146, 13, '#fff', 'center', false, 290); }
   // decreto vigente
-  if (G.decree){ const y = H - SAFE_B - 184, d = G.decree;
+  if (G.decree){ const y = top + (G.cops.length ? 166 : 132), d = G.decree;
     ctx.fillStyle = 'rgba(255,251,230,.95)'; ctx.strokeStyle = '#c49a3a'; ctx.lineWidth = 2; rr(10, y, W - 20, 40, 9); ctx.fill(); ctx.stroke();
     ministroFig(26, y + 33, 0.6);
     ctx.fillStyle = '#7a5a10'; ctx.font = '900 9px Arial'; ctx.textAlign = 'left'; ctx.textBaseline = 'middle'; ctx.fillText(`DECRETO N° ${d.n} · Ministerio de Temas Poco Importantes`, 50, y + 9, W - 70);
     ctx.fillStyle = '#1a1a1a'; ctx.font = '800 11px Arial'; ctx.fillText(d.tx, 50, y + 24, W - 70);
-    ctx.fillStyle = '#c49a3a'; ctx.fillRect(50, y + 34, (W - 70) * d.t / 14, 2.5); }
+    ctx.fillStyle = '#c49a3a'; ctx.fillRect(50, y + 34, (W - 70) * d.t / 18, 2.5); }
   // mensajes
   for (const g of G.msgs){ const u = g.t / g.life, sc = u < 0.15 ? 0.6 + u / 0.15 * 0.4 : 1; ctx.globalAlpha = u > 0.8 ? (1 - u) / 0.2 : 1;
     const y = H * 0.4 + g.dy; ctx.save(); ctx.translate(W / 2, y); ctx.scale(sc, sc); txt(g.s, 0, 0, g.size, g.col, 'center', true, W - 30);
