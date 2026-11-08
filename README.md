@@ -34,6 +34,13 @@ Personajes del estallido 2019 (fuentes en `investigacion/autoridades.md`):
 **Alcalde Todonovic** (parodia, personaje ficticio): aparece 4 veces por nivel haciendo él mismo las pegas de la muni: tapa hoyos con pala (desaparecen), pinta la calle (pintura fresca = patinazo), corta el pasto, barre, cambia ampolletas (de noche ilumina), dirige el tránsito (detiene a los pacos), atiende en un escritorio en la vereda (anula partes) y transmite en vivo (+churus). Frases de orgullo: "¡Maipú: el mejor país de Chile!".
 Aviso en portada: parodia, nombres ficticios, cualquier similitud con personas reales es no intencional.
 
+**Ministro Bagatela, de Temas Poco Importantes** (parodia, ficticio): chiquitito, chistera gigante, monóculo y maletín colosal.
+- Decretos absurdos cada ~30 s por 14 s: prohibido doblar a la izquierda (+3 s), hoyos patrimonio (+2 s al pisarlos), pacos a 30 km/h, zigzag obligatorio, churus dobles, cumbia obligatoria, Día de la Bocina.
+- Inauguración en plena calle (cinta roja): hay que frenar hasta que corte la cinta; si la rompes, +3 s.
+- Órdenes por radio a los pacos ("¡multar palomas!"): dejan de perseguirte un rato.
+
+**Gráfica (desde 2026-11-08 noche): maqueta 2.5D**: cámara inclinada, casas y edificios con altura, ventanas, techos a dos aguas, sombras y autos con volumen. Personajes con rasgos exagerados según su rol (pacos de gorra gigante, bigotón, medallas y donut; Todonovic con casco, capa y brazos extra).
+
 ## Controles
 - **Táctil:** el auto acelera solo. Arrastra el dedo para moverte de pista. En cada cruce aparecen ⬅ ⬆ ➡ con el nombre de la calle; si no eliges, sigue el GPS (que respeta los sentidos). Botón **FRENO** (o dos dedos).
 - **Teclado:** ← → pista · ↑ acelerar · ↓ / Espacio frenar · A / W / D girar en el cruce · P pausa · M sonido.
