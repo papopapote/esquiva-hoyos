@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Esquiva Hoyos">
+<meta name="theme-color" content="#20262e">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Esquiva Hoyos</title>
+<style>
+  html,body{margin:0;height:100%;background:#20262e;display:flex;align-items:center;justify-content:center;overflow:hidden;
+    -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;overscroll-behavior:none}
+  body{box-sizing:border-box;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+  canvas{background:#6c7a89;border-radius:8px;touch-action:none;height:auto;flex:none;
+    width:min(100vw, 100vh * 2 / 3);
+    width:min(calc(100vw - env(safe-area-inset-left) - env(safe-area-inset-right)),
+              calc((100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) * 2 / 3))}
+</style>
+</head>
+<body>
+<canvas id="c" width="480" height="720"></canvas>
+<script src="data.js"></script>
+<script>
+// ====== ESQUIVA HOYOS — Maipú real: calles de OpenStreetMap, eventos de fuentes oficiales y prensa local ======
+const cv = document.getElementById('c'), ctx = cv.getContext('2d');
+const W = cv.width, H = cv.height, TAU = Math.PI * 2;
+const M = window.MAIPU;
+const PXM = 13;          // píxeles por metro (dibujo)
+const K = 7;             // 1 m dibujado = K m de recorrido real (para que una ruta de 5 km dure ~1 minuto)
+const LW = 3.4;          // ancho de pista (m)
+const PY = H - 170;      // posición vertical del jugador en pantalla
+const rnd = (a, b) => a + Math.random() * (b - a);
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const fmt$ = n => '$' + Math.round(n).toLocaleString('es-CL');
+const store = { get(k, d){ try { const v = localStorage.getItem('eh_' + k); return v === null ? d : JSON.parse(v); } catch(e){ return d; } },
+                set(k, v){ try { localStorage.setItem('eh_' + k, JSON.stringify(v)); } catch(e){} } };
+
+// ---------- Vehículos ----------
+const VEH = [
+  { id:'auto',      n:'AUTO',      desc:'Equilibrado. El de todos los días.',      len:4.4, wid:1.8, vmax:70, acc:16, steer:7,  hp:4, hoyo:1,   agua:0.5, col:'#ffcf3f' },
+  { id:'moto',      n:'MOTO',      desc:'Rápida y ágil, pero sufre con agua y hoyos.', len:2.1, wid:0.8, vmax:80, acc:22, steer:10, hp:2, hoyo:1.5, agua:1,   col:'#ff5d5d' },
+  { id:'micro',     n:'MICRO',     desc:'Lenta y enorme, aguanta todo.',           len:11,  wid:2.6, vmax:55, acc:8,  steer:4.5,hp:7, hoyo:0.5, agua:0.2, col:'#e8414c' },
+  { id:'colectivo', n:'COLECTIVO', desc:'Rápido y con letrero. Sabe atajos.',      len:4.6, wid:1.8, vmax:75, acc:15, steer:7,  hp:3, hoyo:1,   agua:0.5, col:'#1e1e1e' },
+  { id:'bici',      n:'BICICLETA', desc:'Lenta, chiquitita y muy frágil.',         len:1.8, wid:0.7, vmax:32, acc:10, steer:9,  hp:2, hoyo:1.5, agua:1,   col:'#3fb6ff', prog:2 },
+];
+
+// ---------- Sonido (sintetizado; respeta el interruptor de silencio del iPhone) ----------
+const SFX = (() => {
+  let ac = null, master, noiseBuf, eng, engG, rainG, on = store.get('snd', true);
+  const last = {};
+  function kick(){
+    try { const s = ac.createBufferSource(); s.buffer = ac.createBuffer(1, 1, 22050); s.connect(ac.destination); s.start(0); } catch(e){}
+    if (ac.state !== 'running'){ const p = ac.resume(); if (p && p.catch) p.catch(() => {}); }
+  }
+  function init(){
+    if (ac){ if (ac.state !== 'running') kick(); return; }
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return;
+    ac = new AC();
+    const comp = ac.createDynamicsCompressor(); comp.connect(ac.destination);
+    master = ac.createGain(); master.gain.value = on ? 0.6 : 0; master.connect(comp);
+    noiseBuf = ac.createBuffer(1, ac.sampleRate * 2, ac.sampleRate);
+    const d = noiseBuf.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    // motor: diente de sierra filtrado
+    eng = ac.createOscillator(); eng.type = 'sawtooth'; eng.frequency.value = 40;
+    const f = ac.createBiquadFilter(); f.type = 'lowpass'; f.frequency.value = 420;
+    engG = ac.createGain(); engG.gain.value = 0; eng.connect(f); f.connect(engG); engG.connect(master); eng.start();
+    // lluvia: ruido continuo
+    const rs = ac.createBufferSource(); rs.buffer = noiseBuf; rs.loop = true;
+    const rf = ac.createBiquadFilter(); rf.type = 'highpass'; rf.frequency.value = 2500;
+    rainG = ac.createGain(); rainG.gain.value = 0; rs.connect(rf); rf.connect(rainG); rainG.connect(master); rs.start();
+    kick();
+  }
+  const ready = () => ac && on && ac.state === 'running';
+  function ok(n, gap){ if (!ready()) return false; const t = ac.currentTime; if (t - (last[n] ?? -9) < gap) return false; last[n] = t; return true; }
+  function tone(type, f0, f1, dur, vol, at = 0){
+    const t = ac.currentTime + at, o = ac.createOscillator(), g = ac.createGain();
+    o.type = type; o.frequency.setValueAtTime(f0, t); if (f1) o.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    o.connect(g); g.connect(master); o.start(t); o.stop(t + dur + 0.02);
+  }
+  function noise(dur, vol, f0, f1, type = 'lowpass', at = 0){
+    const t = ac.currentTime + at, s = ac.createBufferSource(), fl = ac.createBiquadFilter(), g = ac.createGain();
+    s.buffer = noiseBuf; fl.type = type; fl.frequency.setValueAtTime(f0, t); if (f1) fl.frequency.exponentialRampToValueAtTime(f1, t + dur);
+    g.gain.setValueAtTime(vol, t); g.gain.exponentialRampToValueAtTime(0.001, t + dur);
+    s.connect(fl); fl.connect(g); g.connect(master); s.start(t, Math.random()); s.stop(t + dur + 0.02);
+  }
+  const seq = (notes, step, len, vol, type = 'square') => notes.forEach((m, i) => tone(type, 440 * 2 ** ((m - 69) / 12), 0, len, vol, i * step));
+  return {
+    init, get on(){ return on; },
+    toggle(){ on = !on; store.set('snd', on); if (on) init(); if (ac) master.gain.setTargetAtTime(on ? 0.6 : 0, ac.currentTime, 0.02); },
+    suspend(){ if (ac) ac.suspend(); },
+    engine(kmh, active, veh){ if (!ac) return; const t = ac.currentTime;
+      const base = veh === 'micro' ? 28 : veh === 'moto' ? 70 : veh === 'bici' ? 0 : 45;
+      engG.gain.setTargetAtTime(active && base ? 0.07 : 0, t, 0.1);
+      eng.frequency.setTargetAtTime(base + kmh * (veh === 'moto' ? 2.2 : 1.3), t, 0.1); },
+    rain(onr){ if (ac) rainG.gain.setTargetAtTime(onr ? 0.05 : 0, ac.currentTime, 0.3); },
+    plop(){ if (ok('plop', 0.15)){ tone('sine', 160, 50, 0.25, 0.5); noise(0.2, 0.3, 800, 100); seq([67, 60], 0.08, 0.1, 0.05); } },
+    crash(){ if (ok('crash', 0.2)){ noise(0.6, 0.6, 3000, 200); tone('square', 200, 60, 0.3, 0.12); } },
+    splash(){ if (ok('spl', 0.3)) noise(0.6, 0.35, 1800, 300, 'bandpass'); },
+    horn(){ if (ok('horn', 0.6)){ tone('square', 392, 0, 0.18, 0.06); tone('square', 494, 0, 0.18, 0.05); } },
+    whistle(){ if (ok('wh', 0.8)){ tone('sine', 2600, 2400, 0.15, 0.12); tone('sine', 2600, 2300, 0.35, 0.12, 0.2); } },
+    phew(){ if (ok('phew', 0.25)) tone('triangle', 900, 1400, 0.08, 0.05); },
+    alarm(){ if (ok('al', 1.2)) for (let i = 0; i < 3; i++) tone('sawtooth', 520, 900, 0.2, 0.06, i * 0.25); },
+    robbed(){ if (ok('rob', 1)) seq([64, 63, 62, 61, 52], 0.12, 0.2, 0.08, 'sawtooth'); },
+    win(){ if (ok('win', 1)) seq([60, 64, 67, 72, 76, 79, 84], 0.1, 0.18, 0.07); },
+    lose(){ if (ok('lose', 1)) seq([67, 64, 60, 55, 48], 0.2, 0.3, 0.12, 'triangle'); },
+    click(){ if (ok('cl', 0.05)) tone('square', 660, 990, 0.06, 0.05); },
+    coin(){ if (ok('coin', 0.1)) seq([84, 88], 0.06, 0.08, 0.05); },
+  };
+})();
+
+// ---------- Entrada ----------
+const keys = {};
+let touchX = null, braking = false, touches = 0;
+addEventListener('keydown', e => {
+  SFX.init(); keys[e.code] = true;
+  if (['Space','ArrowUp','ArrowDown','ArrowLeft','ArrowRight'].includes(e.code)) e.preventDefault();
+  if (e.code === 'KeyM' && !e.repeat) SFX.toggle();
+  onKey(e.code);
+});
+addEventListener('keyup', e => keys[e.code] = false);
+function tp(t){ const r = cv.getBoundingClientRect(); return { x:(t.clientX - r.left) * W / r.width, y:(t.clientY - r.top) * H / r.height }; }
+const BRAKE_BTN = { x:W - 70, y:H - 70, r:52 };
+function updTouches(e){
+  touches = e.touches.length; braking = false; touchX = null;
+  for (const t of e.touches){ const p = tp(t);
+    if (Math.hypot(p.x - BRAKE_BTN.x, p.y - BRAKE_BTN.y) < BRAKE_BTN.r + 10) braking = true; else touchX = p.x; }
+}
+cv.addEventListener('touchstart', e => { e.preventDefault(); SFX.init();
+  const p = tp(e.changedTouches[0]);
+  if (scene !== 'drive' || paused) tap(p); else { if (inBtn(p, GAME_SND)) { tapSound(); return; } updTouches(e); }
+}, { passive:false });
+cv.addEventListener('touchmove', e => { e.preventDefault(); if (scene === 'drive') updTouches(e); }, { passive:false });
+cv.addEventListener('touchend', e => { SFX.init(); if (scene === 'drive') updTouches(e); });
+cv.addEventListener('mousedown', e => { SFX.init(); const p = tp(e); if (scene !== 'drive' || paused) tap(p); else if (inBtn(p, GAME_SND)) tapSound(); });
+for (const ev of ['touchend','pointerup','click']) document.addEventListener(ev, () => SFX.init(), { capture:true, passive:true });
+document.addEventListener('visibilitychange', () => { if (document.hidden){ if (scene === 'drive') paused = true; SFX.suspend(); } });
+
+// ---------- Estado general ----------
+let scene = 'title', paused = false, T = 0;
+let vsel = store.get('veh', 0), clima = store.get('clima', 'auto'), hora = store.get('hora', 'ahora');
+let rsel = 0, endless = false;
+const best = store.get('best', {});
+const CLIMAS = { auto:'Al azar', sol:'Soleado', lluvia:'Lluvia' }, HORAS = { ahora:'Hora real', dia:'Día', noche:'Noche' };
+let buttons = [];   // botones de la escena actual: {x,y,w,h,fn}
+const btn = (x, y, w, h, fn) => buttons.push({ x, y, w, h, fn });
+function tap(p){
+  if (scene === 'drive' && paused){ paused = false; return; }
+  for (const b of buttons) if (p.x > b.x && p.x < b.x + b.w && p.y > b.y && p.y < b.y + b.h){ b.fn(); SFX.click(); return; }
+}
+function onKey(c){
+  if (scene === 'title'){
+    if (c === 'ArrowLeft') { vsel = (vsel + VEH.length - 1) % VEH.length; store.set('veh', vsel); SFX.click(); }
+    if (c === 'ArrowRight'){ vsel = (vsel + 1) % VEH.length; store.set('veh', vsel); SFX.click(); }
+    if (c === 'Enter' || c === 'Space') { scene = 'map'; SFX.click(); }
+  } else if (scene === 'map'){
+    const n = M.routes.length + 1;
+    if (c === 'ArrowUp' || c === 'ArrowLeft')  { rsel = (rsel + n - 1) % n; SFX.click(); }
+    if (c === 'ArrowDown' || c === 'ArrowRight'){ rsel = (rsel + 1) % n; SFX.click(); }
+    if (c === 'Enter' || c === 'Space') startSelected();
+    if (c === 'Escape') scene = 'title';
+  } else if (scene === 'drive'){
+    if (c === 'KeyP' || c === 'Escape') paused = !paused;
+  } else if (scene === 'end'){
+    if (c === 'Enter' || c === 'Space') scene = 'map';
+  }
+}
+
+// ---------- Botón de sonido (carita, como en Dispara XD) ----------
+const MENU_SND = { x:W - 82, y:30, w:144, h:34 }, GAME_SND = { x:W - 50, y:122, w:84, h:22 };
+const inBtn = (p, b) => Math.abs(p.x - b.x) < b.w / 2 + 8 && Math.abs(p.y - b.y) < b.h / 2 + 8;
+let sndPop = 0;
+function tapSound(){ SFX.toggle(); SFX.click(); sndPop = 0.25; }
+function drawSoundBtn(b){
+  const on = SFX.on, k = b.h / 38, r = b.h * 0.36, fx = -b.w / 2 + b.h / 2, pop = 1 + Math.max(0, sndPop) * 1.2;
+  ctx.save(); ctx.translate(b.x, b.y); ctx.rotate(Math.sin(T * (on ? 5 : 1.5)) * (on ? 0.05 : 0.03)); ctx.scale(pop, pop);
+  ol(2.5 * k); ctx.fillStyle = on ? '#ff8a00' : '#5c677d'; rr(-b.w / 2, -b.h / 2, b.w, b.h, b.h / 2);
+  const bob = on ? Math.sin(T * 10) * 1.5 * k : 0;
+  ctx.fillStyle = '#ffe14d'; ol(2 * k); ell(fx, bob, r, r);
+  ctx.fillStyle = '#222'; ctx.strokeStyle = '#222'; ctx.lineWidth = 1.8 * k;
+  if (on){ ell(fx - r * 0.35, bob - r * 0.25, 1.8 * k, 2.4 * k, 1); ell(fx + r * 0.35, bob - r * 0.25, 1.8 * k, 2.4 * k, 1);
+    ctx.fillStyle = '#c0392b'; ell(fx, bob + r * 0.38, 3.2 * k, (2.5 + Math.abs(Math.sin(T * 8)) * 3) * k * 0.8, 1); }
+  else { for (const s of [-1, 1]){ ctx.beginPath(); ctx.arc(fx + s * r * 0.35, -r * 0.2, 2.6 * k, 0.2, Math.PI - 0.2); ctx.stroke(); }
+    ctx.beginPath(); ctx.moveTo(fx - r * 0.45, r * 0.4); ctx.lineTo(fx + r * 0.45, r * 0.4); ctx.stroke(); }
+  ctx.font = `900 ${Math.round(13 * k)}px "Arial Black", sans-serif`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for (let i = 0; i < 2; i++){ const ph = (T * (on ? 1.2 : 0.6) + i * 0.5) % 1; ctx.globalAlpha = 1 - ph; ctx.fillStyle = '#fff';
+    ctx.fillText(on ? (i ? '♫' : '♪') : (i ? 'Z' : 'z'), fx + r * 0.9 + ph * 8 * k, -r * 0.6 - ph * 14 * k); }
+  ctx.globalAlpha = 1;
+  txt(on ? 'SIN SONIDO' : 'CON SONIDO', fx + r + (b.w / 2 - fx - r) / 2 + 1, 1, Math.round(13 * k), '#fff');
+  ctx.restore();
+}
+
+// ---------- Utilidades de dibujo ----------
+function ol(w = 2.5){ ctx.strokeStyle = '#222'; ctx.lineWidth = w; ctx.lineJoin = 'round'; ctx.lineCap = 'round'; }
+function ell(x, y, rx, ry, noStroke){ ctx.beginPath(); ctx.ellipse(x, y, Math.max(0.1, rx), Math.max(0.1, ry), 0, 0, TAU); ctx.fill(); if (!noStroke) ctx.stroke(); }
+function rr(x, y, w, h, r, noStroke){ r = Math.min(r, w / 2, h / 2); ctx.beginPath(); ctx.moveTo(x + r, y); ctx.arcTo(x + w, y, x + w, y + h, r); ctx.arcTo(x + w, y + h, x, y + h, r); ctx.arcTo(x, y + h, x, y, r); ctx.arcTo(x, y, x + w, y, r); ctx.closePath(); ctx.fill(); if (!noStroke) ctx.stroke(); }
+function txt(s, x, y, size, fill = '#ffe14d', align = 'center', stroke = true){
+  ctx.font = `900 ${size}px "Arial Black", Impact, sans-serif`; ctx.textAlign = align; ctx.textBaseline = 'middle';
+  if (stroke){ ctx.lineWidth = Math.max(3, size / 6); ctx.strokeStyle = '#222'; ctx.lineJoin = 'round'; ctx.strokeText(s, x, y); }
+  ctx.fillStyle = fill; ctx.fillText(s, x, y);
+}
+function fitTxt(s, x, y, size, maxW, fill, align){ ctx.font = `900 ${size}px "Arial Black", Impact, sans-serif`;
+  while (size > 8 && ctx.measureText(s).width > maxW){ size--; ctx.font = `900 ${size}px "Arial Black", Impact, sans-serif`; }
+  txt(s, x, y, size, fill, align); }
+// letrero de calle chileno (verde con borde blanco)
+function streetSign(s, x, y, size = 14, maxW = 300){
+  ctx.font = `800 ${size}px Arial, sans-serif`; let w = Math.min(maxW, ctx.measureText(s).width + 18);
+  while (size > 8 && ctx.measureText(s).width + 18 > maxW){ size--; ctx.font = `800 ${size}px Arial, sans-serif`; w = Math.min(maxW, ctx.measureText(s).width + 18); }
+  const h = size + 12;
+  ctx.fillStyle = '#0f6b3a'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; rr(x - w / 2, y - h / 2, w, h, 4); ctx.stroke();
+  ctx.strokeStyle = '#123'; ctx.lineWidth = 1; rr(x - w / 2 - 1.5, y - h / 2 - 1.5, w + 3, h + 3, 5, 0); ctx.stroke();
+  ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(s, x, y + 1);
+}
+
+// ---------- Vehículos (vista desde arriba, caricatura) ----------
+function drawVehicle(id, x, y, len, wid, col, opt = {}){
+  const L = len * PXM, Wd = wid * PXM;
+  ctx.save(); ctx.translate(x, y); if (opt.rot) ctx.rotate(opt.rot);
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; rr(-Wd / 2 + 3, -L / 2 + 5, Wd, L, Wd * 0.3, 1);
+  ol(2);
+  if (id === 'moto' || id === 'bici'){
+    ctx.fillStyle = '#222'; rr(-Wd * 0.18, -L / 2, Wd * 0.36, L * 0.28, 3); rr(-Wd * 0.18, L / 2 - L * 0.28, Wd * 0.36, L * 0.28, 3); // ruedas
+    ctx.fillStyle = col; rr(-Wd * 0.32, -L * 0.25, Wd * 0.64, L * 0.5, 4);
+    ctx.fillStyle = id === 'bici' ? '#ffd23f' : '#fff'; ell(0, L * 0.02, Wd * 0.62, Wd * 0.62);                               // casco
+    ctx.fillStyle = '#222'; ctx.fillRect(-Wd * 0.7, -L * 0.28, Wd * 1.4, 3);                                                   // manubrio
+  } else {
+    ctx.fillStyle = '#222'; for (const sx of [-1, 1]) for (const sy of [-1, 1]) rr(sx * Wd / 2 - 3, sy * L * 0.3 - 6, 6, 12, 2, 1);
+    ctx.fillStyle = col; rr(-Wd / 2, -L / 2, Wd, L, id === 'micro' ? 6 : Wd * 0.35);
+    if (id === 'micro'){
+      ctx.fillStyle = '#fff'; ctx.fillRect(-Wd / 2 + 2, -L / 2 + L * 0.12, Wd - 4, L * 0.08);
+      ctx.fillStyle = '#9fd8ff'; rr(-Wd / 2 + 4, -L / 2 + 4, Wd - 8, L * 0.08, 3);
+      ctx.fillStyle = 'rgba(255,255,255,.25)'; for (let i = 0; i < 3; i++) rr(-Wd / 2 + 6, -L / 2 + L * (0.3 + i * 0.2), Wd - 12, L * 0.12, 3, 1);
+    } else {
+      ctx.fillStyle = '#9fd8ff'; rr(-Wd / 2 + 4, -L * 0.24, Wd - 8, L * 0.18, 4);              // parabrisas
+      ctx.fillStyle = 'rgba(0,0,0,.18)'; rr(-Wd / 2 + 5, -L * 0.04, Wd - 10, L * 0.3, 4, 1);    // techo
+      ctx.fillStyle = '#9fd8ff'; rr(-Wd / 2 + 5, L * 0.28, Wd - 10, L * 0.1, 3);               // luneta
+      if (id === 'colectivo'){ ctx.fillStyle = '#ffd23f'; rr(-Wd * 0.38, L * 0.02, Wd * 0.76, L * 0.12, 3);
+        ctx.fillStyle = '#222'; ctx.font = '900 7px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('COLECT.', 0, L * 0.08); }
+      if (id === 'camion'){ ctx.fillStyle = '#ddd'; rr(-Wd / 2 + 1, -L * 0.05, Wd - 2, L * 0.55, 3); }
+    }
+    ctx.fillStyle = opt.night ? '#fff8c0' : '#fff6d5'; ell(-Wd * 0.3, -L / 2 + 3, 3, 2.5, 1); ell(Wd * 0.3, -L / 2 + 3, 3, 2.5, 1);
+    ctx.fillStyle = opt.brake ? '#ff2a2a' : '#a01818'; ell(-Wd * 0.32, L / 2 - 2, 3, 2, 1); ell(Wd * 0.32, L / 2 - 2, 3, 2, 1);
+  }
+  ctx.restore();
+}
+
+// ---------- Ruta: utilidades sobre los datos reales ----------
+function segAt(R, d){ for (const s of R.segs) if (d < s.d1) return s; return R.segs[R.segs.length - 1]; }
+const lanesAt = (R, d) => segAt(R, d).lanes;
+function makeRng(seed){ let s = seed >>> 0 || 1; return () => (s = (s * 1664525 + 1013904223) >>> 0) / 4294967296; }
+
+// ---------- Partida ----------
+let G = null;
+function startSelected(){
+  if (rsel >= M.routes.length){ endless = true; startRoute(Math.floor(Math.random() * M.routes.length), 0); }
+  else { endless = false; startRoute(rsel, 0); }
+}
+function resolveEnv(R){
+  const h = new Date().getHours();
+  const night = R.night || hora === 'noche' || (hora === 'ahora' && (h >= 20 || h < 7));
+  const rain = clima === 'lluvia' || (clima === 'auto' && Math.random() < 0.35);
+  const rush = hora === 'ahora' && ((h >= 7 && h < 10) || (h >= 18 && h < 21));
+  return { night, rain, rush };
+}
+function startRoute(i, lap){
+  const R = M.routes[i], V = VEH[vsel], env = resolveEnv(R), rng = makeRng(i * 977 + 13 + lap * 31);
+  const ev = [];
+  // eventos reales de la ruta
+  for (const e of R.events){
+    if (e.type === 'anegamiento' && !env.rain) continue;
+    if (e.type === 'zona' && !env.night) continue;
+    ev.push(Object.assign({ real:true, lane: e.lane ?? Math.floor(rng() * 2) }, e));
+  }
+  // eventos simulados (hoyos genéricos, charcos con lluvia, semáforos en cruces grandes)
+  const diffK = 1 + lap * 0.25;
+  for (let d = 350; d < R.len - 200; d += (140 + rng() * 260) / diffK){
+    const seg = segAt(R, d), dens = seg.cls >= 4 ? 1 : seg.cls >= 3 ? 0.75 : 0.55;
+    if (rng() < dens) ev.push({ type:'hoyo', d, lane: Math.floor(rng() * seg.lanes), off: rng() - 0.5, size: 0.8 + rng() * 0.8 });
+  }
+  if (env.rain) for (let d = 500; d < R.len - 300; d += 500 + rng() * 700){ const seg = segAt(R, d);
+    ev.push({ type:'charco', d, lane: Math.floor(rng() * seg.lanes), size: 1 + rng() }); }
+  let lastLight = -1e9;
+  for (const c of R.cross) if (c.major && c.d - lastLight > 450 && c.d > 300 && c.d < R.len - 150){
+    ev.push({ type:'semaforo', d:c.d, phase: rng() * 10, name:c.name }); lastLight = c.d; }
+  ev.sort((a, b) => a.d - b.d);
+  const keep = G && endless ? { score:G.score, money:G.money, hp:G.hp } : null;
+  G = { R, ri:i, lap, V, env, p:0, v:0, x:0, hp: keep ? keep.hp : V.hp, inv:0, ev, traffic:[], fx:[], msgs:[],
+        score: keep ? keep.score : 0, money: keep ? keep.money : 0, stats:{ hoyos:0, esquivados:0, choques:0, partes:0, robos:0, agua:0 },
+        stopT:0, zoneOn:false, spawnT:1, bump:0, shake:0, t:0, done:false, nearT:0, rainY:0, seen:new Set() };
+  scene = 'drive'; paused = false;
+  msg(R.name, 2.5, 30, '#ffe14d'); msg((env.night ? '🌙 Noche' : '☀️ Día') + (env.rain ? ' · 🌧️ Lluvia' : '') + (env.rush ? ' · Hora punta' : ''), 2.5, 18, '#fff', 40);
+  SFX.rain(env.rain);
+}
+function msg(s, life = 1.4, size = 22, col = '#ffe14d', dy = 0, sub){ G.msgs.push({ s, t:0, life, size, col, dy, sub }); }
+function pop(s, x, y, col = '#fff', size = 18){ G.fx.push({ k:'txt', s, x, y, t:0, life:1, col, size }); }
+
+// ---------- Actualización de la conducción ----------
+const roadHalf = l => l * LW / 2;                       // metros desde el centro de la calzada
+const laneX = (l, i) => -roadHalf(l) + LW * (i + 0.5);   // centro de la pista i
+function update(dt){
+  T += dt; sndPop -= dt;
+  if (scene !== 'drive' || paused || !G){ if (G && scene !== 'drive') SFX.engine(0, false, ''); return; }
+  const g = G, V = g.V, R = g.R, seg = segAt(R, g.p), lanes = seg.lanes;
+  g.t += dt;
+  const progK = K * (V.prog || 1);
+  // ----- jugador -----
+  const boost = keys.ArrowUp || keys.KeyW ? 15 : 0;    // por defecto respeta la velocidad máxima de la calle
+  const limit = Math.min(V.vmax, (seg.vmax || 50) + boost) * (g.env.rush ? 0.9 : 1);
+  const brake = braking || keys.ArrowDown || keys.KeyS || keys.Space || touches >= 2;
+  const gas = keys.ArrowUp || keys.KeyW || touchX !== null || (!brake && !keys.ArrowLeft && !keys.ArrowRight && g.t < 1.2);
+  const autoGas = touchX !== null || keys.ArrowUp || keys.KeyW || (!('ontouchstart' in window) && !brake);
+  if (brake) g.v = Math.max(0, g.v - 45 * dt);
+  else if (gas || autoGas) g.v = Math.min(limit, g.v + V.acc * dt * (g.v > limit * 0.7 ? 0.6 : 1));
+  else g.v = Math.max(0, g.v - 6 * dt);
+  if (g.v > limit) g.v = Math.max(limit, g.v - 30 * dt);
+  // dirección
+  let target = g.x;
+  if (touchX !== null) target = (touchX - W / 2) / PXM;
+  const sx = (keys.ArrowRight || keys.KeyD ? 1 : 0) - (keys.ArrowLeft || keys.KeyA ? 1 : 0);
+  if (sx) target = g.x + sx * 3;
+  const steer = V.steer * (g.env.rain ? 0.8 : 1) * (0.4 + Math.min(1, g.v / 30) * 0.6);
+  g.x += clamp(target - g.x, -steer * dt, steer * dt);
+  const edge = roadHalf(lanes) - V.wid / 2;
+  if (Math.abs(g.x) > edge + 0.6){ g.v = Math.max(0, g.v - 40 * dt); if (g.v > 15 && Math.random() < dt * 4) g.fx.push({ k:'dust', x: W / 2 + g.x * PXM, y: PY + 10, t:0, life:0.5 }); }
+  g.x = clamp(g.x, -edge - 1.2, edge + 1.2);
+  const dp = g.v / 3.6 * dt * progK;
+  g.p += dp; g.inv -= dt; g.bump = Math.max(0, g.bump - dt * 4); g.shake = Math.max(0, g.shake - dt * 20);
+  g.score += dp * 0.1;
+  SFX.engine(g.v, true, V.id);
+  // ----- avisos de calle / cruces / lugares -----
+  for (const c of R.cross) if (c.d > g.p && c.d < g.p + 30 && !g.seen.has('c' + c.d)){ g.seen.add('c' + c.d); }
+  for (const s of R.segs) if (s.d0 > 0 && g.p > s.d0 - 260 && !g.seen.has('turn' + s.d0)){ g.seen.add('turn' + s.d0);
+    msg((s.turn ? s.turn + ' → ' : 'Sigue por ') + s.name, 2.2, 18, '#fff', 60); }
+  for (const pi of R.pois) if (g.p > pi.d - 120 && !g.seen.has('poi' + pi.d)){ g.seen.add('poi' + pi.d); }
+  // ----- tráfico simulado -----
+  const cls = seg.cls, dens = (cls <= 2 ? 1.25 : cls === 3 ? 1 : 0.65) * (g.env.rush ? 1.6 : 1) * (g.env.night ? 0.55 : 1) * (seg.slow ? 1.8 : 1);
+  g.spawnT -= dt * dens;
+  if (g.spawnT <= 0 && g.traffic.length < 9){
+    g.spawnT = rnd(0.9, 2.2);
+    const lane = Math.floor(Math.random() * lanes), r = Math.random();
+    const kind = r < 0.12 ? 'micro' : r < 0.2 ? 'camion' : r < 0.32 ? 'colectivo' : r < 0.4 ? 'moto' : 'auto';
+    const dims = { micro:[11, 2.5], camion:[8, 2.4], colectivo:[4.5, 1.8], moto:[2, 0.8], auto:[4.3, 1.8] }[kind];
+    const base = (seg.slow ? 12 : seg.vmax || 50) * rnd(0.45, 0.8);
+    const cols = ['#4da3ff','#7bd389','#f7f7f7','#b0b8c4','#ff8c42','#9b5de5','#2ec4b6','#e63946'];
+    const d0 = g.p + (H + 120) / PXM * progK;
+    // nunca tapar todas las pistas a la vez: la pista elegida debe estar libre y quedar al menos otra libre cerca
+    const busy = l => g.traffic.some(t => t.lane === l && Math.abs(t.d - d0) < 22 * progK);
+    let freeLanes = 0; for (let l = 0; l < lanes; l++) if (!busy(l)) freeLanes++;
+    const free = !busy(lane) && freeLanes >= 2;
+    if (free) g.traffic.push({ kind, lane, x: laneX(lanes, lane), d: d0, v: base, len: dims[0], wid: dims[1],
+      col: kind === 'micro' ? '#e8414c' : kind === 'colectivo' ? '#1e1e1e' : kind === 'camion' ? '#3d5a80' : cols[Math.floor(Math.random() * cols.length)],
+      stopT: kind === 'micro' && Math.random() < 0.5 ? rnd(4, 12) : -1, brake:false, enc:false });
+  }
+  for (const t of g.traffic){
+    // seguir pista si la calle cambia de ancho
+    if (t.lane >= lanes) t.lane = lanes - 1;
+    if (!t.enc) t.x += (laneX(lanes, t.lane) - t.x) * Math.min(1, dt * 2);
+    // micros que paran en paraderos
+    if (t.stopT > 0){ t.stopT -= dt; if (t.stopT <= 0){ t.paradero = 2.5; } }
+    let tv = t.v;
+    if (t.paradero > 0){ t.paradero -= dt; tv = 0; t.lane = lanes - 1; }
+    // frenar ante semáforo en rojo
+    for (const e of g.ev) if (e.type === 'semaforo' && e.d > t.d && e.d - t.d < 25 && lightState(e) !== 'verde') tv = 0;
+    t.brake = tv < t.cur - 0.1;
+    t.cur = t.cur === undefined ? tv : t.cur + clamp(tv - t.cur, -40 * dt, 20 * dt);
+    t.d += t.cur / 3.6 * dt * progK;
+    if (t.enc){ t.x += t.encV * dt; if (Math.abs(t.x) > roadHalf(lanes) + 3) t.gone = true; }
+  }
+  // ----- colisiones -----
+  const pl = { x:g.x, w:V.wid, l:V.len };
+  const vis = d => (d - g.p) / progK;          // metros dibujados entre objeto y jugador
+  for (const t of g.traffic){
+    const dy = vis(t.d);
+    if (dy < -40) t.gone = true;
+    if (g.inv <= 0 && Math.abs(t.x - g.x) < (t.wid + V.wid) / 2 * 0.9 && Math.abs(dy) < (t.len + V.len) / 2 * 0.9){
+      hurt(1, '¡CHOQUE!', '#ff6a3d'); g.stats.choques++; SFX.crash(); g.v *= 0.25; t.cur = (t.cur || 0) + 10; t.d += 3 * progK; g.shake = 8;
+    } else if (!t.passed && dy < -(t.len + V.len) / 2 && Math.abs(t.x - g.x) < (t.wid + V.wid) / 2 + 0.8 && g.v > 20){
+      t.passed = true; g.score += 50; pop('¡Uf! +50', W / 2 + g.x * PXM, PY - 40, '#7dffb0', 16); SFX.phew();
+    }
+    if (dy < -1 && !t.passed) t.passed = true;
+  }
+  for (const e of g.ev){
+    if (e.done) continue;
+    const dy = vis(e.d);
+    if (dy > 70) break;
+    if (e.type === 'hoyo' || e.type === 'hoyoReal'){
+      const ex = laneX(lanes, Math.min(e.lane, lanes - 1)) + (e.off || 0) * 1.2, r = (e.size || 1) * (e.real ? 1.4 : 1);
+      if (Math.abs(dy) < r + V.len * 0.35 && Math.abs(ex - g.x) < r + V.wid * 0.4){
+        e.done = true; g.stats.hoyos++; SFX.plop(); g.bump = 1; g.shake = 6;
+        const cost = Math.round((e.real ? 45000 : 25000) * V.hoyo / 1000) * 1000;
+        g.money += cost; g.v *= 0.55;
+        if (V.hoyo >= 1 || Math.random() < 0.4) hurt(V.hoyo >= 1.5 ? 1 : (e.real ? 1 : 0.5), e.real ? '¡HOYO REAL!' : '¡PLOP!', '#ffb703', true);
+        pop('-' + fmt$(cost), W / 2 + g.x * PXM, PY - 70, '#ff8fa3', 16);
+        if (e.real) msg(e.name, 3, 15, '#fff', 90, e.src);
+      } else if (dy < -r - V.len){ e.done = true; g.stats.esquivados++; g.score += e.real ? 300 : 40; if (e.real){ pop('¡Esquivaste un hoyo real! +300', W / 2, PY - 90, '#7dffb0', 15); msg(e.name, 3, 15, '#fff', 90, e.src); } }
+    } else if (e.type === 'obra' || e.type === 'cierre'){
+      const blocked = e.type === 'cierre' ? Math.max(1, lanes - 1) : Math.min(e.lanesN || 1, lanes - 1);
+      const lenM = e.type === 'cierre' ? 14 : 9;
+      const x0 = -roadHalf(lanes), x1 = x0 + blocked * LW;
+      const fromRight = e.side === 'der';
+      const bx0 = fromRight ? roadHalf(lanes) - blocked * LW : x0, bx1 = fromRight ? roadHalf(lanes) : x1;
+      if (!e.warned && dy < 55){ e.warned = true; msg(e.type === 'cierre' ? '⚠ DESVÍO: ' + e.name : '🚧 OBRAS: ' + e.name, 3, 15, '#ffb703', 90, e.src); }
+      if (dy < lenM / 2 + V.len / 2 && dy > -lenM / 2 - V.len / 2 && g.x + V.wid / 2 > bx0 && g.x - V.wid / 2 < bx1 && g.inv <= 0){
+        hurt(1, '¡A LAS OBRAS!', '#ff6a3d'); g.stats.choques++; SFX.crash(); g.v *= 0.2; g.shake = 8;
+        g.x = fromRight ? bx0 - V.wid / 2 - 0.3 : bx1 + V.wid / 2 + 0.3;
+      }
+      if (dy < -lenM - V.len){ e.done = true; g.score += 150; }
+    } else if (e.type === 'anegamiento' || e.type === 'charco'){
+      const wid = e.type === 'anegamiento' ? roadHalf(lanes) * 2 : LW * (e.size || 1.2), lenM = e.type === 'anegamiento' ? 16 : 6;
+      const cx = e.type === 'anegamiento' ? 0 : laneX(lanes, Math.min(e.lane, lanes - 1));
+      if (!e.warned && dy < 60 && e.type === 'anegamiento'){ e.warned = true; msg('🌊 CALLE ANEGADA: ' + e.name, 3, 15, '#8fd6ff', 90, e.src); }
+      if (Math.abs(dy) < lenM / 2 && Math.abs(g.x - cx) < wid / 2){
+        g.v = Math.max(g.v - (e.type === 'anegamiento' ? 70 : 35) * dt * (0.3 + V.agua), 6);
+        if (!e.hit){ e.hit = true; SFX.splash(); g.stats.agua++; for (let i = 0; i < 12; i++) g.fx.push({ k:'drop', x: W / 2 + g.x * PXM + rnd(-20, 20), y: PY, vx: rnd(-120, 120), vy: rnd(-200, -60), t:0, life:0.6 });
+          if (V.agua >= 1 && g.v > 25) hurt(1, '¡TE MOJASTE!', '#8fd6ff'); }
+      }
+      if (dy < -lenM){ e.done = true; }
+    } else if (e.type === 'semaforo'){
+      const st = lightState(e);
+      if (!e.warned && dy < 50 && st !== 'verde'){ e.warned = true; }
+      if (dy < -V.len / 2 && !e.crossed){
+        e.crossed = true; e.done = true;
+        if (st === 'rojo'){ g.stats.partes++; g.money += 100000; msg('🚔 ¡PARTE! Pasaste en rojo', 2, 20, '#ff6a3d', 120); pop('-$100.000', W / 2, PY - 60, '#ff8fa3', 16); SFX.whistle(); }
+        else g.score += 20;
+      }
+    } else if (e.type === 'zona'){
+      const inZ = g.p > e.d && g.p < e.d2;
+      if (inZ && !g.zoneOn){ g.zoneOn = e; SFX.alarm(); msg('🚨 ZONA DE ENCERRONAS: ¡NO TE DETENGAS!', 3, 15, '#ff4b6e', 90, e.src); msg(e.name, 3, 13, '#fff', 120); }
+      if (inZ){
+        if (g.v < 8) g.stopT += dt; else g.stopT = Math.max(0, g.stopT - dt * 2);
+        if (g.stopT > 1.6){ g.stopT = -2; robbed(); }
+        if (Math.random() < dt * 0.35) encerrona();
+      }
+      if (g.p > e.d2){ if (g.zoneOn === e){ g.zoneOn = false; g.score += 400; msg('¡Saliste de la zona roja! +400', 2, 16, '#7dffb0', 90); } e.done = true; }
+    }
+  }
+  // ----- textos y efectos -----
+  for (const f of g.fx){ f.t += dt; if (f.vx !== undefined){ f.x += f.vx * dt; f.y += f.vy * dt; f.vy += 500 * dt; } else if (f.k === 'txt') f.y -= 30 * dt; }
+  for (const m of g.msgs) m.t += dt;
+  g.fx = g.fx.filter(f => f.t < f.life); g.msgs = g.msgs.filter(m => m.t < m.life);
+  g.traffic = g.traffic.filter(t => !t.gone && vis(t.d) < 200);
+  g.ev = g.ev.filter(e => !e.done || vis(e.d) > -60);
+  // ----- fin -----
+  if (g.p >= R.len && !g.done){ finish(true); }
+}
+function lightState(e){ const c = (G.t + e.phase) % 11; return c < 6 ? 'verde' : c < 7.5 ? 'amarillo' : 'rojo'; }
+function hurt(n, label, col, silent){
+  const g = G; if (g.inv > 0 && !silent) return;
+  g.hp -= n; g.inv = 1.2; msg(label, 1, 30, col, -120);
+  if (g.hp <= 0 && !g.done) finish(false, 'Tu ' + g.V.n.toLowerCase() + ' quedó en panne');
+}
+function robbed(){
+  const g = G; g.stats.robos++; SFX.robbed(); g.money += 350000; g.v = 0;
+  for (let i = 0; i < 2; i++) g.fx.push({ k:'ladron', x: i ? W + 20 : -20, y: PY - 10, tx: W / 2 + g.x * PXM + (i ? 30 : -30), t:0, life:2.2 });
+  msg('😱 ¡PORTONAZO! Te detuviste en zona roja', 2.5, 18, '#ff4b6e', -60);
+  hurt(1, '-$350.000', '#ff4b6e', true);
+}
+function encerrona(){
+  const g = G, lanes = lanesAt(g.R, g.p);
+  if (g.traffic.some(t => t.enc)) return;
+  const side = Math.random() < 0.5 ? -1 : 1;
+  g.traffic.push({ kind:'auto', lane:0, x: side * (roadHalf(lanes) + 2), d: g.p + 32 * g.V.prog * K || g.p + 160, v: 0, cur: 0, len:4.3, wid:1.8, col:'#2b2d42',
+    enc:true, encV: -side * 4.5, brake:true, stopT:-1 });
+  SFX.horn(); msg('¡Auto sospechoso cruzándose! Esquívalo', 1.5, 15, '#ff4b6e', 150);
+}
+function finish(ok, why){
+  const g = G; g.done = true; g.ok = ok; g.why = why;
+  const bonus = ok ? Math.max(0, 2000 - g.money / 200) + g.hp * 300 : 0;
+  g.final = Math.round(g.score + bonus);
+  if (ok){ SFX.win();
+    const k = 'r' + g.ri; const stars = (g.stats.hoyos === 0 ? 1 : 0) + (g.stats.choques === 0 ? 1 : 0) + (g.stats.partes === 0 && g.stats.robos === 0 ? 1 : 0);
+    g.stars = stars; const b = best[k] || { score:0, stars:0 };
+    best[k] = { score: Math.max(b.score, g.final), stars: Math.max(b.stars, stars) }; store.set('best', best);
+    if (endless){ setTimeout(() => { if (scene === 'drive' && G === g) startRoute((g.ri + 1) % M.routes.length, g.lap + (g.ri + 1 >= M.routes.length ? 1 : 0)); }, 2200); return; }
+  } else SFX.lose();
+  if (endless){ const b = best.endless || 0; if (g.final > b){ best.endless = g.final; store.set('best', best); } }
+  SFX.rain(false);
+  setTimeout(() => { if (G === g) scene = 'end'; }, 1600);
+}
+
+// ---------- Dibujo de la conducción ----------
+const yOf = d => PY - (d - G.p) / (K * (G.V.prog || 1)) * PXM;
+function drawDrive(){
+  const g = G, R = g.R, seg = segAt(R, g.p), lanes = seg.lanes, night = g.env.night, rain = g.env.rain;
+  const sh = g.shake ? rnd(-g.shake, g.shake) : 0;
+  ctx.save(); ctx.translate(sh, g.bump * -4 + (g.shake ? rnd(-g.shake, g.shake) * 0.5 : 0));
+  // veredas y entorno (casas/árboles según barrio)
+  ctx.fillStyle = rain ? '#5d6b5a' : '#7fa86a'; ctx.fillRect(-10, -10, W + 20, H + 20);
+  const half = roadHalf(lanes) * PXM, cx = W / 2;
+  ctx.fillStyle = rain ? '#9aa3ab' : '#c9c3b5'; ctx.fillRect(cx - half - 34, -10, half * 2 + 68, H + 20);   // veredas
+  // decoración lateral que avanza con la ruta (casas, árboles, postes)
+  const pxProg = K * (g.V.prog || 1);
+  const step = 26;    // metros dibujados entre elementos
+  const base = Math.floor(g.p / pxProg / step);
+  for (let i = -2; i < H / PXM / step + 3; i++){
+    const n = base + i, y = PY - (n * step - g.p / pxProg) * PXM;
+    for (const s of [-1, 1]){
+      const h = (n * 2654435761 + (s > 0 ? 97 : 13)) >>> 0, x = cx + s * (half + 34 + 30 + (h % 40));
+      const kind = h % 5;
+      if (kind < 2){ ctx.fillStyle = ['#e9c46a','#f4a261','#e76f51','#90be6d','#a8dadc','#cdb4db'][h % 6]; ol(2); rr(x - 26, y - 22, 52, 44, 4);
+        ctx.fillStyle = 'rgba(0,0,0,.18)'; ctx.fillRect(x - 26, y - 2, 52, 3); }
+      else if (kind < 4){ ctx.fillStyle = rain ? '#3e6b3a' : '#4f9a3a'; ol(2); ell(x, y, 18, 18); ctx.fillStyle = 'rgba(255,255,255,.15)'; ell(x - 5, y - 5, 6, 6, 1); }
+      else { ctx.fillStyle = '#666'; ctx.fillRect(x - 2, y - 2, 4, 4); if (night){ const gr = ctx.createRadialGradient(x, y, 2, x, y, 60); gr.addColorStop(0, 'rgba(255,220,120,.35)'); gr.addColorStop(1, 'rgba(255,220,120,0)'); ctx.fillStyle = gr; ctx.fillRect(x - 60, y - 60, 120, 120); } }
+    }
+  }
+  // calzada
+  ctx.fillStyle = rain ? '#3d4249' : '#55595f'; ctx.fillRect(cx - half, -10, half * 2, H + 20);
+  ctx.fillStyle = '#ddd'; ctx.fillRect(cx - half - 4, -10, 4, H + 20); ctx.fillRect(cx + half, -10, 4, H + 20);
+  // líneas de pista
+  ctx.fillStyle = '#f1f1f1'; const dash = 3 * PXM, gap = 6 * PXM, off = ((g.p / pxProg) * PXM) % (dash + gap);
+  for (let l = 1; l < lanes; l++){ const lx = cx - half + l * LW * PXM - 1.5; for (let y = -dash - gap + off; y < H + 10; y += dash + gap) ctx.fillRect(lx, y, 3, dash); }
+  if (rain){ ctx.fillStyle = 'rgba(180,200,230,.06)'; for (let i = 0; i < 6; i++) ctx.fillRect(cx - half + i * 37 % (half * 2), 0, 12, H); }
+  // cruces (calles reales que atraviesan)
+  for (const c of R.cross){
+    const y = yOf(c.d); if (y < -60 || y > H + 60) continue;
+    const bw = (c.major ? 12 : 8) * PXM;
+    ctx.fillStyle = rain ? '#3d4249' : '#55595f'; ctx.fillRect(-10, y - bw / 2, W + 20, bw);
+    ctx.fillStyle = '#eee'; for (let k = 0; k < half * 2; k += 12) ctx.fillRect(cx - half + k, y + bw / 2 + 2, 7, 14);   // paso de cebra
+    streetSign(c.name, cx + half + 38 + 60 > W - 20 ? W - 95 : cx + half + 98, y - bw / 2 - 16, 11, 170);
+  }
+  // destino
+  const yf = yOf(R.len);
+  if (yf > -80 && yf < H + 40){ for (let k = 0; k < half * 2; k += 16){ ctx.fillStyle = (k / 16) % 2 ? '#fff' : '#222'; ctx.fillRect(cx - half + k, yf - 8, 16, 8); ctx.fillStyle = (k / 16) % 2 ? '#222' : '#fff'; ctx.fillRect(cx - half + k, yf, 16, 8); }
+    txt('🏁 ' + R.to, W / 2, yf - 34, 18, '#7dffb0'); }
+  // lugares de interés (reales)
+  for (const pi of R.pois){
+    const y = yOf(pi.d); if (y < -80 || y > H + 80) continue;
+    const s = pi.side === 'izq' ? -1 : 1, x = s < 0 ? Math.max(70, cx - half - 80) : Math.min(W - 70, cx + half + 80);
+    poiIcon(pi.cat, x, y); ctx.save(); fitTxt(pi.name, x, y + 30, 11, 140, '#fff'); ctx.restore();
+  }
+  // eventos
+  for (const e of g.ev){
+    const y = yOf(e.d); if (y < -120 || y > H + 80) continue;
+    drawEvent(e, y, lanes, cx, half);
+  }
+  // tráfico
+  for (const t of g.traffic){ const y = yOf(t.d); if (y < -100 || y > H + 100) continue;
+    drawVehicle(t.kind, cx + t.x * PXM, y, t.len, t.wid, t.col, { brake: t.brake || t.paradero > 0, night, rot: t.enc ? t.encV * 0.06 : 0 }); }
+  // jugador
+  if (!(g.inv > 0 && Math.floor(g.inv * 12) % 2)) drawVehicle(g.V.id, cx + g.x * PXM, PY, g.V.len, g.V.wid, g.V.col, { night, brake: braking || keys.ArrowDown || keys.Space });
+  // efectos
+  for (const f of g.fx){
+    const a = 1 - f.t / f.life;
+    if (f.k === 'txt'){ ctx.globalAlpha = a; txt(f.s, f.x, f.y, f.size, f.col); ctx.globalAlpha = 1; }
+    else if (f.k === 'drop'){ ctx.fillStyle = `rgba(160,210,255,${a})`; ell(f.x, f.y, 3, 4, 1); }
+    else if (f.k === 'dust'){ ctx.fillStyle = `rgba(200,180,140,${a * 0.6})`; ell(f.x, f.y + f.t * 40, 10 + f.t * 20, 6 + f.t * 10, 1); }
+    else if (f.k === 'ladron'){ const k = Math.min(1, f.t / 0.6); const x = f.x + (f.tx - f.x) * k; drawThief(x, f.y + Math.sin(f.t * 20) * 2, f.t); }
+  }
+  ctx.restore();
+  // noche: oscurecer con focos del jugador
+  if (night){
+    ctx.save();
+    const px = cx + g.x * PXM;
+    const grd = ctx.createRadialGradient(px, PY - 170, 30, px, PY - 120, 330);
+    grd.addColorStop(0, 'rgba(10,15,35,0)'); grd.addColorStop(0.5, 'rgba(10,15,35,.35)'); grd.addColorStop(1, 'rgba(10,15,35,.72)');
+    ctx.fillStyle = grd; ctx.fillRect(0, 0, W, H);
+    ctx.restore();
+  }
+  if (rain){ g.rainY = (g.rainY + 14) % 40; ctx.strokeStyle = 'rgba(200,220,255,.45)'; ctx.lineWidth = 1.5; ctx.beginPath();
+    for (let i = 0; i < 70; i++){ const x = (i * 73) % W, y = ((i * 131) % H + g.rainY * 18) % H; ctx.moveTo(x, y); ctx.lineTo(x - 4, y + 14); } ctx.stroke(); }
+  if (g.zoneOn){ ctx.fillStyle = `rgba(255,30,60,${0.12 + 0.08 * Math.sin(T * 6)})`; ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = 'rgba(255,40,70,.8)'; ctx.lineWidth = 6; ctx.strokeRect(3, 3, W - 6, H - 6);
+    if (g.stopT > 0.2){ txt('¡MUÉVETE!', W / 2, PY - 120, 34 + Math.sin(T * 20) * 3, '#ff4b6e'); } }
+  drawHUD();
+}
+function drawEvent(e, y, lanes, cx, half){
+  if (e.type === 'hoyo' || e.type === 'hoyoReal'){
+    const x = cx + (laneX(lanes, Math.min(e.lane, lanes - 1)) + (e.off || 0) * 1.2) * PXM, r = (e.size || 1) * (e.real ? 1.4 : 1) * PXM;
+    ctx.fillStyle = '#2b2b2b'; ctx.strokeStyle = '#7a7a7a'; ctx.lineWidth = 3;
+    ctx.beginPath(); for (let i = 0; i < 9; i++){ const a = i / 9 * TAU, rr2 = r * (0.8 + ((i * 37 + e.d) % 7) / 20); ctx.lineTo(x + Math.cos(a) * rr2, y + Math.sin(a) * rr2 * 0.75); } ctx.closePath(); ctx.fill(); ctx.stroke();
+    ctx.fillStyle = '#151515'; ell(x + r * 0.1, y + r * 0.1, r * 0.5, r * 0.32, 1);
+    ctx.strokeStyle = '#333'; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(x + r, y); ctx.lineTo(x + r * 1.6, y - r * 0.4); ctx.moveTo(x - r, y + 2); ctx.lineTo(x - r * 1.5, y + r * 0.5); ctx.stroke();
+    if (e.real){
+      if (e.box){ ctx.fillStyle = '#c69c6d'; ol(2); rr(x + r * 0.9, y - 14, 22, 18, 2); ctx.fillStyle = '#8a6a45'; ctx.fillRect(x + r * 0.9 + 3, y - 10, 16, 2); }
+      ctx.save(); ctx.globalAlpha = 0.95; txt('HOYO REAL', x, y - r - 12, 11, '#ffb703'); ctx.restore();
+    }
+  } else if (e.type === 'obra' || e.type === 'cierre'){
+    const blocked = e.type === 'cierre' ? Math.max(1, lanes - 1) : Math.min(e.lanesN || 1, lanes - 1);
+    const lenM = e.type === 'cierre' ? 14 : 9, fromRight = e.side === 'der';
+    const x0 = fromRight ? cx + half - blocked * LW * PXM : cx - half, w = blocked * LW * PXM, h = lenM * PXM;
+    ctx.fillStyle = e.type === 'cierre' ? 'rgba(120,80,40,.55)' : 'rgba(180,120,60,.45)'; ctx.fillRect(x0, y - h / 2, w, h);
+    // barrera rayada
+    ctx.save(); ctx.beginPath(); ctx.rect(x0, y + h / 2 - 12, w, 12); ctx.clip();
+    for (let k = -20; k < w + 20; k += 16){ ctx.fillStyle = (k / 16) % 2 ? '#ff7b00' : '#fff'; ctx.beginPath(); ctx.moveTo(x0 + k, y + h / 2); ctx.lineTo(x0 + k + 8, y + h / 2 - 12); ctx.lineTo(x0 + k + 16, y + h / 2 - 12); ctx.lineTo(x0 + k + 8, y + h / 2); ctx.fill(); }
+    ctx.restore(); ol(2); ctx.strokeRect(x0, y + h / 2 - 12, w, 12);
+    for (let k = 0; k < 4; k++){ const cxn = x0 + 10 + (w - 20) * (k / 3); cone(cxn, y - h / 2 + 10 + (k % 2) * 8); }
+    worker(x0 + w / 2, y - 4);
+    const ax = fromRight ? x0 - 30 : x0 + w + 30;
+    ctx.fillStyle = '#ffb703'; ol(2); rr(ax - 18, y + h / 2 - 50, 36, 26, 4); txt(fromRight ? '←' : '→', ax, y + h / 2 - 37, 18, '#222', 'center', false);
+    if (e.type === 'cierre'){ txt('DESVÍO', x0 + w / 2, y - h / 2 - 12, 14, '#ffb703'); }
+  } else if (e.type === 'anegamiento' || e.type === 'charco'){
+    const wid = e.type === 'anegamiento' ? half * 2 + 50 : LW * (e.size || 1.2) * PXM, h = (e.type === 'anegamiento' ? 16 : 6) * PXM;
+    const x = e.type === 'anegamiento' ? cx : cx + laneX(lanes, Math.min(e.lane, lanes - 1)) * PXM;
+    ctx.fillStyle = 'rgba(70,130,200,.75)'; ctx.strokeStyle = 'rgba(200,230,255,.8)'; ctx.lineWidth = 2; ell(x, y, wid / 2, h / 2);
+    ctx.strokeStyle = 'rgba(255,255,255,.5)'; for (let k = 0; k < 4; k++){ const rr3 = ((T * 0.8 + k * 0.25) % 1); ctx.beginPath(); ctx.ellipse(x + (k - 1.5) * wid * 0.2, y + ((k * 13) % 9) - 4, rr3 * 30, rr3 * 10, 0, 0, TAU); ctx.stroke(); }
+    if (e.type === 'anegamiento') txt('CALLE ANEGADA', x, y - h / 2 - 12, 13, '#8fd6ff');
+  } else if (e.type === 'semaforo'){
+    const st = lightState(e);
+    ctx.fillStyle = '#fff'; ctx.fillRect(cx - half, y + 4, half * 2, 5);
+    const px = cx + half + 14; ctx.fillStyle = '#333'; ctx.fillRect(px - 2, y - 40, 4, 44);
+    ctx.fillStyle = '#222'; ol(2); rr(px - 10, y - 74, 20, 44, 4);
+    [['rojo', '#ff2a2a', -64], ['amarillo', '#ffcc00', -52], ['verde', '#2bd46b', -40]].forEach(([n, c, dy]) => { ctx.fillStyle = st === n ? c : '#444'; ell(px, y + dy, 5, 5, 1);
+      if (st === n){ ctx.fillStyle = c + '55'; ell(px, y + dy, 11, 11, 1); } });
+  } else if (e.type === 'zona'){
+    const y2 = yOf(e.d2);
+    ctx.fillStyle = 'rgba(255,40,70,.12)'; ctx.fillRect(0, Math.max(-10, y2), W, Math.min(H + 10, y) - Math.max(-10, y2));
+    if (y > -10 && y < H + 10){ ctx.fillStyle = '#ff4b6e'; ctx.fillRect(0, y - 3, W, 6); txt('ZONA ROJA', W / 2, y - 18, 16, '#ff4b6e'); }
+  }
+}
+function cone(x, y){ ctx.fillStyle = '#ff7b00'; ol(1.5); ctx.beginPath(); ctx.moveTo(x, y - 9); ctx.lineTo(x + 6, y + 6); ctx.lineTo(x - 6, y + 6); ctx.closePath(); ctx.fill(); ctx.stroke(); ctx.fillStyle = '#fff'; ctx.fillRect(x - 3, y - 1, 6, 3); }
+function worker(x, y){ ctx.fillStyle = '#ff9f1c'; ol(2); ell(x, y, 9, 7); ctx.fillStyle = '#ffd23f'; ell(x, y - 2, 6, 6); ctx.fillStyle = '#c8ff3c'; ctx.fillRect(x - 7, y + 1, 14, 3); }
+function drawThief(x, y, t){
+  ctx.fillStyle = '#222'; ol(2); ell(x, y, 11, 9); ctx.fillStyle = '#3a3a3a'; ell(x, y - 2, 8, 8);
+  ctx.fillStyle = '#fff'; ell(x - 3, y - 3, 2.2, 1.6, 1); ell(x + 3, y - 3, 2.2, 1.6, 1);
+  txt('$', x + 14, y - 10 - (t * 20) % 10, 12, '#7dffb0');
+}
+function poiIcon(cat, x, y){
+  const C = { metro:['#e2231a','M'], tren:['#7b2cbf','T'], salud:['#e63946','+'], comercio:['#3a86ff','🛒'], deporte:['#2a9d8f','⚽'], parque:['#38b000','🌳'],
+    cultura:['#9d4edd','🎭'], icono:['#f4a261','⛪'], servicio:['#457b9d','🏛'], educacion:['#ffb703','🎓'], transporte:['#6c757d','🚌'] }[cat] || ['#555', '•'];
+  ctx.fillStyle = C[0]; ol(2.5); rr(x - 18, y - 18, 36, 36, 9);
+  ctx.font = '900 18px "Arial Black", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = '#fff'; ctx.fillText(C[1], x, y + 1);
+}
+function drawHUD(){
+  const g = G, R = g.R, seg = segAt(R, g.p);
+  // letrero de la calle actual
+  streetSign(seg.name, W / 2, 24, 17, 330);
+  // velocidad
+  ctx.fillStyle = 'rgba(0,0,0,.45)'; ol(2); rr(8, 44, 96, 42, 10);
+  txt(Math.round(g.v) + '', 46, 66, 24, g.v > (seg.vmax || 50) + 5 ? '#ff6a3d' : '#fff'); txt('km/h', 86, 72, 10, '#ddd');
+  ctx.fillStyle = '#fff'; ol(2); ell(W - 128 + 0, 66, 18, 18); txt(String(seg.vmax || 50), W - 128, 66, 13, '#222', 'center', false);
+  ctx.strokeStyle = '#e63946'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(W - 128, 66, 16, 0, TAU); ctx.stroke();
+  // vida y gastos
+  for (let i = 0; i < g.V.hp; i++){ ctx.fillStyle = i < g.hp ? '#ff4b6e' : 'rgba(0,0,0,.35)'; ol(1.5); const hx = 12 + i * 20, hy = 100;
+    ctx.beginPath(); ctx.moveTo(hx + 8, hy + 14); ctx.bezierCurveTo(hx - 6, hy + 4, hx + 2, hy - 6, hx + 8, hy + 2); ctx.bezierCurveTo(hx + 14, hy - 6, hx + 22, hy + 4, hx + 8, hy + 14); ctx.fill(); ctx.stroke(); }
+  txt('Gastos ' + fmt$(g.money), W - 10, 96, 12, g.money ? '#ff8fa3' : '#ddd', 'right');
+  txt(String(Math.round(g.score)).padStart(6, '0'), W - 10, 50, 16, '#fff', 'right');
+  drawSoundBtn(GAME_SND);
+  // minimapa con la forma real de la ruta
+  const mx = 10, my = H - 128, mw = 110, mh = 110;
+  ctx.fillStyle = 'rgba(15,25,35,.7)'; ol(2); rr(mx, my, mw, mh, 10);
+  ctx.strokeStyle = '#8fd6ff'; ctx.lineWidth = 3; ctx.beginPath();
+  R.shape.forEach(([sx, sy], i) => { const X = mx + 8 + sx * (mw - 16), Y = my + 8 + sy * (mh - 16); i ? ctx.lineTo(X, Y) : ctx.moveTo(X, Y); }); ctx.stroke();
+  const fr = clamp(g.p / R.len, 0, 1), [qx, qy] = shapeAt(R, fr);
+  ctx.fillStyle = '#ffe14d'; ol(2); ell(mx + 8 + qx * (mw - 16), my + 8 + qy * (mh - 16), 5, 5);
+  const [fx2, fy2] = R.shape[R.shape.length - 1]; txt('🏁', mx + 8 + fx2 * (mw - 16), my + 8 + fy2 * (mh - 16), 12, '#fff', 'center', false);
+  // barra de progreso
+  ctx.fillStyle = 'rgba(0,0,0,.4)'; ctx.fillRect(mx, my - 14, mw, 8); ctx.fillStyle = '#7dffb0'; ctx.fillRect(mx, my - 14, mw * fr, 8);
+  txt(((R.len - g.p) / 1000).toFixed(1) + ' km', mx + mw / 2, my - 24, 11, '#fff');
+  // botón de freno (táctil)
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0){
+    ctx.fillStyle = braking ? 'rgba(255,60,60,.85)' : 'rgba(200,40,40,.55)'; ol(3); ell(BRAKE_BTN.x, BRAKE_BTN.y, BRAKE_BTN.r, BRAKE_BTN.r);
+    txt('FRENO', BRAKE_BTN.x, BRAKE_BTN.y, 15, '#fff');
+  }
+  // mensajes
+  // mensajes apilados (los más nuevos abajo), con fondo para que se lean sobre la calle
+  let yy = 190;
+  for (const m of g.msgs.slice(-5)){
+    const a = Math.max(0, Math.min(1, (m.life - m.t) * 3, m.t * 8)), hgt = m.size + (m.sub ? 16 : 0) + 8;
+    ctx.globalAlpha = a * 0.55; ctx.fillStyle = '#000'; rr(16, yy - m.size / 2 - 4, W - 32, hgt, 8, 1);
+    ctx.globalAlpha = a; fitTxt(m.s, W / 2, yy + 1, m.size, W - 44, m.col);
+    if (m.sub){ ctx.font = '700 11px Arial'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText('Fuente: ' + m.sub, W / 2, yy + m.size / 2 + 8); }
+    ctx.globalAlpha = 1; yy += hgt + 4; }
+  if (paused){ ctx.fillStyle = 'rgba(0,0,0,.55)'; ctx.fillRect(0, 0, W, H); txt('PAUSA', W / 2, H / 2 - 20, 48); txt('toca o P para seguir', W / 2, H / 2 + 30, 18, '#fff'); }
+}
+function shapeAt(R, fr){
+  const S = R.shape, cum = R.shapeCum; let i = 1; while (i < S.length - 1 && cum[i] < fr) i++;
+  const a = cum[i - 1], b = cum[i], k = b > a ? (fr - a) / (b - a) : 0;
+  return [S[i - 1][0] + (S[i][0] - S[i - 1][0]) * k, S[i - 1][1] + (S[i][1] - S[i - 1][1]) * k];
+}
+
+// ---------- Pantalla de título (elegir vehículo, clima y hora) ----------
+function drawTitle(){
+  buttons = [];
+  const grd = ctx.createLinearGradient(0, 0, 0, H); grd.addColorStop(0, '#2e86de'); grd.addColorStop(1, '#54a0ff'); ctx.fillStyle = grd; ctx.fillRect(0, 0, W, H);
+  // calle decorativa con hoyos
+  ctx.fillStyle = '#55595f'; ctx.fillRect(0, 430, W, 140); ctx.fillStyle = '#eee'; for (let x = -((T * 120) % 60); x < W; x += 60) ctx.fillRect(x, 498, 30, 4);
+  for (let i = 0; i < 4; i++){ const x = ((i * 150 - T * 120) % (W + 100) + W + 100) % (W + 100) - 50; ctx.fillStyle = '#2b2b2b'; ctx.strokeStyle = '#7a7a7a'; ctx.lineWidth = 3; ell(x, 470 + (i % 2) * 60, 16, 10); }
+  txt('ESQUIVA', W / 2, 92, 52, '#ffe14d'); txt('HOYOS', W / 2, 150, 64, '#ff8a00');
+  streetSign('Comuna de Maipú', W / 2, 200, 16);
+  drawSoundBtn(MENU_SND);
+  // carrusel de vehículos
+  const V = VEH[vsel];
+  txt('ELIGE TU VEHÍCULO', W / 2, 252, 18, '#fff');
+  ctx.fillStyle = 'rgba(0,0,0,.25)'; ol(2.5); rr(70, 268, W - 140, 150, 16);
+  ctx.save(); ctx.translate(W / 2, 330); ctx.rotate(-Math.PI / 2 + Math.sin(T * 2) * 0.05); drawVehicle(V.id, 0, 0, V.len * (V.id === 'micro' ? 0.6 : 1.2), V.wid * (V.id === 'micro' ? 0.8 : 1.2), V.col, {}); ctx.restore();
+  txt(V.n, W / 2, 386, 22, '#ffe14d');
+  ctx.font = '700 12px Arial'; ctx.fillStyle = '#fff'; ctx.textAlign = 'center'; ctx.fillText(V.desc, W / 2, 406);
+  for (const [s, lbl] of [[-1, '◀'], [1, '▶']]){ const x = W / 2 + s * 205; ctx.fillStyle = '#ffe14d'; ol(3); ell(x, 340, 24, 24); txt(lbl, x + s, 341, 18, '#222', 'center', false);
+    btn(x - 30, 310, 60, 60, () => { vsel = (vsel + s + VEH.length) % VEH.length; store.set('veh', vsel); }); }
+  // estadísticas
+  const stats = [['Velocidad', V.vmax / 80], ['Manejo', V.steer / 10], ['Resistencia', V.hp / 7]];
+  stats.forEach(([n, v], i) => { const y = 588 + i * 0; });
+  ctx.fillStyle = 'rgba(0,0,0,.3)'; rr(40, 440, W - 80, 0.01, 1, 1);
+  stats.forEach(([n, v], i) => { const x = 40 + i * 140; txt(n, x + 65, 584, 12, '#fff'); ctx.fillStyle = 'rgba(0,0,0,.35)'; ol(1.5); rr(x + 10, 594, 110, 10, 5); ctx.fillStyle = '#7dffb0'; rr(x + 10, 594, 110 * v, 10, 5, 1); });
+  // clima y hora
+  const opts = [['Clima: ' + CLIMAS[clima], 40, () => { clima = { auto:'sol', sol:'lluvia', lluvia:'auto' }[clima]; store.set('clima', clima); }],
+                ['Hora: ' + HORAS[hora], W / 2 + 5, () => { hora = { ahora:'dia', dia:'noche', noche:'ahora' }[hora]; store.set('hora', hora); }]];
+  for (const [s, x, fn] of opts){ ctx.fillStyle = '#0f6b3a'; ctx.strokeStyle = '#fff'; ctx.lineWidth = 2; rr(x, 620, W / 2 - 45, 34, 8); fitTxt(s, x + (W / 2 - 45) / 2, 637, 13, W / 2 - 55, '#fff'); btn(x, 620, W / 2 - 45, 34, fn); }
+  // jugar
+  const pulse = 1 + Math.sin(T * 5) * 0.03;
+  ctx.save(); ctx.translate(W / 2, 684); ctx.scale(pulse, pulse); ctx.fillStyle = '#ff8a00'; ol(3); rr(-120, -22, 240, 44, 22); txt('ELEGIR RUTA ▶', 0, 1, 20, '#fff'); ctx.restore();
+  btn(W / 2 - 120, 662, 240, 44, () => { scene = 'map'; });
+  btn(MENU_SND.x - MENU_SND.w / 2, MENU_SND.y - MENU_SND.h / 2, MENU_SND.w, MENU_SND.h, () => { SFX.toggle(); sndPop = 0.25; });
+  ctx.font = '600 9px Arial'; ctx.fillStyle = 'rgba(255,255,255,.8)'; ctx.textAlign = 'center';
+  ctx.fillText('Calles © OpenStreetMap · Eventos: Senapred, Fiscalía, MTT, Red Movilidad, La Batalla de Maipú, Waze', W / 2, H - 6);
+}
+
+// ---------- Mapa de Maipú (elegir ruta) ----------
+function mapXY(lat, lon){ const b = M.bbox, mx = 14, my = 54, mw = W - 28, mh = 330;
+  const sx = mw / (b.e - b.w), sy = mh / (b.n - b.s), s = Math.min(sx, sy * 1.2);
+  const ox = mx + (mw - (b.e - b.w) * s) / 2, oy = my + (mh - (b.n - b.s) * s / 1.2) / 2;
+  return [ox + (lon - b.w) * s, oy + (b.n - lat) * s / 1.2]; }
+const RCOL = ['#ff8a00', '#e63946', '#3a86ff', '#38b000', '#9d4edd', '#ffb703', '#2ec4b6'];
+function drawMap(){
+  buttons = [];
+  ctx.fillStyle = '#1d2733'; ctx.fillRect(0, 0, W, H);
+  txt('MAPA DE MAIPÚ', W / 2, 26, 22, '#ffe14d');
+  ctx.fillStyle = '#26323f'; ol(2); rr(10, 46, W - 20, 346, 12);
+  // calles principales reales
+  ctx.lineCap = 'round';
+  for (const r of M.base){ ctx.strokeStyle = r.c <= 1 ? '#6b7d90' : r.c === 2 ? '#56687a' : '#445566'; ctx.lineWidth = r.c <= 1 ? 3 : r.c === 2 ? 2 : 1.2;
+    ctx.beginPath(); r.p.forEach(([la, lo], i) => { const [x, y] = mapXY(la, lo); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); }
+  // rutas
+  M.routes.forEach((R, i) => { const sel = i === rsel || rsel === M.routes.length;
+    ctx.strokeStyle = RCOL[i % RCOL.length]; ctx.globalAlpha = sel ? 1 : 0.35; ctx.lineWidth = sel ? 5 : 3; ctx.beginPath();
+    R.geo.forEach(([la, lo], k) => { const [x, y] = mapXY(la, lo); k ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.stroke(); ctx.globalAlpha = 1; });
+  // puntos de interés
+  for (const p of M.pois){ const [x, y] = mapXY(p.lat, p.lon); ctx.fillStyle = '#ffe14d'; ell(x, y, 2.5, 2.5, 1); }
+  if (rsel < M.routes.length){ const R = M.routes[rsel];
+    const [ax, ay] = mapXY(R.geo[0][0], R.geo[0][1]), [bx, by] = mapXY(R.geo[R.geo.length - 1][0], R.geo[R.geo.length - 1][1]);
+    ctx.fillStyle = '#fff'; ol(2); ell(ax, ay, 6, 6); txt('🏁', bx, by - 4, 16, '#fff', 'center', false);
+    for (const e of R.events){ if (e.lat == null) continue; const [x, y] = mapXY(e.lat, e.lon);
+      txt({ hoyoReal:'🕳', obra:'🚧', cierre:'⛔', anegamiento:'🌊', zona:'🚨' }[e.type] || '•', x, y, 13, '#fff', 'center', false); } }
+  txt('Toca una ruta', W / 2, 404, 12, '#aab');
+  // lista de rutas
+  const items = M.routes.map((R, i) => ({ t: R.name, s: `${R.from} → ${R.to} · ${(R.len / 1000).toFixed(1)} km`, i, col: RCOL[i % RCOL.length] }));
+  items.push({ t:'♾️ MODO SIN FIN', s:'Todas las rutas seguidas, cada vez más difícil', i: M.routes.length, col:'#fff' });
+  const y0 = 418, ih = Math.min(42, (H - y0 - 70) / items.length);
+  items.forEach((it, k) => { const y = y0 + k * ih, sel = it.i === rsel;
+    ctx.fillStyle = sel ? 'rgba(255,255,255,.18)' : 'rgba(0,0,0,.25)'; ctx.strokeStyle = sel ? it.col : '#111'; ctx.lineWidth = sel ? 3 : 1.5; rr(12, y, W - 24, ih - 4, 8); ctx.stroke();
+    ctx.fillStyle = it.col; ctx.fillRect(18, y + 6, 6, ih - 16);
+    fitTxt(it.t, 32, y + ih * 0.33, 14, W - 140, '#fff', 'left');
+    ctx.font = '600 10px Arial'; ctx.fillStyle = '#cdd'; ctx.textAlign = 'left'; ctx.fillText(it.s.length > 62 ? it.s.slice(0, 60) + '…' : it.s, 32, y + ih * 0.72);
+    const b = it.i < M.routes.length ? best['r' + it.i] : null;
+    if (b) txt('★'.repeat(b.stars) + '☆'.repeat(3 - b.stars), W - 22, y + ih * 0.4, 13, '#ffe14d', 'right');
+    else if (it.i === M.routes.length && best.endless) txt(String(best.endless), W - 22, y + ih * 0.4, 12, '#ffe14d', 'right');
+    btn(12, y, W - 24, ih - 4, () => { if (rsel === it.i) startSelected(); else rsel = it.i; });
+  });
+  ctx.fillStyle = '#ff8a00'; ol(3); rr(W / 2 + 10, H - 56, W / 2 - 22, 44, 22); txt('¡A MANEJAR! ▶', W * 0.75 - 1, H - 34, 17, '#fff');
+  btn(W / 2 + 10, H - 56, W / 2 - 22, 44, startSelected);
+  ctx.fillStyle = '#5c677d'; ol(3); rr(12, H - 56, W / 2 - 34, 44, 22); txt('◀ VEHÍCULO', W / 4 - 11, H - 34, 15, '#fff');
+  btn(12, H - 56, W / 2 - 34, 44, () => { scene = 'title'; });
+}
+
+// ---------- Resultado ----------
+function drawEnd(){
+  buttons = [];
+  const g = G;
+  ctx.fillStyle = '#1d2733'; ctx.fillRect(0, 0, W, H);
+  txt(g.ok ? '¡LLEGASTE!' : 'FIN DEL VIAJE', W / 2, 80, 44, g.ok ? '#7dffb0' : '#ff6a3d');
+  if (!g.ok && g.why) txt(g.why, W / 2, 124, 16, '#fff');
+  if (g.ok) txt('★'.repeat(g.stars) + '☆'.repeat(3 - g.stars), W / 2, 130, 36, '#ffe14d');
+  streetSign(g.R.from + ' → ' + g.R.to, W / 2, 176, 13, W - 40);
+  const rows = [['Hoyos que pisaste', g.stats.hoyos], ['Hoyos esquivados', g.stats.esquivados], ['Choques', g.stats.choques], ['Partes (luz roja)', g.stats.partes],
+    ['Portonazos', g.stats.robos], ['Charcos y anegamientos', g.stats.agua], ['Gastos en reparaciones', fmt$(g.money)], ['PUNTAJE', g.final]];
+  rows.forEach(([a, b], i) => { const y = 228 + i * 40; ctx.fillStyle = i === rows.length - 1 ? 'rgba(255,225,77,.15)' : 'rgba(255,255,255,.06)'; ol(1.5); rr(40, y - 16, W - 80, 32, 8);
+    txt(a, 54, y, 14, '#fff', 'left'); txt(String(b), W - 54, y, 16, i === rows.length - 1 ? '#ffe14d' : '#8fd6ff', 'right'); });
+  ctx.font = '600 11px Arial'; ctx.fillStyle = '#aab'; ctx.textAlign = 'center';
+  ctx.fillText('★ sin pisar hoyos · ★ sin choques · ★ sin partes ni portonazos', W / 2, 568);
+  ctx.fillStyle = '#ff8a00'; ol(3); rr(W / 2 - 120, 600, 240, 48, 24); txt('OTRA RUTA ▶', W / 2, 625, 20, '#fff');
+  btn(W / 2 - 120, 600, 240, 48, () => { scene = 'map'; });
+  ctx.fillStyle = '#5c677d'; ol(3); rr(W / 2 - 100, 660, 200, 40, 20); txt('REPETIR', W / 2, 681, 16, '#fff');
+  btn(W / 2 - 100, 660, 200, 40, () => { endless ? startSelected() : startRoute(g.ri, 0); });
+}
+
+// ---------- Bucle ----------
+let last = performance.now();
+let lastErr = null;
+function loop(now){
+  const dt = Math.min(0.033, (now - last) / 1000); last = now;
+  try {
+    update(dt);
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1;
+    if (scene === 'title') drawTitle();
+    else if (scene === 'map') drawMap();
+    else if (scene === 'drive') drawDrive();
+    else if (scene === 'end') drawEnd();
+  } catch (e) {
+    // Si algo falla, mostrarlo en pantalla (útil para depurar en el teléfono) en vez de congelar el juego.
+    if (!lastErr) console.error(e);
+    lastErr = (e && e.message) || String(e);
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.fillStyle = 'rgba(0,0,0,.75)'; ctx.fillRect(0, H - 40, W, 40);
+    ctx.font = '700 11px Arial'; ctx.fillStyle = '#ff8fa3'; ctx.textAlign = 'left'; ctx.fillText('Error: ' + lastErr.slice(0, 80), 8, H - 16);
+  }
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

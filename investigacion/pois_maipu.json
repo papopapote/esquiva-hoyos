@@ -1,0 +1,387 @@
+[
+ {
+  "nombre": "Templo Votivo de Maipú",
+  "categoria": "icono",
+  "lat": -33.510804,
+  "lon": -70.766162,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Metro Plaza de Maipú",
+  "categoria": "metro",
+  "lat": -33.5102,
+  "lon": -70.757001,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Metro Del Sol",
+  "categoria": "metro",
+  "lat": -33.490236,
+  "lon": -70.753115,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Metro Santiago Bueras",
+  "categoria": "metro",
+  "lat": -33.496241,
+  "lon": -70.757435,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Metro Monte Tabor",
+  "categoria": "metro",
+  "lat": -33.482286,
+  "lon": -70.745438,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Metro Las Parcelas",
+  "categoria": "metro",
+  "lat": -33.475272,
+  "lon": -70.739979,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Intermodal Del Sol",
+  "categoria": "transporte",
+  "lat": -33.490076,
+  "lon": -70.753084,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Clínica Indisa Maipú",
+  "categoria": "salud",
+  "lat": -33.478163,
+  "lon": -70.754452,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Centro Médico Hospital del Profesor",
+  "categoria": "salud",
+  "lat": -33.505064,
+  "lon": -70.756472,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Mall Arauco Maipú",
+  "categoria": "comercio",
+  "lat": -33.482658,
+  "lon": -70.750787,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Espacio Urbano Plaza Maipú",
+  "categoria": "comercio",
+  "lat": -33.511106,
+  "lon": -70.757905,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Mall Pumay",
+  "categoria": "comercio",
+  "lat": -33.510077,
+  "lon": -70.758038,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Patio Outlet Maipú",
+  "categoria": "comercio",
+  "lat": -33.522878,
+  "lon": -70.733687,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "El Descanso Boulevard",
+  "categoria": "comercio",
+  "lat": -33.469906,
+  "lon": -70.75741,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Boulevard Terrazas Maipú",
+  "categoria": "comercio",
+  "lat": -33.500806,
+  "lon": -70.756728,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Paseo El Rosal",
+  "categoria": "comercio",
+  "lat": -33.490955,
+  "lon": -70.771472,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Mercado de Maipú",
+  "categoria": "comercio",
+  "lat": -33.5083,
+  "lon": -70.75361,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Feria Lumen",
+  "categoria": "comercio",
+  "lat": -33.494377,
+  "lon": -70.736176,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Jumbo",
+  "categoria": "comercio",
+  "lat": -33.496706,
+  "lon": -70.757958,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Tottus",
+  "categoria": "comercio",
+  "lat": -33.505879,
+  "lon": -70.757652,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Estadio Santiago Bueras",
+  "categoria": "deporte",
+  "lat": -33.508267,
+  "lon": -70.748851,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Polideportivo de Maipú",
+  "categoria": "deporte",
+  "lat": -33.509226,
+  "lon": -70.754586,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Piscina Olímpica Alberto Abarza",
+  "categoria": "deporte",
+  "lat": -33.50775,
+  "lon": -70.755591,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Polideportivo Martín Vargas",
+  "categoria": "deporte",
+  "lat": -33.514603,
+  "lon": -70.778379,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Parque Acuático Aviva",
+  "categoria": "deporte",
+  "lat": -33.554286,
+  "lon": -70.755151,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Parque Tres Poniente",
+  "categoria": "parque",
+  "lat": -33.525971,
+  "lon": -70.77786,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Parque Municipal de Maipú",
+  "categoria": "parque",
+  "lat": -33.524401,
+  "lon": -70.801582,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Parque Pajaritos Central",
+  "categoria": "parque",
+  "lat": -33.492774,
+  "lon": -70.755516,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Parque Central Las Torres",
+  "categoria": "parque",
+  "lat": -33.507594,
+  "lon": -70.73492,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Teatro Municipal de Maipú",
+  "categoria": "cultura",
+  "lat": -33.508764,
+  "lon": -70.756815,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Biblioteca Municipal",
+  "categoria": "cultura",
+  "lat": -33.508817,
+  "lon": -70.755315,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Museo del Carmen",
+  "categoria": "cultura",
+  "lat": -33.510568,
+  "lon": -70.766225,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Museo del Agua SMAPA",
+  "categoria": "cultura",
+  "lat": -33.508434,
+  "lon": -70.74748,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Monumento al Abrazo de Maipú",
+  "categoria": "icono",
+  "lat": -33.509078,
+  "lon": -70.77628,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Monumento O'Higgins y San Martín",
+  "categoria": "icono",
+  "lat": -33.511025,
+  "lon": -70.763457,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Ex Medialuna de Maipú",
+  "categoria": "cultura",
+  "lat": -33.509283,
+  "lon": -70.754948,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Parroquia N. S. del Carmen",
+  "categoria": "icono",
+  "lat": -33.511524,
+  "lon": -70.758493,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Cementerio de Maipú",
+  "categoria": "servicio",
+  "lat": -33.507935,
+  "lon": -70.769939,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Cementerio Parque del Sendero",
+  "categoria": "servicio",
+  "lat": -33.463393,
+  "lon": -70.767525,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "25ª Comisaría de Maipú",
+  "categoria": "servicio",
+  "lat": -33.507362,
+  "lon": -70.75463,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "52ª Comisaría Rinconada",
+  "categoria": "servicio",
+  "lat": -33.511335,
+  "lon": -70.791042,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "1ª Compañía de Bomberos",
+  "categoria": "servicio",
+  "lat": -33.511087,
+  "lon": -70.760773,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "INACAP Maipú",
+  "categoria": "educacion",
+  "lat": -33.480458,
+  "lon": -70.756319,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Duoc UC Maipú",
+  "categoria": "educacion",
+  "lat": -33.511896,
+  "lon": -70.752426,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "UDLA Maipú",
+  "categoria": "educacion",
+  "lat": -33.509995,
+  "lon": -70.749891,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Estación Experimental U. de Chile (Rinconada)",
+  "categoria": "educacion",
+  "lat": -33.500817,
+  "lon": -70.82787,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Cinemark Midmall",
+  "categoria": "comercio",
+  "lat": -33.538936,
+  "lon": -70.77019,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Municipalidad de Maipú",
+  "categoria": "servicio",
+  "lat": -33.509601,
+  "lon": -70.754214,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Hospital El Carmen",
+  "categoria": "salud",
+  "lat": -33.517918,
+  "lon": -70.775111,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Ex Capilla de La Victoria",
+  "categoria": "icono",
+  "lat": -33.510742,
+  "lon": -70.764019,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Puesto de Mando de San Martín",
+  "categoria": "icono",
+  "lat": -33.487075,
+  "lon": -70.731803,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Parroquia San Francisco de los Pajaritos",
+  "categoria": "icono",
+  "lat": -33.478826,
+  "lon": -70.741895,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Centro Comercial Maipú Centro",
+  "categoria": "comercio",
+  "lat": -33.509578,
+  "lon": -70.757932,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Plaza Coronel Santiago Bueras",
+  "categoria": "parque",
+  "lat": -33.501282,
+  "lon": -70.742724,
+  "fuente": "OpenStreetMap"
+ },
+ {
+  "nombre": "Cementerio Parque El Manantial",
+  "categoria": "servicio",
+  "lat": -33.474769,
+  "lon": -70.761951,
+  "fuente": "OpenStreetMap"
+ }
+]

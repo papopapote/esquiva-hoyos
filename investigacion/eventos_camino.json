@@ -1,0 +1,28 @@
+{
+ "_nota": "Eventos reales del camino en Maipú, investigados el 2026-11-07. Coordenadas desde OpenStreetMap (cruces exactos).",
+ "hoyos": [
+  {"lugar":"Cuatro Poniente con Antártica Chilena (Los Bosquinos)","lat":-33.534282,"lon":-70.792207,"detalle":"Bache junto a paradero, marcado por vecinos con una caja; >2 años sin reparar","fuente":"La Batalla de Maipú, 29-10-2026"},
+  {"lugar":"Ramón Barros Luco con Santo Grial (Villa Doña Margarita, Pehuén)","lat":-33.525042,"lon":-70.782066,"detalle":"Bache 'que se ve desde el espacio'; pista sin pavimentar entre Nueva San Martín y Germán Garcés, frente a Colegio King Edwards","fuente":"La Batalla de Maipú, 08-06-2026"},
+  {"lugar":"El Olimpo con Ramón Freire (Templo Votivo)","lat":-33.510195,"lon":-70.775531,"detalle":"Socavón con vegetación y filtración de agua junto al Colegio Patricio Mekis, >1 año","fuente":"La Batalla de Maipú, 03-06-2026"},
+  {"lugar":"Av. Los Pajaritos 4760 (CAM Pajaritos)","lat":null,"lon":null,"detalle":"Hoyo profundo en la vereda, >1 año sin señalización","fuente":"La Batalla de Maipú, 29-10-2025"}
+ ],
+ "obras_y_cierres": [
+  {"lugar":"Av. 5 de Abril con Av. del Ferrocarril","lat":-33.510091,"lon":-70.740121,"detalle":"Paso bajo nivel SERVIU (Tren Alameda-Melipilla). Desvíos desde 25-07-2026; entrega 2º sem. 2028","fuente":"Municipalidad de Maipú / Meganoticias / La Batalla"},
+  {"lugar":"Av. Esquina Blanca con Av. del Ferrocarril","lat":-33.510666,"lon":-70.740364,"detalle":"Camino cerrado (28 conductores lo confirman)","fuente":"Waze, mapa en vivo 07-11-2026"},
+  {"lugar":"Ruta 78 calzada sur, Rinconada de Maipú a El Rosal","lat":null,"lon":null,"detalle":"Angostamiento de pistas 09-11-2026 a 09-01-2027, máx 60 km/h (Conexión Vial Ruta 78-Ruta 68)","fuente":"Transporte Informa RM (MTT), 07-11-2026"},
+  {"lugar":"Av. Cordillera de Los Andes, entre La Reforma y Teatro Municipal","lat":-33.4899431,"lon":-70.7717906,"detalle":"Pavimentación desde 26-10-2026 hasta mediados de noviembre; desvío recorridos I22 e I08c","fuente":"Red Movilidad"},
+  {"lugar":"Camino a Melipilla / Ruta 76 (sector Cerrillos)","lat":null,"lon":null,"detalle":"Camino cerrado (82 conductores)","fuente":"Waze, mapa en vivo 07-11-2026"}
+ ],
+ "trafico": [
+  {"lugar":"Av. Los Pajaritos frente a Plaza de Maipú","detalle":"Tráfico intenso, 12 km/h (sábado ~22:50)","fuente":"Waze, 07-11-2026"},
+  {"lugar":"Av. 5 de Abril frente a Plaza de Maipú","detalle":"Tráfico intenso","fuente":"Waze, 07-11-2026"}
+ ],
+ "robos_de_vehiculos": [
+  {"lugar":"Enlace Américo Vespucio con Ruta 78 (límite Maipú-Cerrillos)","detalle":"Uno de los puntos con más encerronas/abordazos de la RM","fuente":"Fiscalía Nacional y Carabineros (vía La Batalla y La Voz de Maipú, 2026)"},
+  {"lugar":"Sector norte de Maipú (corredor con Pudahuel / Estación Central)","detalle":"Aglomeración de encerronas","fuente":"Fiscalía Nacional"},
+  {"lugar":"Rengifo con Hermanos Carrera","detalle":"Portonazos y encerronas investigados","fuente":"Radio Bío Bío"},
+  {"lugar":"Villa El Abrazo","detalle":"Portonazo durante reportaje nocturno","fuente":"La Voz de Maipú"},
+  {"_patron":"Horario más riesgoso 20:00-23:00, especialmente lunes y viernes. Maipú es la comuna #1 de Chile en robos violentos de vehículos (5.923 casos 2020-2025)","fuente":"Fiscalía Nacional, Reporte de Fenómenos Criminales N.º 5"}
+ ],
+ "lluvia": "Ver senapred_lluvia_maipu.tsv: 43 puntos oficiales (2 muy alto, 13 alto, 16 medio, 12 bajo). Además reportados 06-10-2026: Cuatro Poniente con Borgoño, El Descanso con La Estrella, La Galaxia con Libertadores de Chile."
+}

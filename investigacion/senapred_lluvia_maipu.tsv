@@ -1,0 +1,44 @@
+n	lugar	barrio	riesgo	tipo
+1	Av. El Conquistador, pasaje Los Planetas	Pehuén	Muy alto	Anegamiento
+2	Camino El Toqui, entre Camino Lonquén y Las Industrias	Industrial	Muy alto	Desborde de cauce
+3	Canal Santa Marta	Industrial	Alto	Desborde de cauce
+4	Camino a Melipilla – San Juan de Chena	El Abrazo	Alto	Anegamiento
+5	Cerro Barón – Glorias Navales	Los Héroes	Alto	Desborde de cauce
+6	Puente Rinconada – Río Mapocho (Población Joaquín Olivares)	Rinconada Rural	Alto	Desborde de cauce
+7	Av. Las Naciones – José Manuel Borgoño	Sol Poniente	Alto	Colapso de colectores
+8	El Conquistador – Senadora María de la Cruz	Sol Poniente	Alto	Colapso de colectores
+9	Camino a Melipilla, desde Lo Espejo hasta Ciudad Satélite	Industrial – El Abrazo – Santa Ana de Chena – Ciudad Satélite	Alto	Anegamiento
+10	Maipú – Santa Berta	Portal del Sol	Alto	Anegamiento
+11	Av. Los Pajaritos – Los Apóstoles	Lo Errázuriz	Alto	Anegamiento
+12	Av. El Conquistador – Las Tinajas	Pehuén	Alto	Anegamiento
+13	Camino a Rinconada – Los Sauces (Villa El Maitén)	Rinconada Rural	Alto	Desborde de cauce
+14	Av. El Conquistador con pasaje Los Planetas	Pehuén	Alto	Anegamiento
+15	Ruta G-30 – Camino a Lonquén (Las Acacias – El Toqui)	Industrial – El Abrazo – Santa Ana de Chena – Ciudad Satélite	Alto	Desborde de cauce
+16	Arquitecto Hugo Bravo – Tierra Fértil	Longitudinal	Medio	Anegamiento
+17	Lago Bracciano – Aralias Cuatro	Ciudad Satélite	Medio	Anegamiento
+18	Av. Ferrocarril – Mario Vergara	Los Héroes	Medio	Anegamiento
+19	Camino a Melipilla – Esdras	El Abrazo	Medio	Anegamiento
+20	Jorge Guerra – Judea	El Abrazo	Medio	Anegamiento
+21	Longitudinal – Hugo Bravo / El Descanso	Longitudinal	Medio	Anegamiento
+22	Santa Adela – Serafín Zamora / Lo Espejo	Industrial	Medio	Anegamiento
+23	José Galgani – Vicente Reyes	Esquina Blanca – Cuatro Álamos	Medio	Anegamiento
+24	Miraflores – Alicante	Hospital – Campos de Batalla	Medio	Anegamiento
+25	Av. Huáscar – San José	Templo Votivo	Medio	Anegamiento
+26	René Olivares Becerra – Lago Jeinimeni	Los Bosquinos	Medio	Colapso de colectores
+27	Segunda Transversal – Los Trabajadores – Alaska	Clotario Blest	Medio	Colapso de colectores
+28	Mar de Chile – Las Mariposas	La Farfana	Medio	Anegamiento
+29	Av. Cuatro Poniente – José Manuel Borgoño	Sol Poniente	Medio	Anegamiento
+30	Av. Portales – Huáscar	Templo Votivo	Medio	Anegamiento
+31	La Galaxia – Libertador de Chile	Portal del Sol	Medio	Anegamiento
+32	Av. Tres Poniente – Presidente Eduardo Frei Montalva	Pehuén	Bajo	Anegamiento
+33	Camino a Rinconada – La Galaxia	Portal del Sol	Bajo	Anegamiento
+34	Luis Gandarillas – Mateo de Toro y Zambrano	Riesco Central	Bajo	Anegamiento
+35	El Descanso – Longitudinal / Américo Vespucio	Longitudinal	Bajo	Anegamiento
+36	Carmen – Juan Pablo I	Templo Votivo	Bajo	Anegamiento
+37	La Sinfonía – Pdte. Alessandri / Camino La Farfana	La Farfana	Bajo	Anegamiento
+38	Camino a Rinconada – Av. Las Naciones / El Conquistador	Portal del Sol	Bajo	Anegamiento
+39	Av. Presidente Gabriel González Videla – Morro de Arica	Los Héroes	Bajo	Anegamiento
+40	Lago Bolsena – Cactus Tres	Ciudad Satélite	Bajo	Anegamiento
+41	Los Granjeros – El Herrero	Parque Tres Poniente	Bajo	Anegamiento
+42	Camino La Farfana – Manuel Rodríguez / Alfredo Pérez Rodríguez	Maipú Centro	Bajo	Anegamiento
+43	Capri – Los Vikingos / Los Celtas	Esquina Blanca – Cuatro Álamos	Bajo	Anegamiento

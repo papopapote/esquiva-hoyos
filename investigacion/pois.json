@@ -1,0 +1,7216 @@
+{
+  "version": 0.6,
+  "generator": "Overpass API 0.7.62.11 87bfad18",
+  "osm3s": {
+    "timestamp_osm_base": "2026-11-08T01:54:28Z",
+    "timestamp_areas_base": "2026-11-07T23:18:51Z",
+    "copyright": "The data included in this document is from www.openstreetmap.org. The data is made available under ODbL."
+  },
+  "elements": [
+
+{
+  "type": "node",
+  "id": 463084774,
+  "lat": -33.4752719,
+  "lon": -70.7399789,
+  "tags": {
+    "name": "Las Parcelas",
+    "network": "Metro de Santiago",
+    "network:wikidata": "Q913314",
+    "operator": "Metro S.A.",
+    "operator:wikidata": "Q6011991",
+    "public_transport": "station",
+    "railway": "station",
+    "start_date": "2011-02-03",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q5858466"
+  }
+},
+{
+  "type": "node",
+  "id": 463084780,
+  "lat": -33.4822861,
+  "lon": -70.7454383,
+  "tags": {
+    "name": "Monte Tabor",
+    "network": "Metro de Santiago",
+    "network:wikidata": "Q913314",
+    "operator": "Metro S.A.",
+    "operator:wikidata": "Q6011991",
+    "public_transport": "station",
+    "railway": "station",
+    "start_date": "2011-02-03",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q6904923"
+  }
+},
+{
+  "type": "node",
+  "id": 476917797,
+  "lat": -33.4962414,
+  "lon": -70.7574349,
+  "tags": {
+    "name": "Santiago Bueras",
+    "network": "Metro de Santiago",
+    "network:wikidata": "Q913314",
+    "operator": "Metro S.A.",
+    "operator:wikidata": "Q6011991",
+    "public_transport": "station",
+    "railway": "station",
+    "start_date": "2011-02-03",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q9074235"
+  }
+},
+{
+  "type": "node",
+  "id": 549216801,
+  "lat": -33.4902363,
+  "lon": -70.7531153,
+  "tags": {
+    "name": "Del Sol",
+    "network": "Metro de Santiago",
+    "network:wikidata": "Q913314",
+    "operator": "Metro S.A.",
+    "operator:wikidata": "Q6011991",
+    "public_transport": "station",
+    "railway": "station",
+    "start_date": "2011-02-03",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q5253000"
+  }
+},
+{
+  "type": "node",
+  "id": 914521355,
+  "lat": -33.5217375,
+  "lon": -70.7755946,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Parroquia",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 1244661435,
+  "lat": -33.5335744,
+  "lon": -70.7756986,
+  "tags": {
+    "addr:housenumber": "1575",
+    "addr:street": "Rene Olivares Becerra",
+    "amenity": "fire_station",
+    "name": "Sexta Compañía del Cuerpo de Bomberos de Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 1278625534,
+  "lat": -33.4822829,
+  "lon": -70.7516751,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "amenity": "cinema",
+    "brand": "Cinépolis",
+    "brand:wikidata": "Q5686673",
+    "name": "Cinepolis",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1278625561,
+  "lat": -33.4828879,
+  "lon": -70.7505246,
+  "tags": {
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "name": "ABCDin",
+    "shop": "department_store",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1278625589,
+  "lat": -33.4835609,
+  "lon": -70.7506221,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "name": "La Polar",
+    "shop": "department_store",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1278625604,
+  "lat": -33.4831397,
+  "lon": -70.7514579,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "atm": "yes",
+    "name": "Doremi",
+    "shop": "department_store"
+  }
+},
+{
+  "type": "node",
+  "id": 1278625611,
+  "lat": -33.4828297,
+  "lon": -70.7496785,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "brand": "París",
+    "brand:wikidata": "Q20812805",
+    "name": "París",
+    "shop": "department_store",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 1660671302,
+  "lat": -33.5583141,
+  "lon": -70.7895668,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "671",
+    "addr:street": "Avenida Parque Central Oriente",
+    "amenity": "police",
+    "name": "Subcomisaría Maipú Oriente"
+  }
+},
+{
+  "type": "node",
+  "id": 1865044815,
+  "lat": -33.5088169,
+  "lon": -70.7553150,
+  "tags": {
+    "amenity": "library",
+    "name": "Biblioteca Municipal de Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 1865044936,
+  "lat": -33.5105680,
+  "lon": -70.7662248,
+  "tags": {
+    "addr:country": "CL",
+    "name": "Museo del Carmen",
+    "tourism": "museum",
+    "wikidata": "Q56318282",
+    "wikimedia_commons": "Category:Museo del Carmen de Maipú",
+    "wikipedia": "es:Museo del Carmen de Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 1930603676,
+  "lat": -33.5434575,
+  "lon": -70.7749965,
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "catholic",
+    "name": "Capilla Nuestra Señora de Belén.",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 1930891747,
+  "lat": -33.5457172,
+  "lon": -70.7730983,
+  "tags": {
+    "amenity": "fire_station",
+    "name": "Cuarta Compañía del Cuerpo de Bomberos de Maipú",
+    "source": "http://www.bomberosmaipu.cl/?page_id=70"
+  }
+},
+{
+  "type": "node",
+  "id": 1930893444,
+  "lat": -33.5418409,
+  "lon": -70.7710008,
+  "tags": {
+    "addr:housenumber": "16190",
+    "addr:street": "Jorge Guerra",
+    "name": "Unimarc El Abrazo de Maipú",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 2070967163,
+  "lat": -33.5090781,
+  "lon": -70.7762804,
+  "tags": {
+    "historic": "memorial",
+    "inscription": "\"En los alrededores de este monumento se efectuó el abrazo entre los generales O'Higgins y San Martín al finalizar la batalla de Maipo el 5-IV-1818\"",
+    "material": "stone",
+    "memorial": "obelisk",
+    "name": "Monumento Al Abrazo De Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 2084126381,
+  "lat": -33.5439204,
+  "lon": -70.7796315,
+  "tags": {
+    "addr:housenumber": "16860",
+    "addr:street": "Caletera Camino a Melipilla.",
+    "brand": "Unimarc",
+    "brand:wikidata": "Q6156244",
+    "name": "Unimarc",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 2181876025,
+  "lat": -33.5448979,
+  "lon": -70.7691575,
+  "tags": {
+    "name": "Express de Líder",
+    "operator": "Walmart Chile",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 2404104713,
+  "lat": -36.8619730,
+  "lon": -57.8820746,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "455",
+    "addr:postcode": "7160",
+    "addr:street": "Rivadavia",
+    "amenity": "townhall",
+    "contact:facebook": "https://www.facebook.com/MunicipioDeMaipu",
+    "name": "Municipalidad De Maipú",
+    "phone": "+54 2268 421153"
+  }
+},
+{
+  "type": "node",
+  "id": 2404106413,
+  "lat": -36.8593990,
+  "lon": -57.8746226,
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Hospital De Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 2405155022,
+  "lat": -36.8636415,
+  "lon": -57.8847522,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "349",
+    "addr:postcode": "7160",
+    "addr:street": "Belgrano",
+    "contact:facebook": "https://www.facebook.com/MunicipioDeMaipu/posts/-turismo-museo-municipal-kakel-huincul-donde-el-pasado-se-encuentra-con-el-prese/763508237010458/",
+    "name": "Museo Municipal Kakel Huincul",
+    "tourism": "museum"
+  }
+},
+{
+  "type": "node",
+  "id": 2405155580,
+  "lat": -36.8628573,
+  "lon": -57.8812538,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "340",
+    "addr:postcode": "7160",
+    "addr:street": "Rivadavia",
+    "amenity": "police",
+    "name": "Estación Policía Comunal Maipú",
+    "opening_hours": "24/7",
+    "operator": "Policía de la Provincia de Buenos Aires",
+    "operator:wikidata": "Q4985546",
+    "operator:wikipedia": "es:Policía de la Provincia de Buenos Aires",
+    "phone": "+54 2268 42-1013; +54 2268 42-1115"
+  }
+},
+{
+  "type": "node",
+  "id": 2463431710,
+  "lat": -33.5122537,
+  "lon": -70.7569955,
+  "tags": {
+    "name": "Alvi",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 2465537538,
+  "lat": -33.5526594,
+  "lon": -70.7915837,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "18400",
+    "addr:street": "Camino San Alberto Hurtado",
+    "name": "Mayorista 10",
+    "opening_hours": "Mo-Su 09:00-21:00",
+    "operator": "SMU",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:notes": "yes",
+    "payment:visa": "yes",
+    "payment:visa_debit": "yes",
+    "shop": "supermarket",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "node",
+  "id": 3587889955,
+  "lat": -33.5101997,
+  "lon": -70.7570009,
+  "tags": {
+    "name": "Plaza de Maipú",
+    "network": "Metro de Santiago",
+    "network:wikidata": "Q913314",
+    "operator": "Metro S.A.",
+    "operator:wikidata": "Q6011991",
+    "public_transport": "station",
+    "railway": "station",
+    "start_date": "2011-02-03",
+    "station": "subway",
+    "subway": "yes",
+    "wheelchair": "yes",
+    "wikidata": "Q7203680"
+  }
+},
+{
+  "type": "node",
+  "id": 3708646052,
+  "lat": -33.5055248,
+  "lon": -70.7869446,
+  "tags": {
+    "name": "Mall Chino",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG."
+  }
+},
+{
+  "type": "node",
+  "id": 4110512605,
+  "lat": -33.5070558,
+  "lon": -70.7470386,
+  "tags": {
+    "addr:housenumber": "2390",
+    "addr:street": "Avenida Segunda Transversal",
+    "amenity": "place_of_worship",
+    "name": "Condominio Altos De Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 4214805940,
+  "lat": -33.5110252,
+  "lon": -70.7634572,
+  "tags": {
+    "historic": "memorial",
+    "memorial": "statue",
+    "name": "Monumento a Bernardo O'Higgins y José de San Martín"
+  }
+},
+{
+  "type": "node",
+  "id": 4281367092,
+  "lat": -33.4817729,
+  "lon": -70.7505023,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "brand": "Falabella",
+    "brand:wikidata": "Q5135229",
+    "name": "Falabella",
+    "shop": "department_store"
+  }
+},
+{
+  "type": "node",
+  "id": 4317064693,
+  "lat": -33.5095665,
+  "lon": -70.7575956,
+  "tags": {
+    "addr:street": "Chacabuco",
+    "brand": "Santa Isabel",
+    "brand:wikidata": "Q7419620",
+    "brand:wikipedia": "es:Santa Isabel (supermercado)",
+    "name": "Santa Isabel",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG."
+  }
+},
+{
+  "type": "node",
+  "id": 4317069394,
+  "lat": -33.5108757,
+  "lon": -70.7580517,
+  "tags": {
+    "addr:street": "Avenida Los Pajaritos",
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "name": "Lider Express",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 4362565289,
+  "lat": -33.5475341,
+  "lon": -70.7894112,
+  "tags": {
+    "addr:street": "Capellan Florencio Infante",
+    "brand": "Santa Isabel",
+    "brand:wikidata": "Q7419620",
+    "name": "Santa Isabel",
+    "name:es": "Santa Isabel",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 4423067582,
+  "lat": -33.4844716,
+  "lon": -70.7509137,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "brand": "Ripley",
+    "brand:wikidata": "Q3433040",
+    "name": "Ripley",
+    "shop": "department_store",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4456641542,
+  "lat": -33.4849214,
+  "lon": -70.7672772,
+  "tags": {
+    "addr:country": "CL",
+    "addr:street": "Avenida El Rosal",
+    "amenity": "clinic",
+    "name": "Centro Médico y Dental Medicina Cubana",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG."
+  }
+},
+{
+  "type": "node",
+  "id": 4456948682,
+  "lat": -33.5110175,
+  "lon": -70.7591840,
+  "tags": {
+    "name": "Corona",
+    "shop": "department_store",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4457208650,
+  "lat": -33.4798937,
+  "lon": -70.7569212,
+  "tags": {
+    "brand": "Unimarc",
+    "brand:wikidata": "Q6156244",
+    "name": "Unimarc",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG."
+  }
+},
+{
+  "type": "node",
+  "id": 4459664089,
+  "lat": -33.4633928,
+  "lon": -70.7675247,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Cementerio Parque del Sendero",
+    "name:es": "Cementerio Parque del Sendero"
+  }
+},
+{
+  "type": "node",
+  "id": 4462153561,
+  "lat": -33.5103422,
+  "lon": -70.7581165,
+  "tags": {
+    "addr:street": "Avenida 5 de Abril",
+    "name": "Hites",
+    "shop": "department_store",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG."
+  }
+},
+{
+  "type": "node",
+  "id": 4462153564,
+  "lat": -33.5096186,
+  "lon": -70.7581975,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "1948",
+    "addr:street": "Avenida Los Pajaritos",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "Clínica Dávila Maipú",
+    "source": "local knowledge"
+  }
+},
+{
+  "type": "node",
+  "id": 4462380705,
+  "lat": -33.5035137,
+  "lon": -70.7580547,
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "Clínico Astro",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4463786186,
+  "lat": -33.4967064,
+  "lon": -70.7579581,
+  "tags": {
+    "brand": "Jumbo",
+    "brand:wikidata": "Q6310864",
+    "name": "Jumbo",
+    "shop": "supermarket",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4463786187,
+  "lat": -33.4971488,
+  "lon": -70.7579635,
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "name": "Multi Medical",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4465535808,
+  "lat": -33.5214199,
+  "lon": -70.7694915,
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "name": "SionSalud",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4466657772,
+  "lat": -33.5133717,
+  "lon": -70.7555362,
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "name": "Clínica Bellolio",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4466658492,
+  "lat": -33.5132444,
+  "lon": -70.7545914,
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "name": "Clínica Bellolio",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4473814548,
+  "lat": -33.4929051,
+  "lon": -70.7382285,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Las Golondrinas",
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "name": "Lider Express",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "node",
+  "id": 4750037921,
+  "lat": -33.5134466,
+  "lon": -70.7820596,
+  "tags": {
+    "addr:housenumber": "1709",
+    "addr:street": "Pasaje Los Zarzales",
+    "name": "Bazar Don Carlos",
+    "name:es": "Bazar Don Carlos",
+    "opening_hours": "Tu-Su 11:00-23:30",
+    "shop": "department_store"
+  }
+},
+{
+  "type": "node",
+  "id": 4806681521,
+  "lat": -33.4742937,
+  "lon": -70.7309324,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Iglesia Nuestra Señora del Pilar",
+    "name:es": "Iglesia Nuestra Señora del Pilar"
+  }
+},
+{
+  "type": "node",
+  "id": 4831512722,
+  "lat": -33.4753756,
+  "lon": -70.7308784,
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Iglesia Nuestra Señora del Pilar"
+  }
+},
+{
+  "type": "node",
+  "id": 4988530422,
+  "lat": -33.5389362,
+  "lon": -70.7701905,
+  "tags": {
+    "amenity": "cinema",
+    "brand": "Cinemark",
+    "brand:wikidata": "Q707530",
+    "name": "Cinemark Midmall"
+  }
+},
+{
+  "type": "node",
+  "id": 5235769906,
+  "lat": -36.8624311,
+  "lon": -57.8862736,
+  "tags": {
+    "name": "Maipú",
+    "network": "Roca",
+    "operator": "Trenes Argentinos",
+    "public_transport": "station",
+    "railway": "station",
+    "railway:position": "270.6",
+    "start_date": "1880-12-07",
+    "train": "yes",
+    "wikidata": "Q5843557",
+    "wikipedia": "es:Estación Maipú (Roca)"
+  }
+},
+{
+  "type": "node",
+  "id": 5473097676,
+  "lat": -33.5362318,
+  "lon": -70.7863904,
+  "tags": {
+    "addr:city": "MAIPU",
+    "addr:housenumber": "2380",
+    "addr:street": "Avenida Presidente Gabriel González Videla",
+    "name": "Ekono",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 5473133944,
+  "lat": -33.4701392,
+  "lon": -70.7507280,
+  "tags": {
+    "addr:city": "MAIPU",
+    "addr:housenumber": "798",
+    "addr:street": "Avenida El Descanso",
+    "name": "Ekono",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 5868509760,
+  "lat": -33.4701917,
+  "lon": -70.7484603,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Avenida El Descanso",
+    "amenity": "fire_station",
+    "name": "Septima Compañía del Cuerpo de Bomberos de Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 5894480378,
+  "lat": -36.8633312,
+  "lon": -57.8861914,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:postcode": "7160",
+    "addr:street": "Ramos Mejía",
+    "amenity": "fire_station",
+    "email": "bomberosvoluntariosmaipu@yahoo.com.ar",
+    "name": "Bomberos Voluntarios de Maipú",
+    "phone": "+54 2268 421400;+54 2268 421616"
+  }
+},
+{
+  "type": "node",
+  "id": 5894480380,
+  "lat": -36.8634659,
+  "lon": -57.8801562,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:postcode": "7160",
+    "addr:street": "Rivadavia",
+    "brand": "Dia",
+    "brand:wikidata": "Q925132",
+    "brand:wikipedia": "es:Supermercados DIA",
+    "name": "Dia",
+    "shop": "supermarket",
+    "website": "https://www.supermercadosdia.com.ar"
+  }
+},
+{
+  "type": "node",
+  "id": 5959702409,
+  "lat": -33.5111093,
+  "lon": -70.7575844,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "1790",
+    "addr:street": "Avenida Los Pajaritos",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "healthcare:speciality": "depilacion_laser;tratamientos_laser",
+    "name": "IntegraMédica Maipú"
+  }
+},
+{
+  "type": "node",
+  "id": 6219538913,
+  "lat": -36.8533943,
+  "lon": -57.8701953,
+  "tags": {
+    "name": "Camino del Gaucho",
+    "tourism": "attraction"
+  }
+},
+{
+  "type": "node",
+  "id": 6219538931,
+  "lat": -36.8653825,
+  "lon": -57.8730547,
+  "tags": {
+    "amenity": "bus_station",
+    "bus": "yes",
+    "name": "Terminal de Omnibus de Maipú",
+    "public_transport": "station"
+  }
+},
+{
+  "type": "node",
+  "id": 6219538945,
+  "lat": -36.8584459,
+  "lon": -57.8709260,
+  "tags": {
+    "amenity": "police",
+    "name": "Policía"
+  }
+},
+{
+  "type": "node",
+  "id": 6541156980,
+  "lat": -33.5255228,
+  "lon": -70.7794659,
+  "tags": {
+    "historic": "wayside_shrine",
+    "name": "Gruta Señora de Lourdes",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 6693597189,
+  "lat": -36.8641750,
+  "lon": -57.8838296,
+  "tags": {
+    "addr:housenumber": "450",
+    "addr:street": "Alsina",
+    "amenity": "community_centre",
+    "club": "scout",
+    "community_centre": "home_club",
+    "fixme": "revisar posición y direccón",
+    "name": "Grupo Scout Kakel Huincul",
+    "network": "Scouts de Argentina",
+    "opening_hours": "Sa 15:00-18:00",
+    "ref": "1092"
+  }
+},
+{
+  "type": "node",
+  "id": 8113042640,
+  "lat": -33.5223856,
+  "lon": -70.7556894,
+  "tags": {
+    "historic": "memorial",
+    "inscription": "José Antonio Madrid, 85 años, Jubilado y Ciclista",
+    "memorial": "ghost_bike",
+    "name": "José Antonio Madrid",
+    "source": "https://www.wikiwand.com/es/Bicianimita"
+  }
+},
+{
+  "type": "node",
+  "id": 8389088771,
+  "lat": -33.4838897,
+  "lon": -70.7466533,
+  "tags": {
+    "historic": "memorial",
+    "inscription": "Hans Andres Venegas Salinas Q.E.P.D. 24-Dic-1988 / 19-Abr-2018",
+    "material": "metal",
+    "memorial": "ghost_bike",
+    "name": "Hans A. Venegas",
+    "panoramax": "1fce0f1d-6169-403d-8843-f3a35c29fe79",
+    "start_date": "2018"
+  }
+},
+{
+  "type": "node",
+  "id": 8660757208,
+  "lat": -33.4856182,
+  "lon": -70.7680905,
+  "tags": {
+    "historic": "memorial",
+    "inscription": "La pileta \"Bajo el Agua\" ha sido creada bajo los principios del diseño universal. Su desarrollo estuvo a cargo niñas. niños y  jóvenes del Taller de Arte Teletón, guiados por el escultor Juan Luis Dörr. Objetivo: aportar un  hito escultórico a la comunida",
+    "material": "stone",
+    "memorial": "sculpture",
+    "name": "Bajo el Agua"
+  }
+},
+{
+  "type": "node",
+  "id": 8660786431,
+  "lat": -33.4851403,
+  "lon": -70.7660756,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "5387",
+    "addr:street": "Avenida El Rosal",
+    "amenity": "place_of_worship",
+    "name": "Palabra Poder",
+    "religion": "christian"
+  }
+},
+{
+  "type": "node",
+  "id": 8847089290,
+  "lat": -33.4932946,
+  "lon": -70.7579771,
+  "tags": {
+    "architect": "José Luis Coo",
+    "historic": "monument",
+    "name": "Quinta Las Rosas de Maipú",
+    "start_date": "1994"
+  }
+},
+{
+  "type": "node",
+  "id": 10889901180,
+  "lat": -33.5006852,
+  "lon": -70.7564602,
+  "tags": {
+    "amenity": "cinema",
+    "brand": "Cinepolis",
+    "brand:wikidata": "Q5686673",
+    "name": "Cinepolis"
+  }
+},
+{
+  "type": "node",
+  "id": 10989955449,
+  "lat": -33.5092235,
+  "lon": -70.7579522,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "40",
+    "addr:street": "Chacabuco",
+    "amenity": "university",
+    "name": "AIEP SeDe Maipu",
+    "note": "Correcciones masivas a ortografía en nombres de importaciones hechas por equipo de gendarmería"
+  }
+},
+{
+  "type": "node",
+  "id": 11019259727,
+  "lat": -33.4870748,
+  "lon": -70.7318025,
+  "tags": {
+    "historic": "memorial",
+    "material": "stone",
+    "memorial": "sculpture",
+    "name": "Monumento Puesto de Mando Nº 1 y Nº 2 del General San Martín."
+  }
+},
+{
+  "type": "node",
+  "id": 11159571823,
+  "lat": -36.8639311,
+  "lon": -57.8838998,
+  "tags": {
+    "amenity": "community_centre",
+    "name": "Club Independiente"
+  }
+},
+{
+  "type": "node",
+  "id": 11159571829,
+  "lat": -36.8626646,
+  "lon": -57.8763497,
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Club Deportivo Maipu"
+  }
+},
+{
+  "type": "node",
+  "id": 11159571831,
+  "lat": -36.8620019,
+  "lon": -57.8752524,
+  "tags": {
+    "amenity": "community_centre",
+    "name": "Sociedad de Fomento Barrio Plaza Alvarado"
+  }
+},
+{
+  "type": "node",
+  "id": 11184704351,
+  "lat": -33.5095000,
+  "lon": -70.7557229,
+  "tags": {
+    "description": "Dos estructuras metálicas con tipografías en corte plasma y placas de acero grabadas. Iniciativa de la Agrupación de Derechos Humanos de Maipú en convenio con la Ilustre Municipalidad de Maipú. Proyecto de S.E.E.D. Arquitectos.",
+    "historic": "memorial",
+    "material": "metal",
+    "name": "Memorial a los Detenidos Desaparecidos y Ejecutados Políticos de la Comuna de Maipú",
+    "start_date": "2012-05-19",
+    "wikimedia_commons": "File:Memorial DDHH Chile Memorial Maipu.jpg"
+  }
+},
+{
+  "type": "node",
+  "id": 11196120786,
+  "lat": -33.5092830,
+  "lon": -70.7549475,
+  "tags": {
+    "historic": "memorial",
+    "inscription": "\"La historia no se detiene con la presión ni con el crimen. Esta es una etapa que será superada. Este es un momento duro y difícil. Es posible que nos aplasten, pero el mañana será del pueblo, será de los trabajadores.\" Salvador Allende Gossens",
+    "material": "metal",
+    "memorial": "plaque",
+    "name": "Espacio de Memoria y Resignificación Ex Medialuna de Maipú Centro Transitorio de Detención y Tortura"
+  }
+},
+{
+  "type": "node",
+  "id": 11338795861,
+  "lat": -33.5179175,
+  "lon": -70.7751110,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "1201",
+    "addr:street": "Avenida El Olimpo",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Hospital Clínico Metropolitano El Carmen Doctor Luis Valentín Ferrada"
+  }
+},
+{
+  "type": "node",
+  "id": 11373412359,
+  "lat": -33.4987187,
+  "lon": -70.7600985,
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "college",
+    "name": "Escuela de Párvulos Pequitas",
+    "note": "Correcciones masivas a ortografía en nombres de importaciones hechas por equipo de gendarmería"
+  }
+},
+{
+  "type": "node",
+  "id": 11845532436,
+  "lat": -33.5098573,
+  "lon": -70.7634912,
+  "tags": {
+    "historic": "memorial",
+    "inscription": "Mi alma que desborda humanidad ya no soporta tanta injusticia",
+    "memorial": "stone",
+    "name": "Monolito Eduardo Segundo Miño Pérez",
+    "subject:wikidata": "Q5693164",
+    "wikidata": "Q5693164",
+    "wikimedia_commons": "Archivo:Eduardo_Mi%C3%B1o.jpg",
+    "wikipedia": "es:Eduardo Miño"
+  }
+},
+{
+  "type": "node",
+  "id": 11908136041,
+  "lat": -33.5084340,
+  "lon": -70.7474797,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "2010",
+    "addr:street": "Avenida Segunda Transversal",
+    "museum": "nature",
+    "name": "Museo del Agua SMAPA",
+    "operator": "SMAPA",
+    "operator:type": "local_authority",
+    "tourism": "museum"
+  }
+},
+{
+  "type": "node",
+  "id": 11947877222,
+  "lat": -33.5140370,
+  "lon": -70.7968731,
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:housenumber": "1841",
+    "addr:street": "El Conquistador",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "Cesfam Doctora Ana María Juricic"
+  }
+},
+{
+  "type": "node",
+  "id": 11947942012,
+  "lat": -33.4842238,
+  "lon": -70.7716036,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "491",
+    "addr:street": "Mar de Chile",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "Cesfam Dr. Ivan Insunza"
+  }
+},
+{
+  "type": "node",
+  "id": 11948512235,
+  "lat": -33.4730555,
+  "lon": -70.7250478,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "4382",
+    "addr:street": "Sur de Chile",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "Cecosf lo Errazuriz"
+  }
+},
+{
+  "type": "node",
+  "id": 11976918097,
+  "lat": -33.5058786,
+  "lon": -70.7576521,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "2356",
+    "addr:street": "Avenida Los Pajaritos",
+    "brand": "Tottus",
+    "brand:wikidata": "Q7828510",
+    "name": "Tottus",
+    "opening_hours": "Mo-Fr 08:00-21:30;Sa 09:00-21:30",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "phone": "6003906500",
+    "shop": "supermarket",
+    "website": "https://tottus.falabella.com/tottus-cl"
+  }
+},
+{
+  "type": "node",
+  "id": 12582922559,
+  "lat": -33.5239239,
+  "lon": -70.7334243,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Avenida Lo Espejo",
+    "amenity": "cinema",
+    "brand": "Cinépolis",
+    "brand:wikidata": "Q5686673",
+    "name": "Cinépolis"
+  }
+},
+{
+  "type": "node",
+  "id": 13805009396,
+  "lat": -33.4908419,
+  "lon": -70.7719240,
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1400",
+    "addr:street": "Avenida La Farfana",
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "name": "Lider",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "node",
+  "id": 14066195356,
+  "lat": -33.4825072,
+  "lon": -70.7470715,
+  "tags": {
+    "addr:housenumber": "4444",
+    "addr:street": "Avenida Los Pajaritos",
+    "leisure": "sports_centre",
+    "name": "SportLife"
+  }
+},
+{
+  "type": "way",
+  "id": 24487880,
+  "center": {
+    "lat": -33.5256458,
+    "lon": -70.7882605
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Tacas"
+  }
+},
+{
+  "type": "way",
+  "id": 24487989,
+  "center": {
+    "lat": -33.5167694,
+    "lon": -70.7837843
+  },
+  "tags": {
+    "landuse": "recreation_ground",
+    "leisure": "park",
+    "name": "Plaza Villa Santa Carolina"
+  }
+},
+{
+  "type": "way",
+  "id": 24488045,
+  "center": {
+    "lat": -33.5266903,
+    "lon": -70.7810242
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Pablo Neruda"
+  }
+},
+{
+  "type": "way",
+  "id": 24488048,
+  "center": {
+    "lat": -33.5253923,
+    "lon": -70.7844577
+  },
+  "tags": {
+    "landuse": "grass",
+    "leisure": "park",
+    "name": "Plaza Villa El Arrayán"
+  }
+},
+{
+  "type": "way",
+  "id": 24529808,
+  "center": {
+    "lat": -33.5256666,
+    "lon": -70.7793277
+  },
+  "tags": {
+    "landcover": "grass",
+    "leisure": "park",
+    "name": "Plaza Andrés Bello"
+  }
+},
+{
+  "type": "way",
+  "id": 24529838,
+  "center": {
+    "lat": -33.5259707,
+    "lon": -70.7778596
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Tres Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 24529997,
+  "center": {
+    "lat": -33.5337709,
+    "lon": -70.7896042
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Villa Portal del Valle"
+  }
+},
+{
+  "type": "way",
+  "id": 37848663,
+  "center": {
+    "lat": -33.4660427,
+    "lon": -70.7676460
+  },
+  "tags": {
+    "landuse": "cemetery",
+    "name": "Cementerio Parque del Sendero",
+    "wikidata": "Q6062851",
+    "wikimedia_commons": "Category:Sendero Maipú",
+    "wikipedia": "es:Sendero Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 37854464,
+  "center": {
+    "lat": -33.4802582,
+    "lon": -70.7517637
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "1001",
+    "addr:street": "Avenida Américo Vespucio",
+    "atm": "yes",
+    "brand": "Jumbo",
+    "brand:wikidata": "Q6310864",
+    "building": "yes",
+    "layer": "1",
+    "name": "Jumbo",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 37854487,
+  "center": {
+    "lat": -33.4804729,
+    "lon": -70.7471809
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "4500",
+    "addr:street": "Avenida Los Pajaritos",
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "brand:wikipedia": "es:Líder (supermercado)",
+    "name": "Lider",
+    "shop": "supermarket",
+    "wheelchair": "yes",
+    "wheelchair:description": "Mit Toilette"
+  }
+},
+{
+  "type": "way",
+  "id": 38456265,
+  "center": {
+    "lat": -33.4858499,
+    "lon": -70.7378843
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Golondrinas Norte"
+  }
+},
+{
+  "type": "way",
+  "id": 51706678,
+  "center": {
+    "lat": -33.5645626,
+    "lon": -70.7862853
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Eucaliptus"
+  }
+},
+{
+  "type": "way",
+  "id": 80738215,
+  "center": {
+    "lat": -33.4946997,
+    "lon": -70.7551558
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Cerro Primo de Rivera"
+  }
+},
+{
+  "type": "way",
+  "id": 80754084,
+  "center": {
+    "lat": -33.4944733,
+    "lon": -70.7577225
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Paul Harris"
+  }
+},
+{
+  "type": "way",
+  "id": 83490433,
+  "center": {
+    "lat": -33.4747688,
+    "lon": -70.7619514
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "60",
+    "addr:street": "Los Agricultores",
+    "landuse": "cemetery",
+    "name": "Cementerio Parque El Manantial"
+  }
+},
+{
+  "type": "way",
+  "id": 91338120,
+  "center": {
+    "lat": -33.4918863,
+    "lon": -70.7594137
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Parque Isabel Riquelme",
+    "object:street": "Isabel Riquelme"
+  }
+},
+{
+  "type": "way",
+  "id": 111295012,
+  "center": {
+    "lat": -33.4936167,
+    "lon": -70.7802061
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Avenida El Rosal",
+    "leisure": "park",
+    "name": "Parque El Rosal"
+  }
+},
+{
+  "type": "way",
+  "id": 111295266,
+  "center": {
+    "lat": -33.4848588,
+    "lon": -70.7695370
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Las Camelias",
+    "object:street": "Las Camelias"
+  }
+},
+{
+  "type": "way",
+  "id": 112519024,
+  "center": {
+    "lat": -33.4719416,
+    "lon": -70.7580523
+  },
+  "tags": {
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "building": "retail",
+    "name": "Lider",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 125115751,
+  "center": {
+    "lat": -33.4713208,
+    "lon": -70.7312318
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Avenida Las Torres"
+  }
+},
+{
+  "type": "way",
+  "id": 125118954,
+  "center": {
+    "lat": -33.4973692,
+    "lon": -70.7445905
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Riesco"
+  }
+},
+{
+  "type": "way",
+  "id": 131845162,
+  "center": {
+    "lat": -33.4804579,
+    "lon": -70.7563188
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "addr:housenumber": "974",
+    "addr:street": "Avenida Américo Vespucio",
+    "amenity": "university",
+    "name": "INACAP Maipú",
+    "note": "Correcciones masivas a ortografía en nombres de importaciones hechas por equipo de gendarmería"
+  }
+},
+{
+  "type": "way",
+  "id": 139107207,
+  "center": {
+    "lat": -33.5455843,
+    "lon": -70.7843663
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque El Vergel"
+  }
+},
+{
+  "type": "way",
+  "id": 142437866,
+  "center": {
+    "lat": -33.5024059,
+    "lon": -70.7962916
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Puerta de Hierro"
+  }
+},
+{
+  "type": "way",
+  "id": 142438696,
+  "center": {
+    "lat": -33.5045315,
+    "lon": -70.7789299
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Tres Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 142438702,
+  "center": {
+    "lat": -33.5013932,
+    "lon": -70.7791087
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Tres Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 154083888,
+  "center": {
+    "lat": -33.5206842,
+    "lon": -70.7767247
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Somela"
+  }
+},
+{
+  "type": "way",
+  "id": 154083951,
+  "center": {
+    "lat": -33.5080114,
+    "lon": -70.7741814
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "1201",
+    "addr:street": "Camino a Rinconada",
+    "amenity": "hospital",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "healthcare:speciality": "general;paediatrics;gynaecology;dentistry;dental_oral_maxillo_facial_surgery;geriatrics",
+    "name": "Hospital Metropolitano El Carmen Doctor Luis Valentín Ferrada",
+    "operator": "Ministerio de Salud",
+    "operator:type": "public",
+    "website": "https://www.hospitalelcarmen.cl/hec/",
+    "wikidata": "Q5902629",
+    "wikimedia_commons": "Category:Hospital El Carmen",
+    "wikipedia": "es:Hospital El Carmen (Santiago de Chile)"
+  }
+},
+{
+  "type": "way",
+  "id": 155178663,
+  "center": {
+    "lat": -33.5666844,
+    "lon": -70.7830730
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Filodendro"
+  }
+},
+{
+  "type": "way",
+  "id": 155204508,
+  "center": {
+    "lat": -33.5680940,
+    "lon": -70.7774982
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Francisco Coloane"
+  }
+},
+{
+  "type": "way",
+  "id": 170292965,
+  "center": {
+    "lat": -33.4745257,
+    "lon": -70.7411271
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Supermercado Alvi",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 170296062,
+  "center": {
+    "lat": -33.4871768,
+    "lon": -70.7294253
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque El Pajonal"
+  }
+},
+{
+  "type": "way",
+  "id": 172598428,
+  "center": {
+    "lat": -33.4902101,
+    "lon": -70.7449289
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "addr:housenumber": "999",
+    "addr:street": "Los Trabajadores",
+    "alt_name": "Centro de Salud Familiar",
+    "amenity": "clinic",
+    "emergency": "no",
+    "name": "CESFAM Clotario Blest",
+    "official_name": "Centro de Salud Familiar"
+  }
+},
+{
+  "type": "way",
+  "id": 172869545,
+  "center": {
+    "lat": -33.5538274,
+    "lon": -70.7942326
+  },
+  "tags": {
+    "addr:housenumber": "18500",
+    "addr:street": "Caletera Camino a Melipilla",
+    "building": "yes",
+    "name": "Acuenta",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 174845162,
+  "center": {
+    "lat": -33.5207343,
+    "lon": -70.7940430
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Bernardo O'Higgins"
+  }
+},
+{
+  "type": "way",
+  "id": 174847645,
+  "center": {
+    "lat": -33.5244014,
+    "lon": -70.8015819
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Parque Municipal de Maipú",
+    "object:street": "Avenida 5 Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 174851628,
+  "center": {
+    "lat": -33.5203077,
+    "lon": -70.7934655
+  },
+  "tags": {
+    "amenity": "library",
+    "building": "yes",
+    "name": "Biblioteca Municipal"
+  }
+},
+{
+  "type": "way",
+  "id": 174851631,
+  "center": {
+    "lat": -33.5206046,
+    "lon": -70.7946832
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Campanario / Conquistador"
+  }
+},
+{
+  "type": "way",
+  "id": 174857519,
+  "center": {
+    "lat": -33.5281538,
+    "lon": -70.7938132
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Los Levitas"
+  }
+},
+{
+  "type": "way",
+  "id": 174857523,
+  "center": {
+    "lat": -33.5267132,
+    "lon": -70.7937855
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Titanic"
+  }
+},
+{
+  "type": "way",
+  "id": 174857525,
+  "center": {
+    "lat": -33.5234305,
+    "lon": -70.7983139
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Pehuén III"
+  }
+},
+{
+  "type": "way",
+  "id": 174857528,
+  "center": {
+    "lat": -33.5237043,
+    "lon": -70.7964182
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Isabel Riquelme"
+  }
+},
+{
+  "type": "way",
+  "id": 174877120,
+  "center": {
+    "lat": -33.5170288,
+    "lon": -70.7925063
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Javiera Carrera"
+  }
+},
+{
+  "type": "way",
+  "id": 175930097,
+  "center": {
+    "lat": -33.5207211,
+    "lon": -70.7936425
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "El Faro",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 175934760,
+  "center": {
+    "lat": -33.5207216,
+    "lon": -70.7922609
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Madre de los Apostoles",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 175934782,
+  "center": {
+    "lat": -33.5180786,
+    "lon": -70.7870534
+  },
+  "tags": {
+    "addr:housenumber": "1995",
+    "addr:street": "Avenida Portales",
+    "building": "commercial",
+    "building:levels": "1",
+    "name": "Mall Chino",
+    "opening_hours": "Mo-Sa 10:00-21:00",
+    "operator": "COM.CHINA SHOPPING LTDA",
+    "payment:cash": "yes",
+    "phone": "+569 7961 4162",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 175940901,
+  "center": {
+    "lat": -33.5074000,
+    "lon": -70.7581807
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Monumento Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 175940902,
+  "center": {
+    "lat": -33.5107423,
+    "lon": -70.7640187
+  },
+  "tags": {
+    "access": "yes",
+    "description": "Por Decreto Supremo N° 645 del 26 de octubre de 1984, se declaró Monumento Histórico Nacional al Templo Votivo de Maipú y también a los restos de la antigua iglesia Capilla de la Victoria.",
+    "historic": "ruins",
+    "historic:civilization": "modern",
+    "monument": "historic",
+    "name": "Excapilla de La Victoria",
+    "ruins": "building",
+    "start_date": "1892-04-05"
+  }
+},
+{
+  "type": "way",
+  "id": 175940907,
+  "center": {
+    "lat": -33.5077495,
+    "lon": -70.7555911
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "alt_name": "Piscina Municipal de Maipú",
+    "fee": "yes",
+    "leisure": "sports_centre",
+    "name": "Piscina Olímpica Municipal Alberto Abarza",
+    "operator": "Municipalidad de Maipú",
+    "operator:type": "public",
+    "website": "https://www.municipalidadmaipu.cl/noticias/publicacion/904/consigue-tus-entradas-para-las-piscinas-municipales",
+    "wikimedia_commons": "Category:Piscina Municipal de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 175940909,
+  "center": {
+    "lat": -33.5074014,
+    "lon": -70.7581602
+  },
+  "tags": {
+    "historic": "memorial",
+    "material": "stone",
+    "memorial": "obelisk",
+    "name": "Monumento a los Vencedores de los Vencedores de Bailén"
+  }
+},
+{
+  "type": "way",
+  "id": 175940910,
+  "center": {
+    "lat": -33.5108039,
+    "lon": -70.7661621
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "roman_catholic",
+    "name": "Templo Votivo de Maipú",
+    "religion": "christian",
+    "wikidata": "Q9085727",
+    "wikimedia_commons": "Category:Templo Votivo de Maipú",
+    "wikipedia": "es:Templo Votivo de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 175940913,
+  "center": {
+    "lat": -33.5078124,
+    "lon": -70.7567722
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Bombero Ramírez"
+  }
+},
+{
+  "type": "way",
+  "id": 175940916,
+  "center": {
+    "lat": -33.5092262,
+    "lon": -70.7545861
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Centro Polideportivo de Maipú",
+    "sport": "multi"
+  }
+},
+{
+  "type": "way",
+  "id": 175940917,
+  "center": {
+    "lat": -33.5088356,
+    "lon": -70.7563758
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Club de Tenis Maipù",
+    "sport": "tennis"
+  }
+},
+{
+  "type": "way",
+  "id": 175940919,
+  "center": {
+    "lat": -33.5087639,
+    "lon": -70.7568153
+  },
+  "tags": {
+    "amenity": "theatre",
+    "building": "yes",
+    "name": "Teatro Municipal de Maipú",
+    "operator": "Ilustre Municiplidad de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 175940920,
+  "center": {
+    "lat": -33.5111751,
+    "lon": -70.7652714
+  },
+  "tags": {
+    "name": "Templo Votivo de Maipú",
+    "tourism": "attraction"
+  }
+},
+{
+  "type": "way",
+  "id": 176708483,
+  "center": {
+    "lat": -33.5118965,
+    "lon": -70.7524255
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "501",
+    "addr:street": "Avenida Esquina Blanca",
+    "amenity": "college",
+    "name": "Instituto Profesional Duoc UC Sede Maipú",
+    "operator": "Pontificia Universidad Católica de Chile"
+  }
+},
+{
+  "type": "way",
+  "id": 176708485,
+  "center": {
+    "lat": -33.5082674,
+    "lon": -70.7488506
+  },
+  "tags": {
+    "addr:housenumber": "0700",
+    "addr:street": "Avenida 5 de Abril",
+    "leisure": "stadium",
+    "name": "Estadio Municipal Santiago Bueras"
+  }
+},
+{
+  "type": "way",
+  "id": 176709412,
+  "center": {
+    "lat": -33.5083005,
+    "lon": -70.7536099
+  },
+  "tags": {
+    "amenity": "marketplace",
+    "name": "Mercado de Maipú",
+    "shop": "marketplace"
+  }
+},
+{
+  "type": "way",
+  "id": 176709413,
+  "center": {
+    "lat": -33.5126848,
+    "lon": -70.7561413
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1580",
+    "addr:street": "Alberto Llona",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "mormon",
+    "name": "Centro de Estaca Santiago Chile Maipú;Barrio Esquina Blanca",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 177257274,
+  "center": {
+    "lat": -33.5115238,
+    "lon": -70.7584933
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1710",
+    "addr:street": "Monumento",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "Parroquia Nuestra Señora del Carmen",
+    "religion": "christian",
+    "wikidata": "Q119672746",
+    "wikimedia_commons": "Category:Antigua capilla de la Victoria de Maipú",
+    "wikipedia": "es:Antigua capilla de la Victoria de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 177257276,
+  "center": {
+    "lat": -33.5111064,
+    "lon": -70.7579047
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1790",
+    "addr:street": "Avenida Los Pajaritos",
+    "building": "yes",
+    "name": "Espacio Urbano Plaza Maipú",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 177257469,
+  "center": {
+    "lat": -33.5095781,
+    "lon": -70.7579316
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Maipú Centro",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 177708296,
+  "center": {
+    "lat": -33.5084339,
+    "lon": -70.7715605
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "1001",
+    "addr:street": "Camino a Rinconada",
+    "amenity": "clinic",
+    "designation": "Postal de Urgencia",
+    "healthcare": "clinic",
+    "name": "Centro de Referencia de Salud de Maipú",
+    "name:es": "CRS",
+    "website": "https://www.crsmaipu.cl/"
+  }
+},
+{
+  "type": "way",
+  "id": 177708297,
+  "center": {
+    "lat": -33.5079352,
+    "lon": -70.7699386
+  },
+  "tags": {
+    "alt_name": "Cementerio Católico de Maipú",
+    "denomination": "catholic",
+    "landuse": "cemetery",
+    "name": "Cementerio de Maipú",
+    "religion": "christian",
+    "wikidata": "Q111972491",
+    "wikimedia_commons": "Category:Cementerio Católico de Maipú",
+    "wikipedia": "es:Cementerio Católico de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 177708304,
+  "center": {
+    "lat": -33.5122208,
+    "lon": -70.7758809
+  },
+  "tags": {
+    "brand": "Ekono",
+    "brand:wikidata": "Q2842729",
+    "name": "Ekono",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 178583390,
+  "center": {
+    "lat": -33.5148131,
+    "lon": -70.7669659
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Juan Pablo II"
+  }
+},
+{
+  "type": "way",
+  "id": 180341737,
+  "center": {
+    "lat": -33.4867500,
+    "lon": -70.7632897
+  },
+  "tags": {
+    "amenity": "marketplace",
+    "name": "Espacio comunal",
+    "source": "survey"
+  }
+},
+{
+  "type": "way",
+  "id": 181551242,
+  "center": {
+    "lat": -33.5304535,
+    "lon": -70.7970156
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Pehuén 8"
+  }
+},
+{
+  "type": "way",
+  "id": 181551245,
+  "center": {
+    "lat": -33.5254070,
+    "lon": -70.7907609
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Pastor Chávez"
+  }
+},
+{
+  "type": "way",
+  "id": 181551250,
+  "center": {
+    "lat": -33.5264851,
+    "lon": -70.7907221
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Pastor Farel"
+  }
+},
+{
+  "type": "way",
+  "id": 181551843,
+  "center": {
+    "lat": -33.5285466,
+    "lon": -70.7885486
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Doctor Galvarino Araya"
+  }
+},
+{
+  "type": "way",
+  "id": 183586464,
+  "center": {
+    "lat": -33.5121995,
+    "lon": -70.7214016
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Americo Vespucio Sur"
+  }
+},
+{
+  "type": "way",
+  "id": 183670474,
+  "center": {
+    "lat": -33.5235641,
+    "lon": -70.7886377
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Arturo Moya Grau"
+  }
+},
+{
+  "type": "way",
+  "id": 186352957,
+  "center": {
+    "lat": -33.4772226,
+    "lon": -70.7405784
+  },
+  "tags": {
+    "brand": "Santa Isabel",
+    "brand:wikidata": "Q7419620",
+    "building": "commercial",
+    "name": "Santa Isabel",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 186352958,
+  "center": {
+    "lat": -33.4784746,
+    "lon": -70.7416576
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Palmeras"
+  }
+},
+{
+  "type": "way",
+  "id": 196801551,
+  "center": {
+    "lat": -33.5090260,
+    "lon": -70.7763106
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza del Abrazo"
+  }
+},
+{
+  "type": "way",
+  "id": 196813862,
+  "center": {
+    "lat": -33.5097303,
+    "lon": -70.7772260
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Matucana"
+  }
+},
+{
+  "type": "way",
+  "id": 208769690,
+  "center": {
+    "lat": -33.5022308,
+    "lon": -70.7562538
+  },
+  "tags": {
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "building": "yes",
+    "name": "Lider",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 208769696,
+  "center": {
+    "lat": -33.4862057,
+    "lon": -70.7469644
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Centro Deportivo Don Óscar"
+  }
+},
+{
+  "type": "way",
+  "id": 220408194,
+  "center": {
+    "lat": -33.5523033,
+    "lon": -70.7582943
+  },
+  "tags": {
+    "addr:housenumber": "200",
+    "addr:street": "Avenida 4 Poniente",
+    "leisure": "sports_centre",
+    "name": "Complejo Deportivo"
+  }
+},
+{
+  "type": "way",
+  "id": 220408196,
+  "center": {
+    "lat": -33.5488221,
+    "lon": -70.7752913
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Esdras"
+  }
+},
+{
+  "type": "way",
+  "id": 220410420,
+  "center": {
+    "lat": -33.5445878,
+    "lon": -70.7770261
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "Parroquia",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 220411354,
+  "center": {
+    "lat": -33.5496857,
+    "lon": -70.7670871
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Inmaculada Concepción"
+  }
+},
+{
+  "type": "way",
+  "id": 220411355,
+  "center": {
+    "lat": -33.5489425,
+    "lon": -70.7685114
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Longovilo"
+  }
+},
+{
+  "type": "way",
+  "id": 220411358,
+  "center": {
+    "lat": -33.5513323,
+    "lon": -70.7681092
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Renacer Oriente Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 220411361,
+  "center": {
+    "lat": -33.5504239,
+    "lon": -70.7677856
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque San Marcos"
+  }
+},
+{
+  "type": "way",
+  "id": 220411463,
+  "center": {
+    "lat": -33.5461454,
+    "lon": -70.7762644
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Abadía"
+  }
+},
+{
+  "type": "way",
+  "id": 220411464,
+  "center": {
+    "lat": -33.5479177,
+    "lon": -70.7726450
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Malaquias"
+  }
+},
+{
+  "type": "way",
+  "id": 220411465,
+  "center": {
+    "lat": -33.5478689,
+    "lon": -70.7708454
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Líbano Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 220411466,
+  "center": {
+    "lat": -33.5491685,
+    "lon": -70.7722039
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Líbano Poniente Seis"
+  }
+},
+{
+  "type": "way",
+  "id": 220411467,
+  "center": {
+    "lat": -33.5470734,
+    "lon": -70.7734206
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Adriana Pérez Llona"
+  }
+},
+{
+  "type": "way",
+  "id": 220411468,
+  "center": {
+    "lat": -33.5450224,
+    "lon": -70.7787696
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Efesios"
+  }
+},
+{
+  "type": "way",
+  "id": 220411469,
+  "center": {
+    "lat": -33.5469404,
+    "lon": -70.7745661
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Ángel Fantuzzi"
+  }
+},
+{
+  "type": "way",
+  "id": 220411470,
+  "center": {
+    "lat": -33.5483153,
+    "lon": -70.7716378
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Líbano Poniente Tres"
+  }
+},
+{
+  "type": "way",
+  "id": 222084756,
+  "center": {
+    "lat": -33.5087755,
+    "lon": -70.7638162
+  },
+  "tags": {
+    "amenity": "university",
+    "name": "Centro de Formación Técnica Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 234914652,
+  "center": {
+    "lat": -33.4900758,
+    "lon": -70.7530839
+  },
+  "tags": {
+    "amenity": "bus_station",
+    "building": "yes",
+    "bus": "yes",
+    "name": "Estación Intermodal Del Sol",
+    "public_transport": "station",
+    "wheelchair": "yes",
+    "wikidata": "Q70398387",
+    "wikimedia_commons": "Category:Estación Intermodal Del Sol",
+    "wikipedia": "es:Estación Intermodal Del Sol"
+  }
+},
+{
+  "type": "way",
+  "id": 238513942,
+  "center": {
+    "lat": -33.5096010,
+    "lon": -70.7542140
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "0260",
+    "addr:street": "Avenida 5 de Abril",
+    "amenity": "townhall",
+    "name": "Ilustre Municipalidad de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 238753393,
+  "center": {
+    "lat": -33.5315128,
+    "lon": -70.7765402
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1401",
+    "addr:postcode": "9273943",
+    "addr:street": "Avenida Alfredo Silva Carvallo",
+    "building": "yes",
+    "name": "Súper 10",
+    "payment:cash": "yes",
+    "payment:credit_cards": "yes",
+    "payment:debit_cards": "yes",
+    "payment:mastercard": "yes",
+    "payment:visa": "yes",
+    "phone": "600 600 0025",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 238753399,
+  "center": {
+    "lat": -33.5326290,
+    "lon": -70.7747575
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1414",
+    "addr:street": "Alfredo SIlva Carvallo",
+    "branch": "Silva Carvallo",
+    "brand": "Unimarc",
+    "brand:wikidata": "Q6156244",
+    "building": "yes",
+    "name": "Unimarc",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 238755053,
+  "center": {
+    "lat": -33.5509086,
+    "lon": -70.7828273
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Club Lonquén"
+  }
+},
+{
+  "type": "way",
+  "id": 238755054,
+  "center": {
+    "lat": -33.5557935,
+    "lon": -70.7831057
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Centro de Eventos El Coliseo"
+  }
+},
+{
+  "type": "way",
+  "id": 239524669,
+  "center": {
+    "lat": -33.5266255,
+    "lon": -70.7668446
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Santa María Poniente",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 239524670,
+  "center": {
+    "lat": -33.5263714,
+    "lon": -70.7657241
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Santa María Centro",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 239524671,
+  "center": {
+    "lat": -33.5264071,
+    "lon": -70.7651652
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Santa María Oriente",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 240331939,
+  "center": {
+    "lat": -33.5257262,
+    "lon": -70.7677388
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "776",
+    "addr:street": "Avenida Nueva San Martín",
+    "alt_name": "Centro de Salud Familiar",
+    "amenity": "clinic",
+    "healthcare": "doctor",
+    "name": "CESFAM Presidenta Michelle Bachelet",
+    "official_name": "Centro de Salud Familiar"
+  }
+},
+{
+  "type": "way",
+  "id": 240332242,
+  "center": {
+    "lat": -33.5260777,
+    "lon": -70.7730011
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Monte Palomar",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 240332243,
+  "center": {
+    "lat": -33.5270650,
+    "lon": -70.7741702
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Nido de Águila",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 240333651,
+  "center": {
+    "lat": -33.5302937,
+    "lon": -70.7635312
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Ricardo Barahona",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 240333658,
+  "center": {
+    "lat": -33.5322690,
+    "lon": -70.7736884
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Tres Poniente Sur",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 240333660,
+  "center": {
+    "lat": -33.5317152,
+    "lon": -70.7686999
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Pepe Abad",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 240333661,
+  "center": {
+    "lat": -33.5319565,
+    "lon": -70.7692100
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Luis San Martín",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 240334215,
+  "center": {
+    "lat": -33.5319975,
+    "lon": -70.7651410
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Domingo Silva",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 240334216,
+  "center": {
+    "lat": -33.5323538,
+    "lon": -70.7656056
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Joaquín Edwards Bello",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/"
+  }
+},
+{
+  "type": "way",
+  "id": 256914684,
+  "center": {
+    "lat": -33.5266534,
+    "lon": -70.7571730
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Triángulo FF.CC."
+  }
+},
+{
+  "type": "way",
+  "id": 256917989,
+  "center": {
+    "lat": -33.5266177,
+    "lon": -70.7758160
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Nahuelbuta"
+  }
+},
+{
+  "type": "way",
+  "id": 256919229,
+  "center": {
+    "lat": -33.5332766,
+    "lon": -70.7745806
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Hernán Olguín"
+  }
+},
+{
+  "type": "way",
+  "id": 264205579,
+  "center": {
+    "lat": -33.5377275,
+    "lon": -70.7750928
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Mecánico Torres"
+  }
+},
+{
+  "type": "way",
+  "id": 264842531,
+  "center": {
+    "lat": -36.8623208,
+    "lon": -57.8748456
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Alvarado"
+  }
+},
+{
+  "type": "way",
+  "id": 264842532,
+  "center": {
+    "lat": -36.8628632,
+    "lon": -57.8829999
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza San Martín"
+  }
+},
+{
+  "type": "way",
+  "id": 264842533,
+  "center": {
+    "lat": -36.8694522,
+    "lon": -57.8832979
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Quintana"
+  }
+},
+{
+  "type": "way",
+  "id": 272418823,
+  "center": {
+    "lat": -33.5113706,
+    "lon": -70.7277160
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Zaror"
+  }
+},
+{
+  "type": "way",
+  "id": 272603490,
+  "center": {
+    "lat": -33.5040652,
+    "lon": -70.7457610
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "2795",
+    "addr:street": "Avenida Segunda Transversal",
+    "alt_name": "Barrio Los Libertadores",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "mormon",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 272617458,
+  "center": {
+    "lat": -33.5161534,
+    "lon": -70.7554025
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Manuel Aldunate"
+  }
+},
+{
+  "type": "way",
+  "id": 272672453,
+  "center": {
+    "lat": -33.5100267,
+    "lon": -70.7538479
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Alcaldía"
+  }
+},
+{
+  "type": "way",
+  "id": 279027642,
+  "center": {
+    "lat": -33.5099946,
+    "lon": -70.7498913
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "0620",
+    "addr:street": "Avenida 5 de Abril",
+    "amenity": "university",
+    "name": "Universidad de Las Américas",
+    "operator": "Universidad de las Américas"
+  }
+},
+{
+  "type": "way",
+  "id": 279684459,
+  "center": {
+    "lat": -33.5080467,
+    "lon": -70.7796560
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1601",
+    "addr:street": "Camino a Rinconada",
+    "amenity": "place_of_worship",
+    "denomination": "mormon",
+    "landuse": "religious",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 294264939,
+  "center": {
+    "lat": -33.5380882,
+    "lon": -70.7824599
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Población Los Héroes"
+  }
+},
+{
+  "type": "way",
+  "id": 301367868,
+  "center": {
+    "lat": -33.4715748,
+    "lon": -70.7465387
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Los Claveles"
+  }
+},
+{
+  "type": "way",
+  "id": 324220863,
+  "center": {
+    "lat": -33.5140735,
+    "lon": -70.7684364
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Reinas"
+  }
+},
+{
+  "type": "way",
+  "id": 324220869,
+  "center": {
+    "lat": -33.5171769,
+    "lon": -70.7677792
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Sola Sierra"
+  }
+},
+{
+  "type": "way",
+  "id": 324220870,
+  "center": {
+    "lat": -33.5140100,
+    "lon": -70.7640638
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Congregación Sagrada Familia",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 324220871,
+  "center": {
+    "lat": -33.5171805,
+    "lon": -70.7698927
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Club Deportivo Campos de Batalla"
+  }
+},
+{
+  "type": "way",
+  "id": 351410662,
+  "center": {
+    "lat": -33.5206293,
+    "lon": -70.7625139
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "411",
+    "addr:street": "Avenida Sur",
+    "building": "yes",
+    "name": "Acuenta",
+    "operator": "Super Bodega aCuenta",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 363019208,
+  "center": {
+    "lat": -33.5110873,
+    "lon": -70.7607725
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "258",
+    "addr:street": "Avenida 5 de Abril",
+    "amenity": "fire_station",
+    "building": "yes",
+    "name": "Primera Compañía del Cuerpo de Bomberos de Maipú",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 363023535,
+  "center": {
+    "lat": -33.5100774,
+    "lon": -70.7580378
+  },
+  "tags": {
+    "Source": "Actualizaciones en Chile. Reconocimiento cartográfico por KG 2016",
+    "addr:street": "Avenida Los Pajaritos",
+    "building": "yes",
+    "name": "Mall Pumay",
+    "shop": "mall",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 363025782,
+  "center": {
+    "lat": -33.5043093,
+    "lon": -70.7801985
+  },
+  "tags": {
+    "addr:city": "santiago",
+    "addr:housenumber": "2600",
+    "addr:street": "Avenida 3 Poniente",
+    "alt_name": "sisa 3 poniente",
+    "brand": "Santa Isabel",
+    "brand:wikidata": "Q7419620",
+    "brand:wikipedia": "es:Santa Isabel (supermercado)",
+    "building": "yes",
+    "name": "Santa Isabel",
+    "opening_hours": "Mo-Su 08:00-21:00",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 373819955,
+  "center": {
+    "lat": -33.4777699,
+    "lon": -70.7256460
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa La Arboleda"
+  }
+},
+{
+  "type": "way",
+  "id": 391033162,
+  "center": {
+    "lat": -33.5073618,
+    "lon": -70.7546301
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:housenumber": "2185",
+    "addr:street": "Bailén",
+    "amenity": "police",
+    "building": "yes",
+    "name": "25 Comisaría Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 392952003,
+  "center": {
+    "lat": -33.5124896,
+    "lon": -70.7854987
+  },
+  "tags": {
+    "addr:housenumber": "1980",
+    "addr:street": "Avenida Las Naciones",
+    "amenity": "place_of_worship",
+    "name": "Parroquia María Misionera Maipú",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 397271064,
+  "center": {
+    "lat": -33.5609343,
+    "lon": -70.7862808
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Ciudad Satélite 4"
+  }
+},
+{
+  "type": "way",
+  "id": 399504891,
+  "center": {
+    "lat": -33.5546661,
+    "lon": -70.7942130
+  },
+  "tags": {
+    "amenity": "fire_station",
+    "building": "yes",
+    "name": "Quinta Compañía del Cuerpo de Bomberos de Maipú",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 401431616,
+  "center": {
+    "lat": -33.5312403,
+    "lon": -70.7922369
+  },
+  "tags": {
+    "branch": "Cuatro Poniente",
+    "brand": "Unimarc",
+    "brand:wikidata": "Q6156244",
+    "building": "yes",
+    "name": "Unimarc",
+    "opening_hours": "Mo-Su 09:00-22:00",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 434825308,
+  "center": {
+    "lat": -33.4748346,
+    "lon": -70.7257680
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza B"
+  }
+},
+{
+  "type": "way",
+  "id": 444605981,
+  "center": {
+    "lat": -33.4781306,
+    "lon": -70.7570147
+  },
+  "tags": {
+    "addr:city": "Santiago",
+    "addr:housenumber": "1076",
+    "addr:street": "Avenida Américo Vespucio",
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "building": "yes",
+    "name": "Lider Express",
+    "shop": "supermarket",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 446171958,
+  "center": {
+    "lat": -33.4811701,
+    "lon": -70.7265603
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "3740",
+    "addr:street": "Isabel Riquelme",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "evangelical",
+    "name": "Corporación Evangelística \"Tiempo de Dios\"",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 446174894,
+  "center": {
+    "lat": -33.4849708,
+    "lon": -70.7393273
+  },
+  "tags": {
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "brand:wikipedia": "es:Líder (supermercado)",
+    "building": "yes",
+    "name": "Lider Express",
+    "shop": "supermarket",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 446179093,
+  "center": {
+    "lat": -33.4960667,
+    "lon": -70.7364165
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "evangelical",
+    "name": "Iglesia Evangélica El Buen Samaritano",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 446881408,
+  "center": {
+    "lat": -33.5027192,
+    "lon": -70.7485867
+  },
+  "tags": {
+    "addr:street": "Los Héroes",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "seventh_day_adventist",
+    "name": "Iglesia Adventista del Séptimo Día",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 448520646,
+  "center": {
+    "lat": -33.5560339,
+    "lon": -70.7927285
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "catholic",
+    "name": "Templo Menor Nuestra Señora de la Visitación",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 448535740,
+  "center": {
+    "lat": -33.4888872,
+    "lon": -70.7627893
+  },
+  "tags": {
+    "addr:housenumber": "951",
+    "addr:street": "La Sinfonia",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Asamblea de Dios Pentecostal Maipú",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 448535746,
+  "center": {
+    "lat": -33.4881759,
+    "lon": -70.7639607
+  },
+  "tags": {
+    "addr:street": "Pasaje El Molino",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Iglesia Adventista del Séptimo Día",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 448567495,
+  "center": {
+    "lat": -33.4917651,
+    "lon": -70.7773552
+  },
+  "tags": {
+    "brand": "Santa Isabel",
+    "brand:wikidata": "Q7419620",
+    "building": "yes",
+    "name": "Santa Isabel",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 448710659,
+  "center": {
+    "lat": -33.5110641,
+    "lon": -70.7622492
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Lubba",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 448710662,
+  "center": {
+    "lat": -33.5111539,
+    "lon": -70.7612122
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Mayorista 10",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico por KG 2016"
+  }
+},
+{
+  "type": "way",
+  "id": 448717729,
+  "center": {
+    "lat": -33.5042532,
+    "lon": -70.7568572
+  },
+  "tags": {
+    "addr:country": "CL",
+    "addr:street": "Avenida Los Pajaritos",
+    "amenity": "clinic",
+    "building": "yes",
+    "healthcare": "clinic",
+    "name": "Asociación Chilena de Seguridad (ACHS)",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 448733452,
+  "center": {
+    "lat": -33.5046079,
+    "lon": -70.7576791
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:street": "Avenida Los Pajaritos",
+    "amenity": "clinic",
+    "building": "yes",
+    "healthcare": "clinic",
+    "name": "Centro de Salud Maipú",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 448837214,
+  "center": {
+    "lat": -33.5059357,
+    "lon": -70.7759310
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Iglesia Pentecostal Puerta del Cielo",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 448846438,
+  "center": {
+    "lat": -33.5245046,
+    "lon": -70.7921534
+  },
+  "tags": {
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "brand:wikipedia": "es:Líder (supermercado)",
+    "building": "retail",
+    "name": "Lider Express",
+    "opening_hours": "Mo-Su 10:00-22:00",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico por KG 2016",
+    "wheelchair": "limited"
+  }
+},
+{
+  "type": "way",
+  "id": 448846441,
+  "center": {
+    "lat": -33.5245127,
+    "lon": -70.7907220
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "mormon",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian",
+    "source": "Reconocimiento terrestre por Kaart 2016."
+  }
+},
+{
+  "type": "way",
+  "id": 449240139,
+  "center": {
+    "lat": -33.5088004,
+    "lon": -70.7690269
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "fixme": "name",
+    "name": "Iglesia Pentecostal Apostolica",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449253941,
+  "center": {
+    "lat": -33.5152732,
+    "lon": -70.7687209
+  },
+  "tags": {
+    "building": "yes",
+    "leisure": "sports_centre",
+    "name": "Ludus Magnus Arena",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449257225,
+  "center": {
+    "lat": -33.5065869,
+    "lon": -70.7971066
+  },
+  "tags": {
+    "name": "La Oferta",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 449266720,
+  "center": {
+    "lat": -33.5057833,
+    "lon": -70.7609559
+  },
+  "tags": {
+    "addr:street": "Libertad",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "mormon",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449267326,
+  "center": {
+    "lat": -33.5157303,
+    "lon": -70.7776981
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Gimnasio Centro Integral",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449405337,
+  "center": {
+    "lat": -33.5067238,
+    "lon": -70.7616269
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Templo de lo Nuevo",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449416532,
+  "center": {
+    "lat": -33.5010068,
+    "lon": -70.7631980
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "evangelical",
+    "name": "Templo Iglesia Evangélica Pentecostal",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449420063,
+  "center": {
+    "lat": -33.5050643,
+    "lon": -70.7564715
+  },
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "building": "yes",
+    "healthcare": "clinic",
+    "name": "Centro Médico del Hospital del Profesor"
+  }
+},
+{
+  "type": "way",
+  "id": 449565166,
+  "center": {
+    "lat": -33.5293401,
+    "lon": -70.7707757
+  },
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "building": "yes",
+    "name": "Podología",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449569569,
+  "center": {
+    "lat": -33.5298409,
+    "lon": -70.7754982
+  },
+  "tags": {
+    "building": "yes",
+    "leisure": "sports_centre",
+    "name": "Kung Fu",
+    "source": "Reconocimiento cartográfico 2016 por KG",
+    "sport": "martial_arts"
+  }
+},
+{
+  "type": "way",
+  "id": 449595810,
+  "center": {
+    "lat": -33.5125688,
+    "lon": -70.7607096
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "La Iglesia en Maipú",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449595811,
+  "center": {
+    "lat": -33.5114358,
+    "lon": -70.7600640
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "christian",
+    "name": "Universal",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449596303,
+  "center": {
+    "lat": -33.5204267,
+    "lon": -70.7696161
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Iglesia Cristiana Fuente de Vida",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449603418,
+  "center": {
+    "lat": -33.4799502,
+    "lon": -70.7397359
+  },
+  "tags": {
+    "addr:street": "Santa Rosa",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 449729512,
+  "center": {
+    "lat": -33.5121536,
+    "lon": -70.7555178
+  },
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "building": "yes",
+    "name": "Clinic Bellolio",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449731510,
+  "center": {
+    "lat": -33.5136473,
+    "lon": -70.7630671
+  },
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "building": "yes",
+    "healthcare": "clinic",
+    "name": "Centro Clínico",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449740450,
+  "center": {
+    "lat": -33.5256892,
+    "lon": -70.7605950
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "mormon",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449747417,
+  "center": {
+    "lat": -33.4985028,
+    "lon": -70.7645000
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "3140",
+    "addr:street": "General San Martin",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "pentecostal",
+    "name": "Iglesia Evangélica Pentecostal",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449773592,
+  "center": {
+    "lat": -33.5039144,
+    "lon": -70.7629506
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Templo Adventista del Séptimo Día",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449909237,
+  "center": {
+    "lat": -33.5157002,
+    "lon": -70.7477483
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Lider",
+    "operator": "Walmart",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449922020,
+  "center": {
+    "lat": -33.4790754,
+    "lon": -70.7318794
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Avenida Simón Bolívar",
+    "building": "yes",
+    "name": "Ekono",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico por KG 2016"
+  }
+},
+{
+  "type": "way",
+  "id": 449928731,
+  "center": {
+    "lat": -33.4886329,
+    "lon": -70.7429010
+  },
+  "tags": {
+    "building": "yes",
+    "name": "Unimarc 2º Transversal",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico por KG 2016"
+  }
+},
+{
+  "type": "way",
+  "id": 449984515,
+  "center": {
+    "lat": -33.4748887,
+    "lon": -70.7318015
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Av. Las Torres",
+    "building": "yes",
+    "name": "Supermercados Pansol",
+    "shop": "supermarket",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 449986550,
+  "center": {
+    "lat": -33.4831396,
+    "lon": -70.7435482
+  },
+  "tags": {
+    "addr:street": "Providencia",
+    "building": "yes",
+    "leisure": "sports_centre",
+    "name": "Gimnasio",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 450012963,
+  "center": {
+    "lat": -33.4719382,
+    "lon": -70.7270790
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Avenida Las Parcelas",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "mormon",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian",
+    "source": "Reconocimiento cortográfico de campo 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 450895941,
+  "center": {
+    "lat": -33.5012726,
+    "lon": -70.7404812
+  },
+  "tags": {
+    "addr:housenumber": "1373",
+    "addr:street": "2 Norte",
+    "building": "yes",
+    "name": "Supermercado Mayorista 10",
+    "shop": "supermarket",
+    "source": "Reconocimiento cartográfico 2016 por KG."
+  }
+},
+{
+  "type": "way",
+  "id": 487534345,
+  "center": {
+    "lat": -33.4736956,
+    "lon": -70.7226247
+  },
+  "tags": {
+    "access": "yes",
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Gente Feliz",
+    "opening_hours": "24/7",
+    "operator": "I. Municipalidad de Maipú",
+    "operator:type": "public",
+    "smoking": "outside"
+  }
+},
+{
+  "type": "way",
+  "id": 494308371,
+  "center": {
+    "lat": -33.5552059,
+    "lon": -70.7939667
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Ciudad Satelite Parte 1"
+  }
+},
+{
+  "type": "way",
+  "id": 494308468,
+  "center": {
+    "lat": -33.5570378,
+    "lon": -70.7915506
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Ciudad Satélite 2"
+  }
+},
+{
+  "type": "way",
+  "id": 494316896,
+  "center": {
+    "lat": -33.5607134,
+    "lon": -70.7907377
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Cactus"
+  }
+},
+{
+  "type": "way",
+  "id": 494317203,
+  "center": {
+    "lat": -33.5586253,
+    "lon": -70.7931414
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Bambú"
+  }
+},
+{
+  "type": "way",
+  "id": 494318229,
+  "center": {
+    "lat": -33.5566272,
+    "lon": -70.7954996
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Aralias"
+  }
+},
+{
+  "type": "way",
+  "id": 494330907,
+  "center": {
+    "lat": -33.5624969,
+    "lon": -70.7887112
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Diademas"
+  }
+},
+{
+  "type": "way",
+  "id": 494333888,
+  "center": {
+    "lat": -33.5576978,
+    "lon": -70.7848901
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Hibisco"
+  }
+},
+{
+  "type": "way",
+  "id": 502243282,
+  "center": {
+    "lat": -33.5601245,
+    "lon": -70.7872329
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Parroquia Padre Hurtado"
+  }
+},
+{
+  "type": "way",
+  "id": 502244124,
+  "center": {
+    "lat": -33.5591236,
+    "lon": -70.7888270
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Ciudad Satélite 3"
+  }
+},
+{
+  "type": "way",
+  "id": 502992585,
+  "center": {
+    "lat": -33.5553061,
+    "lon": -70.7897893
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Liquidambar"
+  }
+},
+{
+  "type": "way",
+  "id": 504068835,
+  "center": {
+    "lat": -33.5567676,
+    "lon": -70.7873106
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Jacaranda"
+  }
+},
+{
+  "type": "way",
+  "id": 540072168,
+  "center": {
+    "lat": -33.5156686,
+    "lon": -70.7620849
+  },
+  "tags": {
+    "addr:city": "Santiago",
+    "addr:housenumber": "411",
+    "addr:postcode": "9252307",
+    "addr:street": "Diego de Almagro",
+    "air_conditioning": "no",
+    "amenity": "community_centre",
+    "building": "yes",
+    "email": "vecinossantacarmen@gmail.com",
+    "name": "Junta de Vecinos Santa Carmen",
+    "operator": "Municipalidad de Maipú",
+    "phone": "+56997994563",
+    "start_date": "10 de junio de 2017",
+    "website": "https://www.facebook.com/vecinossantacarmen",
+    "wheelchair": "no"
+  }
+},
+{
+  "type": "way",
+  "id": 541456768,
+  "center": {
+    "lat": -36.8618020,
+    "lon": -57.8873933
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Paseo Francisco Madero"
+  }
+},
+{
+  "type": "way",
+  "id": 550670872,
+  "center": {
+    "lat": -33.5438107,
+    "lon": -70.7772284
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Flavio Josefo Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 550738296,
+  "center": {
+    "lat": -33.4768376,
+    "lon": -70.7374279
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Las Parcelas"
+  }
+},
+{
+  "type": "way",
+  "id": 550926387,
+  "center": {
+    "lat": -33.5499457,
+    "lon": -70.7625867
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Portezuelo Norte",
+    "opening_hours": "Mo-Su 12:00-12:00"
+  }
+},
+{
+  "type": "way",
+  "id": 550926902,
+  "center": {
+    "lat": -33.5491336,
+    "lon": -70.7639689
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Las Palmeras"
+  }
+},
+{
+  "type": "way",
+  "id": 550927235,
+  "center": {
+    "lat": -33.5481347,
+    "lon": -70.7622210
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Bagdad"
+  }
+},
+{
+  "type": "way",
+  "id": 550927614,
+  "center": {
+    "lat": -33.5447745,
+    "lon": -70.7643681
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Arabia"
+  }
+},
+{
+  "type": "way",
+  "id": 550928063,
+  "center": {
+    "lat": -33.5441976,
+    "lon": -70.7656121
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque de la Toma de Agua"
+  }
+},
+{
+  "type": "way",
+  "id": 550928180,
+  "center": {
+    "lat": -33.5435389,
+    "lon": -70.7669104
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza La Mezquita Norte"
+  }
+},
+{
+  "type": "way",
+  "id": 550928367,
+  "center": {
+    "lat": -33.5424644,
+    "lon": -70.7679534
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Los Océanos"
+  }
+},
+{
+  "type": "way",
+  "id": 550928668,
+  "center": {
+    "lat": -33.5436663,
+    "lon": -70.7680883
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Diego Colombo"
+  }
+},
+{
+  "type": "way",
+  "id": 550928982,
+  "center": {
+    "lat": -33.5446450,
+    "lon": -70.7688746
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque El Líbano"
+  }
+},
+{
+  "type": "way",
+  "id": 550929151,
+  "center": {
+    "lat": -33.5453626,
+    "lon": -70.7688572
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Etiopia"
+  }
+},
+{
+  "type": "way",
+  "id": 550930496,
+  "center": {
+    "lat": -33.5407844,
+    "lon": -70.7696443
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Mares del Sur"
+  }
+},
+{
+  "type": "way",
+  "id": 550930931,
+  "center": {
+    "lat": -33.5420380,
+    "lon": -70.7705986
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Neptuno Norte"
+  }
+},
+{
+  "type": "way",
+  "id": 550931004,
+  "center": {
+    "lat": -33.5424672,
+    "lon": -70.7711149
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Neptuno Sur"
+  }
+},
+{
+  "type": "way",
+  "id": 550931164,
+  "center": {
+    "lat": -33.5434372,
+    "lon": -70.7746307
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Luxor"
+  }
+},
+{
+  "type": "way",
+  "id": 550931344,
+  "center": {
+    "lat": -33.5425384,
+    "lon": -70.7781237
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Egipto"
+  }
+},
+{
+  "type": "way",
+  "id": 550931596,
+  "center": {
+    "lat": -33.5455729,
+    "lon": -70.7726365
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Bombero Raúl Mazzone"
+  }
+},
+{
+  "type": "way",
+  "id": 550931772,
+  "center": {
+    "lat": -33.5476091,
+    "lon": -70.7647082
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Israel"
+  }
+},
+{
+  "type": "way",
+  "id": 550931913,
+  "center": {
+    "lat": -33.5511434,
+    "lon": -70.7638810
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Gran Misión"
+  }
+},
+{
+  "type": "way",
+  "id": 550931986,
+  "center": {
+    "lat": -33.5511533,
+    "lon": -70.7647310
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Santa Catalina"
+  }
+},
+{
+  "type": "way",
+  "id": 550932556,
+  "center": {
+    "lat": -33.5520664,
+    "lon": -70.7645689
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza La Salle"
+  }
+},
+{
+  "type": "way",
+  "id": 550932685,
+  "center": {
+    "lat": -33.5510706,
+    "lon": -70.7656520
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Purísima"
+  }
+},
+{
+  "type": "way",
+  "id": 550932776,
+  "center": {
+    "lat": -33.5502659,
+    "lon": -70.7656226
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Camiña"
+  }
+},
+{
+  "type": "way",
+  "id": 550932908,
+  "center": {
+    "lat": -33.5489336,
+    "lon": -70.7698404
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Eleusis"
+  }
+},
+{
+  "type": "way",
+  "id": 550932965,
+  "center": {
+    "lat": -33.5499268,
+    "lon": -70.7704754
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Eleusis"
+  }
+},
+{
+  "type": "way",
+  "id": 550933183,
+  "center": {
+    "lat": -33.5434131,
+    "lon": -70.7712509
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Tarot"
+  }
+},
+{
+  "type": "way",
+  "id": 550934355,
+  "center": {
+    "lat": -33.5467747,
+    "lon": -70.7599242
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Empedrado"
+  }
+},
+{
+  "type": "way",
+  "id": 550934517,
+  "center": {
+    "lat": -33.5467173,
+    "lon": -70.7603408
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza -Constitución"
+  }
+},
+{
+  "type": "way",
+  "id": 550934808,
+  "center": {
+    "lat": -33.5458819,
+    "lon": -70.7621426
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Pelarco"
+  }
+},
+{
+  "type": "way",
+  "id": 550935197,
+  "center": {
+    "lat": -33.5523441,
+    "lon": -70.7693286
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Caleta Gonzalo"
+  }
+},
+{
+  "type": "way",
+  "id": 550935271,
+  "center": {
+    "lat": -33.5532604,
+    "lon": -70.7697662
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Huasco"
+  }
+},
+{
+  "type": "way",
+  "id": 550935434,
+  "center": {
+    "lat": -33.5535600,
+    "lon": -70.7673268
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Andacollo"
+  }
+},
+{
+  "type": "way",
+  "id": 550936315,
+  "center": {
+    "lat": -33.5443235,
+    "lon": -70.7693304
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Tripoli"
+  }
+},
+{
+  "type": "way",
+  "id": 550936973,
+  "center": {
+    "lat": -33.5469808,
+    "lon": -70.7658251
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza La Cosecha"
+  }
+},
+{
+  "type": "way",
+  "id": 551096622,
+  "center": {
+    "lat": -33.5524755,
+    "lon": -70.7642625
+  },
+  "tags": {
+    "addr:street": "Avenida Cristo Redentor",
+    "amenity": "place_of_worship",
+    "building": "residential",
+    "name": "Capilla Cristo Redentor",
+    "religion": "christian",
+    "source": "Kaart Ground Survey 2017"
+  }
+},
+{
+  "type": "way",
+  "id": 552062458,
+  "center": {
+    "lat": -33.4775595,
+    "lon": -70.7476114
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Van Dyck"
+  }
+},
+{
+  "type": "way",
+  "id": 552074255,
+  "center": {
+    "lat": -33.4762042,
+    "lon": -70.7474805
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Rafael Sanzio"
+  }
+},
+{
+  "type": "way",
+  "id": 552074257,
+  "center": {
+    "lat": -33.4730768,
+    "lon": -70.7500934
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Los Canarios"
+  }
+},
+{
+  "type": "way",
+  "id": 552074263,
+  "center": {
+    "lat": -33.4791016,
+    "lon": -70.7471901
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Santa Elena"
+  }
+},
+{
+  "type": "way",
+  "id": 554297902,
+  "center": {
+    "lat": -33.4726911,
+    "lon": -70.7211325
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Avenida 5 de Abril"
+  }
+},
+{
+  "type": "way",
+  "id": 554854435,
+  "center": {
+    "lat": -33.5270638,
+    "lon": -70.7988194
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Valle de los Reyes"
+  }
+},
+{
+  "type": "way",
+  "id": 556894458,
+  "center": {
+    "lat": -33.4897967,
+    "lon": -70.7755244
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Rosal"
+  }
+},
+{
+  "type": "way",
+  "id": 556896767,
+  "center": {
+    "lat": -33.4867770,
+    "lon": -70.7700477
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza El Rosal",
+    "object:street": "Avenida El Rosal"
+  }
+},
+{
+  "type": "way",
+  "id": 556897369,
+  "center": {
+    "lat": -33.4835844,
+    "lon": -70.7647486
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Rosal"
+  }
+},
+{
+  "type": "way",
+  "id": 556897441,
+  "center": {
+    "lat": -33.4805996,
+    "lon": -70.7601281
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Rosal"
+  }
+},
+{
+  "type": "way",
+  "id": 557091917,
+  "center": {
+    "lat": -33.4871421,
+    "lon": -70.7747576
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Provincias Unidas"
+  }
+},
+{
+  "type": "way",
+  "id": 557091918,
+  "center": {
+    "lat": -33.4867055,
+    "lon": -70.7674957
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Batalla de Yungay",
+    "object:street": "Batalla de Yungay"
+  }
+},
+{
+  "type": "way",
+  "id": 561150759,
+  "center": {
+    "lat": -33.5540692,
+    "lon": -70.7927768
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Mirasol"
+  }
+},
+{
+  "type": "way",
+  "id": 561396236,
+  "center": {
+    "lat": -33.5172484,
+    "lon": -70.7594311
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Raúl Aliaga"
+  }
+},
+{
+  "type": "way",
+  "id": 565879150,
+  "center": {
+    "lat": -33.5322869,
+    "lon": -70.7764286
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Sagrada Familia"
+  }
+},
+{
+  "type": "way",
+  "id": 565879151,
+  "center": {
+    "lat": -33.5324100,
+    "lon": -70.7770336
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "denomination": "catholic",
+    "name": "Capilla Sagrada Familia",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 565964285,
+  "center": {
+    "lat": -33.5138591,
+    "lon": -70.7607021
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Hermanos Carrera"
+  }
+},
+{
+  "type": "way",
+  "id": 572841694,
+  "center": {
+    "lat": -33.4995815,
+    "lon": -70.7790172
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Tres Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 584793716,
+  "center": {
+    "lat": -33.5075940,
+    "lon": -70.7349202
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Central Avenida Las Torres"
+  }
+},
+{
+  "type": "way",
+  "id": 590651473,
+  "center": {
+    "lat": -33.4697314,
+    "lon": -70.7399422
+  },
+  "tags": {
+    "dog": "yes",
+    "leisure": "park",
+    "name": "Plaza Meulín",
+    "opening_hours": "24/7",
+    "operator": "Municipalidad de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 591105443,
+  "center": {
+    "lat": -33.4721222,
+    "lon": -70.7523638
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza La Torre"
+  }
+},
+{
+  "type": "way",
+  "id": 591105482,
+  "center": {
+    "lat": -33.4688553,
+    "lon": -70.7444972
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Las Cuatro Plazas"
+  }
+},
+{
+  "type": "way",
+  "id": 591106113,
+  "center": {
+    "lat": -33.4800751,
+    "lon": -70.7574857
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Maipu Soccer"
+  }
+},
+{
+  "type": "way",
+  "id": 591276794,
+  "center": {
+    "lat": -33.5131574,
+    "lon": -70.7470557
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Capitán Ignacio Carrera Pinto"
+  }
+},
+{
+  "type": "way",
+  "id": 591279516,
+  "center": {
+    "lat": -33.5012823,
+    "lon": -70.7427239
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Coronel Santiago Bueras"
+  }
+},
+{
+  "type": "way",
+  "id": 595182894,
+  "center": {
+    "lat": -33.5410468,
+    "lon": -70.7679440
+  },
+  "tags": {
+    "bicycle_parking": "rack",
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "building": "yes",
+    "cash_withdrawal": "yes",
+    "changing_table": "yes",
+    "changing_table:fee": "no",
+    "kids_area": "no",
+    "level": "1",
+    "name": "Lider",
+    "opening_hours": "Mo-Su 08:00-21:00",
+    "organic": "yes",
+    "parking": "surface",
+    "shop": "supermarket",
+    "toilets": "yes",
+    "toilets:access": "yes",
+    "toilets:wheelchair": "yes",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 597136378,
+  "center": {
+    "lat": -33.5108080,
+    "lon": -70.7816040
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Llavería"
+  }
+},
+{
+  "type": "way",
+  "id": 598412752,
+  "center": {
+    "lat": -33.4927741,
+    "lon": -70.7555163
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Pajaritos Central"
+  }
+},
+{
+  "type": "way",
+  "id": 600024885,
+  "center": {
+    "lat": -33.5014003,
+    "lon": -70.7641165
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Arica"
+  }
+},
+{
+  "type": "way",
+  "id": 602305145,
+  "center": {
+    "lat": -33.5068047,
+    "lon": -70.7852358
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "building": "house",
+    "community_centre": "cultural_centre",
+    "name": "Casa De La Cultura"
+  }
+},
+{
+  "type": "way",
+  "id": 602305147,
+  "center": {
+    "lat": -33.5045817,
+    "lon": -70.7901351
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Camino a Rinconada",
+    "building": "yes",
+    "height": "5",
+    "name": "Supermercado Acuenta",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 602308016,
+  "center": {
+    "lat": -33.5147909,
+    "lon": -70.7501745
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Capri"
+  }
+},
+{
+  "type": "way",
+  "id": 602308020,
+  "center": {
+    "lat": -33.5172462,
+    "lon": -70.7491487
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Ronald Wood",
+    "object:street": "Elizabeth Heisse"
+  }
+},
+{
+  "type": "way",
+  "id": 602774594,
+  "center": {
+    "lat": -33.5492774,
+    "lon": -70.7605281
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Lumaco Sur"
+  }
+},
+{
+  "type": "way",
+  "id": 602774595,
+  "center": {
+    "lat": -33.5514680,
+    "lon": -70.7664332
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Putre"
+  }
+},
+{
+  "type": "way",
+  "id": 602774596,
+  "center": {
+    "lat": -33.5522848,
+    "lon": -70.7664282
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Colchane"
+  }
+},
+{
+  "type": "way",
+  "id": 602774597,
+  "center": {
+    "lat": -33.5538194,
+    "lon": -70.7658647
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Higuerilla"
+  }
+},
+{
+  "type": "way",
+  "id": 602785336,
+  "center": {
+    "lat": -33.5533197,
+    "lon": -70.7931673
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza MadreSelva"
+  }
+},
+{
+  "type": "way",
+  "id": 606519625,
+  "center": {
+    "lat": -33.4723426,
+    "lon": -70.7245556
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Parque Ortuzano",
+    "opening_hours": "24/7"
+  }
+},
+{
+  "type": "way",
+  "id": 606519630,
+  "center": {
+    "lat": -33.4766338,
+    "lon": -70.7304988
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Francia"
+  }
+},
+{
+  "type": "way",
+  "id": 606519678,
+  "center": {
+    "lat": -33.4705278,
+    "lon": -70.7554540
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Rey Ricardo"
+  }
+},
+{
+  "type": "way",
+  "id": 606519679,
+  "center": {
+    "lat": -33.4710678,
+    "lon": -70.7553419
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Guillermo Tell"
+  }
+},
+{
+  "type": "way",
+  "id": 606519680,
+  "center": {
+    "lat": -33.4699639,
+    "lon": -70.7556062
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Santa Lucía"
+  }
+},
+{
+  "type": "way",
+  "id": 615380754,
+  "center": {
+    "lat": -33.5447639,
+    "lon": -70.7732296
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Huracán"
+  }
+},
+{
+  "type": "way",
+  "id": 616589777,
+  "center": {
+    "lat": -33.5122291,
+    "lon": -70.7434812
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Colina"
+  }
+},
+{
+  "type": "way",
+  "id": 616589778,
+  "center": {
+    "lat": -33.5122545,
+    "lon": -70.7436575
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Colina"
+  }
+},
+{
+  "type": "way",
+  "id": 616589780,
+  "center": {
+    "lat": -33.5111254,
+    "lon": -70.7456490
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Pozo Almonte"
+  }
+},
+{
+  "type": "way",
+  "id": 618963874,
+  "center": {
+    "lat": -33.5142750,
+    "lon": -70.7452576
+  },
+  "tags": {
+    "addr:housenumber": "1186",
+    "addr:street": "Marina Grande",
+    "amenity": "place_of_worship",
+    "name": "Capilla San José Obrero"
+  }
+},
+{
+  "type": "way",
+  "id": 618963875,
+  "center": {
+    "lat": -33.5143466,
+    "lon": -70.7455769
+  },
+  "tags": {
+    "addr:housenumber": "1303",
+    "addr:street": "Pozo Almonte",
+    "amenity": "community_centre",
+    "name": "Sede Social Villa Pozo almonte"
+  }
+},
+{
+  "type": "way",
+  "id": 618963876,
+  "center": {
+    "lat": -33.5141749,
+    "lon": -70.7455707
+  },
+  "tags": {
+    "addr:housenumber": "1333",
+    "addr:street": "Pozo Almonte",
+    "amenity": "place_of_worship",
+    "name": "Iglesia Evangélica"
+  }
+},
+{
+  "type": "way",
+  "id": 619190125,
+  "center": {
+    "lat": -33.5106122,
+    "lon": -70.7474421
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque San Alberto Hurtado"
+  }
+},
+{
+  "type": "way",
+  "id": 620996696,
+  "center": {
+    "lat": -33.4719567,
+    "lon": -70.7424338
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "257",
+    "addr:street": "Aves del Paraíso",
+    "amenity": "place_of_worship",
+    "name": "Capilla San Bonifacio",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 621223365,
+  "center": {
+    "lat": -33.4726218,
+    "lon": -70.7429110
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza Versalles",
+    "object:street": "Ingeniero Pedro Gallo",
+    "opening_hours": "24/7",
+    "operator": "I. Municipalidad de Maipú",
+    "operator:type": "public"
+  }
+},
+{
+  "type": "way",
+  "id": 621227768,
+  "center": {
+    "lat": -33.4866679,
+    "lon": -70.7737204
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Holanda"
+  }
+},
+{
+  "type": "way",
+  "id": 621228038,
+  "center": {
+    "lat": -33.4877500,
+    "lon": -70.7786321
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Teatro Municipal"
+  }
+},
+{
+  "type": "way",
+  "id": 621230124,
+  "center": {
+    "lat": -33.4919673,
+    "lon": -70.7717509
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Bandejón Ingeniero Eduardo Domínguez"
+  }
+},
+{
+  "type": "way",
+  "id": 621230130,
+  "center": {
+    "lat": -33.4913969,
+    "lon": -70.7786140
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza El Rosal"
+  }
+},
+{
+  "type": "way",
+  "id": 621230618,
+  "center": {
+    "lat": -33.4946523,
+    "lon": -70.7745296
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Isabel Riquelme"
+  }
+},
+{
+  "type": "way",
+  "id": 621231980,
+  "center": {
+    "lat": -33.4916800,
+    "lon": -70.7625250
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Vizcachas"
+  }
+},
+{
+  "type": "way",
+  "id": 621232394,
+  "center": {
+    "lat": -33.4892101,
+    "lon": -70.7676395
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Victoria de Abril",
+    "object:street": "Victoria de Abril"
+  }
+},
+{
+  "type": "way",
+  "id": 621232512,
+  "center": {
+    "lat": -33.4891923,
+    "lon": -70.7721246
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Patria Nueva"
+  }
+},
+{
+  "type": "way",
+  "id": 621232746,
+  "center": {
+    "lat": -33.4881041,
+    "lon": -70.7702461
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Campo de Batalla",
+    "object:street": "Pasaje Machi"
+  }
+},
+{
+  "type": "way",
+  "id": 621232857,
+  "center": {
+    "lat": -33.4847700,
+    "lon": -70.7645092
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Liceo Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 621233021,
+  "center": {
+    "lat": -33.4881236,
+    "lon": -70.7683398
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días"
+  }
+},
+{
+  "type": "way",
+  "id": 621308772,
+  "center": {
+    "lat": -33.5604765,
+    "lon": -70.7868542
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1040",
+    "addr:street": "Avenida Parque Central Poniente",
+    "brand": "Santa Isabel",
+    "brand:wikidata": "Q7419620",
+    "brand:wikipedia": "es:Santa Isabel (supermercado)",
+    "building": "yes",
+    "name": "Santa Isabel",
+    "operator": "Cencosud",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 622500999,
+  "center": {
+    "lat": -33.4748380,
+    "lon": -70.7494643
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "638",
+    "addr:street": "Avenida Arquitecto Hugo Bravo",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "protestant",
+    "name": "Iglesia de Cristo Iberoamericana",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 624154519,
+  "center": {
+    "lat": -33.5088468,
+    "lon": -70.7558045
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Rapa Nui"
+  }
+},
+{
+  "type": "way",
+  "id": 624217548,
+  "center": {
+    "lat": -36.8555187,
+    "lon": -57.8837911
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Las Heras"
+  }
+},
+{
+  "type": "way",
+  "id": 627670008,
+  "center": {
+    "lat": -33.4829557,
+    "lon": -70.7384522
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Junta de vecinos villa pajaritos"
+  }
+},
+{
+  "type": "way",
+  "id": 627670009,
+  "center": {
+    "lat": -33.4788260,
+    "lon": -70.7418949
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "4774",
+    "addr:street": "Pasaje Caifas",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "catholic",
+    "name": "Parroquia San Francisco de los Pajaritos",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 628395526,
+  "center": {
+    "lat": -33.5038965,
+    "lon": -70.7564096
+  },
+  "tags": {
+    "amenity": "college",
+    "name": "Instituto Chileno Británico de Cultura"
+  }
+},
+{
+  "type": "way",
+  "id": 629077285,
+  "center": {
+    "lat": -33.5613035,
+    "lon": -70.7818544
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Valle del Elqui"
+  }
+},
+{
+  "type": "way",
+  "id": 629097655,
+  "center": {
+    "lat": -33.5590586,
+    "lon": -70.7839228
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1320",
+    "addr:street": "Avenida Alcalde José Luis Infante Larraín",
+    "brand": "Santa Isabel",
+    "brand:wikidata": "Q7419620",
+    "building": "yes",
+    "name": "Santa Isabel",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 629098226,
+  "center": {
+    "lat": -33.5647285,
+    "lon": -70.7820143
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 629591280,
+  "center": {
+    "lat": -33.5614324,
+    "lon": -70.7786015
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque José Luis Infante Larrain"
+  }
+},
+{
+  "type": "way",
+  "id": 631441463,
+  "center": {
+    "lat": -33.4897856,
+    "lon": -70.7675115
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "description": "plaza de juegos",
+    "leisure": "park",
+    "name": "Plaza La Sinfonía",
+    "object:street": "La Sinfonía"
+  }
+},
+{
+  "type": "way",
+  "id": 631441467,
+  "center": {
+    "lat": -33.4882755,
+    "lon": -70.7733941
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza Los Jacintos",
+    "object:housenumber": "84",
+    "object:street": "Los Jacintos"
+  }
+},
+{
+  "type": "way",
+  "id": 631441468,
+  "center": {
+    "lat": -33.4903133,
+    "lon": -70.7813927
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza Huerquehue Norte",
+    "object:housenumber": "883",
+    "object:street": "Huerquehue"
+  }
+},
+{
+  "type": "way",
+  "id": 631441469,
+  "center": {
+    "lat": -33.4878109,
+    "lon": -70.7652455
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza El Molino",
+    "object:housenumber": "1150",
+    "object:street": "El Molino"
+  }
+},
+{
+  "type": "way",
+  "id": 631580001,
+  "center": {
+    "lat": -33.4897785,
+    "lon": -70.7634866
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza La Sinfonía",
+    "object:street": "La Sinfonía"
+  }
+},
+{
+  "type": "way",
+  "id": 632007978,
+  "center": {
+    "lat": -33.4851418,
+    "lon": -70.7631109
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "description": "plaza de juegos",
+    "leisure": "park",
+    "name": "Plaza Ccordillera de Los Andes",
+    "object:housenumber": "1026",
+    "object:street": "Cordillera de los Andes"
+  }
+},
+{
+  "type": "way",
+  "id": 632007979,
+  "center": {
+    "lat": -33.4854888,
+    "lon": -70.7630135
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza Tempo Votivo",
+    "object:housenumber": "897",
+    "object:street": "Pasaje Templo Votivo"
+  }
+},
+{
+  "type": "way",
+  "id": 632007980,
+  "center": {
+    "lat": -33.4868230,
+    "lon": -70.7651630
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza La Reforma",
+    "object:housenumber": "915",
+    "object:street": "La Reforma"
+  }
+},
+{
+  "type": "way",
+  "id": 632007981,
+  "center": {
+    "lat": -33.4873903,
+    "lon": -70.7655630
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza Batalla de Maipú",
+    "object:housenumber": "560",
+    "object:street": "Pasaje Batalla de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 632007982,
+  "center": {
+    "lat": -33.4883763,
+    "lon": -70.7664956
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "leisure": "park",
+    "name": "Plaza 10 de Julio",
+    "object:housenumber": "1344",
+    "object:street": "Diez de Julio Huamachuco"
+  }
+},
+{
+  "type": "way",
+  "id": 632007989,
+  "center": {
+    "lat": -33.4875472,
+    "lon": -70.7777454
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Rosa del Valle"
+  }
+},
+{
+  "type": "way",
+  "id": 632007990,
+  "center": {
+    "lat": -33.4838526,
+    "lon": -70.7710426
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Mar de chile"
+  }
+},
+{
+  "type": "way",
+  "id": 632007992,
+  "center": {
+    "lat": -33.4889131,
+    "lon": -70.7802217
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Calicura"
+  }
+},
+{
+  "type": "way",
+  "id": 632007993,
+  "center": {
+    "lat": -33.4917200,
+    "lon": -70.7825376
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Millahue"
+  }
+},
+{
+  "type": "way",
+  "id": 632007995,
+  "center": {
+    "lat": -33.4942566,
+    "lon": -70.7821839
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Nalcahue"
+  }
+},
+{
+  "type": "way",
+  "id": 632007996,
+  "center": {
+    "lat": -33.4912292,
+    "lon": -70.7693733
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Chancura"
+  }
+},
+{
+  "type": "way",
+  "id": 632007997,
+  "center": {
+    "lat": -33.4915993,
+    "lon": -70.7695339
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Chancura"
+  }
+},
+{
+  "type": "way",
+  "id": 632007998,
+  "center": {
+    "lat": -33.4919323,
+    "lon": -70.7696806
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Chancura",
+    "object:street": "Chancura"
+  }
+},
+{
+  "type": "way",
+  "id": 632007999,
+  "center": {
+    "lat": -33.4921795,
+    "lon": -70.7699080
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Chancura",
+    "object:street": "Chancura"
+  }
+},
+{
+  "type": "way",
+  "id": 632008000,
+  "center": {
+    "lat": -33.4924651,
+    "lon": -70.7696778
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Chancura"
+  }
+},
+{
+  "type": "way",
+  "id": 637361064,
+  "center": {
+    "lat": -33.4812141,
+    "lon": -70.7243122
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Bellatrix"
+  }
+},
+{
+  "type": "way",
+  "id": 637681137,
+  "center": {
+    "lat": -33.4904810,
+    "lon": -70.7543339
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Alex Núñez",
+    "object:street": "Isabel Riquelme"
+  }
+},
+{
+  "type": "way",
+  "id": 637681205,
+  "center": {
+    "lat": -33.5635712,
+    "lon": -70.7750190
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Puertos de Chile"
+  }
+},
+{
+  "type": "way",
+  "id": 637681211,
+  "center": {
+    "lat": -33.5614538,
+    "lon": -70.7801901
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque San Rafael"
+  }
+},
+{
+  "type": "way",
+  "id": 637681212,
+  "center": {
+    "lat": -33.5688198,
+    "lon": -70.7751064
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Barrio Lautaro 2"
+  }
+},
+{
+  "type": "way",
+  "id": 637681213,
+  "center": {
+    "lat": -33.5690540,
+    "lon": -70.7764768
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Barrio Lautaro 1"
+  }
+},
+{
+  "type": "way",
+  "id": 637681258,
+  "center": {
+    "lat": -33.5543006,
+    "lon": -70.7939212
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Centro de Atención Municipal Ciudad Satélite"
+  }
+},
+{
+  "type": "way",
+  "id": 638859681,
+  "center": {
+    "lat": -33.5549831,
+    "lon": -70.7655771
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Paiguano"
+  }
+},
+{
+  "type": "way",
+  "id": 638859682,
+  "center": {
+    "lat": -33.5544216,
+    "lon": -70.7646728
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza La Canela"
+  }
+},
+{
+  "type": "way",
+  "id": 639555330,
+  "center": {
+    "lat": -33.5608066,
+    "lon": -70.7834580
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque El Monte "
+  }
+},
+{
+  "type": "way",
+  "id": 673673975,
+  "center": {
+    "lat": -33.5525851,
+    "lon": -70.7669911
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Los Portales de Santa Ana"
+  }
+},
+{
+  "type": "way",
+  "id": 673762641,
+  "center": {
+    "lat": -33.5445580,
+    "lon": -70.7812098
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Isaias"
+  }
+},
+{
+  "type": "way",
+  "id": 673875618,
+  "center": {
+    "lat": -33.5530302,
+    "lon": -70.7688194
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Chañaral"
+  }
+},
+{
+  "type": "way",
+  "id": 673879994,
+  "center": {
+    "lat": -33.5459203,
+    "lon": -70.7592085
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Judea"
+  }
+},
+{
+  "type": "way",
+  "id": 673879996,
+  "center": {
+    "lat": -33.5523556,
+    "lon": -70.7626791
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Toqui Aillavillú"
+  }
+},
+{
+  "type": "way",
+  "id": 673938166,
+  "center": {
+    "lat": -33.5482018,
+    "lon": -70.7592990
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Toqui Aillavillú"
+  }
+},
+{
+  "type": "way",
+  "id": 673956403,
+  "center": {
+    "lat": -33.5396250,
+    "lon": -70.7704174
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Judea Sur"
+  }
+},
+{
+  "type": "way",
+  "id": 673956404,
+  "center": {
+    "lat": -33.5416486,
+    "lon": -70.7758033
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Presidente Sadat"
+  }
+},
+{
+  "type": "way",
+  "id": 673956405,
+  "center": {
+    "lat": -33.5418767,
+    "lon": -70.7763767
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Amenofis"
+  }
+},
+{
+  "type": "way",
+  "id": 673956406,
+  "center": {
+    "lat": -33.5387839,
+    "lon": -70.7729048
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Judea Norte"
+  }
+},
+{
+  "type": "way",
+  "id": 673956409,
+  "center": {
+    "lat": -33.5430896,
+    "lon": -70.7698652
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Marco Antonio Uno"
+  }
+},
+{
+  "type": "way",
+  "id": 673956410,
+  "center": {
+    "lat": -33.5432131,
+    "lon": -70.7696923
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Marco Antonio Dos"
+  }
+},
+{
+  "type": "way",
+  "id": 673956411,
+  "center": {
+    "lat": -33.5413714,
+    "lon": -70.7726249
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Abisinia"
+  }
+},
+{
+  "type": "way",
+  "id": 673960102,
+  "center": {
+    "lat": -33.5493367,
+    "lon": -70.7655702
+  },
+  "tags": {
+    "amenity": "police",
+    "building": "yes",
+    "name": "Comisaría Barrio Italiano",
+    "opening_hours": "24/7",
+    "operator": "Carabineros de Chile",
+    "operator:wikidata": "Q2317752"
+  }
+},
+{
+  "type": "way",
+  "id": 674040475,
+  "center": {
+    "lat": -33.5468350,
+    "lon": -70.7808907
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Canchas Asturias",
+    "sport": "soccer"
+  }
+},
+{
+  "type": "way",
+  "id": 674161674,
+  "center": {
+    "lat": -33.5454208,
+    "lon": -70.7801758
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza María Tudor"
+  }
+},
+{
+  "type": "way",
+  "id": 674162955,
+  "center": {
+    "lat": -33.5516889,
+    "lon": -70.7626951
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Gran Misión"
+  }
+},
+{
+  "type": "way",
+  "id": 674162956,
+  "center": {
+    "lat": -33.5523036,
+    "lon": -70.7631489
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza San Gustavo"
+  }
+},
+{
+  "type": "way",
+  "id": 674163818,
+  "center": {
+    "lat": -33.5470824,
+    "lon": -70.7700941
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Trimegisto"
+  }
+},
+{
+  "type": "way",
+  "id": 674163993,
+  "center": {
+    "lat": -33.5437566,
+    "lon": -70.7684968
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Diego Colombo"
+  }
+},
+{
+  "type": "way",
+  "id": 674258912,
+  "center": {
+    "lat": -33.5404877,
+    "lon": -70.7739074
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Herodes"
+  }
+},
+{
+  "type": "way",
+  "id": 674280515,
+  "center": {
+    "lat": -33.5413224,
+    "lon": -70.7763348
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Cancha Manuel Rodríguez"
+  }
+},
+{
+  "type": "way",
+  "id": 674280612,
+  "center": {
+    "lat": -33.5423905,
+    "lon": -70.7715127
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "La Iglesia de Jesucristo de los Santos de los Últimos Días"
+  }
+},
+{
+  "type": "way",
+  "id": 682302636,
+  "center": {
+    "lat": -33.5180995,
+    "lon": -70.7947773
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Villa Los Portales"
+  }
+},
+{
+  "type": "way",
+  "id": 683613690,
+  "center": {
+    "lat": -33.5169229,
+    "lon": -70.7621533
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:country": "CL",
+    "description": "Pequeña plaza pública (inferior a 300 metros cuadrados) ubicada en la Villa Santa Carmen, en la comuna de Maipú. Por su reducido tamaño, no cuenta con equipamiento.",
+    "leisure": "park",
+    "name": "Plaza Purranque",
+    "object:housenumber": "429",
+    "object:street": "Portales",
+    "opening_hours": "24/7",
+    "operator": "I. Municipalidad de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 691833710,
+  "center": {
+    "lat": -33.4826576,
+    "lon": -70.7507873
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housename": "Mall Arauco Maipú",
+    "addr:housenumber": "399",
+    "addr:street": "Avenida Américo Vespucio",
+    "atm": "yes",
+    "building": "retail",
+    "building:levels": "2",
+    "name": "Mall Arauco Maipú",
+    "shop": "mall",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 696066483,
+  "center": {
+    "lat": -33.4944828,
+    "lon": -70.7467600
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Primo de Rivera"
+  }
+},
+{
+  "type": "way",
+  "id": 744800428,
+  "center": {
+    "lat": -33.5103031,
+    "lon": -70.7974636
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "6-020"
+  }
+},
+{
+  "type": "way",
+  "id": 746025803,
+  "center": {
+    "lat": -33.5087695,
+    "lon": -70.7948531
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Capilla María Madre Del Jardín",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 746412270,
+  "center": {
+    "lat": -33.5051194,
+    "lon": -70.7967431
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "building": "yes",
+    "name": "Sede Comunitaria"
+  }
+},
+{
+  "type": "way",
+  "id": 776881767,
+  "center": {
+    "lat": -33.5224660,
+    "lon": -70.7951186
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Iglesia Cristiana El Conquistador",
+    "religion": "evangelica"
+  }
+},
+{
+  "type": "way",
+  "id": 779116240,
+  "center": {
+    "lat": -33.5641878,
+    "lon": -70.7732677
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Puertos de Chile"
+  }
+},
+{
+  "type": "way",
+  "id": 786324910,
+  "center": {
+    "lat": -33.5193442,
+    "lon": -70.7915638
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "methodist",
+    "name": "Iglesia Bautista FE",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 813069071,
+  "center": {
+    "lat": -33.5118554,
+    "lon": -70.7561099
+  },
+  "tags": {
+    "addr:country": "CL",
+    "amenity": "clinic",
+    "emergency": "no",
+    "name": "Centro Médico y Dental RedSalud",
+    "source": "Reconocimiento cartográfico 2016 por KG"
+  }
+},
+{
+  "type": "way",
+  "id": 816360448,
+  "center": {
+    "lat": -33.5526481,
+    "lon": -70.7646769
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "16795",
+    "addr:street": "Avenida Cristo Redentor",
+    "alt_name": "CESFAM N°9 Maipú",
+    "amenity": "clinic",
+    "emergency": "yes",
+    "healthcare": "hospital",
+    "name": "CESFAM Doctor Salvador Allende Gossens",
+    "operator": "Servicio de Salud Metropolitano",
+    "operator:type": "public"
+  }
+},
+{
+  "type": "way",
+  "id": 816564447,
+  "center": {
+    "lat": -33.5015978,
+    "lon": -70.7670770
+  },
+  "tags": {
+    "addr:housenumber": "2897",
+    "addr:street": "Pasaje Kilimanjaro",
+    "amenity": "community_centre",
+    "name": "Junta de Vecinos Kilimanajaro"
+  }
+},
+{
+  "type": "way",
+  "id": 820844491,
+  "center": {
+    "lat": -33.4974761,
+    "lon": -70.7709056
+  },
+  "tags": {
+    "addr:city": "Maipu",
+    "addr:housenumber": "3250",
+    "addr:street": "Teniente Merino",
+    "amenity": "place_of_worship",
+    "name": "Parroquia Inmaculada Concepción",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 823666023,
+  "center": {
+    "lat": -33.4699053,
+    "lon": -70.7325452
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Ortuzano"
+  }
+},
+{
+  "type": "way",
+  "id": 823666025,
+  "center": {
+    "lat": -33.4708332,
+    "lon": -70.7290565
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Ortuzano"
+  }
+},
+{
+  "type": "way",
+  "id": 826042580,
+  "center": {
+    "lat": -33.5113346,
+    "lon": -70.7910417
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "2020",
+    "addr:street": "Avenida 4 Poniente",
+    "amenity": "police",
+    "name": "52 Comisaria Rinconada de Maipú",
+    "opening_hours": "24/7",
+    "phone": "2922 46 30",
+    "wheelchair": "yes"
+  }
+},
+{
+  "type": "way",
+  "id": 840727572,
+  "center": {
+    "lat": -33.5227937,
+    "lon": -70.7788291
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "building": "yes",
+    "building:levels": "3",
+    "community_centre": "youth_centre",
+    "height": "15",
+    "name": "Centro de Recreación Juvenil Nueva San Martín"
+  }
+},
+{
+  "type": "way",
+  "id": 845528441,
+  "center": {
+    "lat": -33.5103934,
+    "lon": -70.7938080
+  },
+  "tags": {
+    "amenity": "fire_station",
+    "building": "yes",
+    "name": "Octava Compañía del Cuerpo de Bomberos de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 908939505,
+  "center": {
+    "lat": -33.5047560,
+    "lon": -70.7411644
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "2913",
+    "addr:street": "Gastón Palma",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "denomination": "reformed",
+    "name": "Comunidad Cristiana Reformada",
+    "name:en": "Christian Reformed Community Church",
+    "name:es": "Comunidad Cristiana Reformada",
+    "religion": "christian",
+    "service_times": "Su 10:30 - 12:30"
+  }
+},
+{
+  "type": "way",
+  "id": 964024837,
+  "center": {
+    "lat": -33.4722180,
+    "lon": -70.7551208
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Puerto Varas"
+  }
+},
+{
+  "type": "way",
+  "id": 964025256,
+  "center": {
+    "lat": -33.4699059,
+    "lon": -70.7574099
+  },
+  "tags": {
+    "building": "yes",
+    "name": "El Descanso Boulevard",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 964048364,
+  "center": {
+    "lat": -33.4715905,
+    "lon": -70.7551543
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "name": "Capilla San Marcos",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 964048744,
+  "center": {
+    "lat": -33.4731905,
+    "lon": -70.7558448
+  },
+  "tags": {
+    "addr:country": "CL",
+    "alt_name": "Centro de Salud Familiar Doctor Luis Ferrada Urzúa",
+    "amenity": "clinic",
+    "healthcare": "clinic",
+    "name": "CESFAM Doctor Luis Ferrada Urzúa",
+    "official_name": "Centro de Salud Familiar"
+  }
+},
+{
+  "type": "way",
+  "id": 965274373,
+  "center": {
+    "lat": -33.4665091,
+    "lon": -70.7551115
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "building": "yes",
+    "name": "Junta de Vecinos Los Claveles IV"
+  }
+},
+{
+  "type": "way",
+  "id": 1014182421,
+  "center": {
+    "lat": -33.5610384,
+    "lon": -70.7853324
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Lago Lugano"
+  }
+},
+{
+  "type": "way",
+  "id": 1014182422,
+  "center": {
+    "lat": -33.5615246,
+    "lon": -70.7855910
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Lago Lugano 2"
+  }
+},
+{
+  "type": "way",
+  "id": 1014182423,
+  "center": {
+    "lat": -33.5533814,
+    "lon": -70.7945847
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Bandejón Entrada Ciudad Satélite"
+  }
+},
+{
+  "type": "way",
+  "id": 1021104465,
+  "center": {
+    "lat": -33.5457650,
+    "lon": -70.7730921
+  },
+  "tags": {
+    "amenity": "fire_station",
+    "building": "yes",
+    "name": "Cuarta Compañía del Cuerpo de Bomberos de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 1021104466,
+  "center": {
+    "lat": -33.5335008,
+    "lon": -70.7757589
+  },
+  "tags": {
+    "amenity": "fire_station",
+    "building": "yes",
+    "name": "Sexta Compañía del Cuerpo de Bomberos de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 1021104473,
+  "center": {
+    "lat": -33.4702161,
+    "lon": -70.7484651
+  },
+  "tags": {
+    "amenity": "fire_station",
+    "building": "yes",
+    "name": "Septima Compañía del Cuerpo de Bomberos de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 1058018963,
+  "center": {
+    "lat": -33.5172718,
+    "lon": -70.7507883
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "leisure": "park",
+    "name": "Plaza Ronald Wood",
+    "object:street": "Elizabeth Heisse"
+  }
+},
+{
+  "type": "way",
+  "id": 1058018966,
+  "center": {
+    "lat": -33.5177038,
+    "lon": -70.7495184
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Elizabeth Heisse",
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Capilla Crito Vivo",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 1079186869,
+  "center": {
+    "lat": -33.4781629,
+    "lon": -70.7544524
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:country": "CL",
+    "addr:housenumber": "901",
+    "addr:street": "Santa Elena",
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "Clínica Indisa Maipú",
+    "opening_hours": "24/7",
+    "operator": "Clínica Indisa",
+    "operator:type": "private"
+  }
+},
+{
+  "type": "way",
+  "id": 1106730268,
+  "center": {
+    "lat": -33.5285027,
+    "lon": -70.7778431
+  },
+  "tags": {
+    "brand": "Lider",
+    "brand:wikidata": "Q6711261",
+    "building": "yes",
+    "name": "Lider",
+    "shop": "supermarket"
+  }
+},
+{
+  "type": "way",
+  "id": 1113180761,
+  "center": {
+    "lat": -33.5689929,
+    "lon": -70.7779862
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Francisco Coloane"
+  }
+},
+{
+  "type": "way",
+  "id": 1135801020,
+  "center": {
+    "lat": -33.5008171,
+    "lon": -70.8278698
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Lo Curro Norte",
+    "amenity": "university",
+    "name": "Estación Experimental Agronómica Germán Greve Silva (U. de Chile)",
+    "operator": "Facultad de Ciencias Agronómicas de la Universidad de Chile",
+    "operator:type": "university",
+    "phone": "+56225311036",
+    "website": "https://agronomia.uchile.cl/investigacion/estaciones-experimentales/79602/estacion-experimental-rinconada-de-maipu-seccion-prod-animal"
+  }
+},
+{
+  "type": "way",
+  "id": 1139038810,
+  "center": {
+    "lat": -33.5542856,
+    "lon": -70.7551509
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "16691",
+    "addr:street": "Camino a Lonquén",
+    "contact:email": "hola@aviva.cl",
+    "contact:phone": "+56 2 64655640",
+    "contact:website": "https://avivasantiago.cl/",
+    "leisure": "water_park",
+    "name": "Parque Acuático Aviva Santiago"
+  }
+},
+{
+  "type": "way",
+  "id": 1172045219,
+  "center": {
+    "lat": -33.5008061,
+    "lon": -70.7567284
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "2897",
+    "addr:street": "Avenida Los Pajaritos",
+    "building": "yes",
+    "name": "Boulevard Terrazas Maipú",
+    "shop": "mall"
+  }
+},
+{
+  "type": "way",
+  "id": 1178154636,
+  "center": {
+    "lat": -33.4881500,
+    "lon": -70.7603984
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque El Molino"
+  }
+},
+{
+  "type": "way",
+  "id": 1178154637,
+  "center": {
+    "lat": -33.4883449,
+    "lon": -70.7608728
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Capilla Padre Alberto Hurtado",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 1178154648,
+  "center": {
+    "lat": -33.4880933,
+    "lon": -70.7611130
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "798",
+    "addr:street": "El Molino",
+    "amenity": "place_of_worship",
+    "building": "house",
+    "denomination": "free_evangelical",
+    "name": "El Buen Samaritano",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 1180114682,
+  "center": {
+    "lat": -33.4920623,
+    "lon": -70.7345338
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque El Pajonal"
+  }
+},
+{
+  "type": "way",
+  "id": 1181224091,
+  "center": {
+    "lat": -33.4964589,
+    "lon": -70.7629975
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "General Bueras",
+    "amenity": "clinic",
+    "building": "yes",
+    "healthcare": "clinic",
+    "name": "Cecosf Bueras"
+  }
+},
+{
+  "type": "way",
+  "id": 1185581121,
+  "center": {
+    "lat": -33.5072429,
+    "lon": -70.7977239
+  },
+  "tags": {
+    "historic": "memorial",
+    "material": "steel",
+    "memorial": "sculpture",
+    "name": "Portal Maipú Poniente"
+  }
+},
+{
+  "type": "way",
+  "id": 1203833042,
+  "center": {
+    "lat": -33.5643060,
+    "lon": -70.7825032
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Central "
+  }
+},
+{
+  "type": "way",
+  "id": 1204574005,
+  "center": {
+    "lat": -33.5550424,
+    "lon": -70.7895972
+  },
+  "tags": {
+    "amenity": "place_of_worship",
+    "building": "yes",
+    "name": "Salón del Reino testigos de Jehová",
+    "religion": "christian"
+  }
+},
+{
+  "type": "way",
+  "id": 1220965707,
+  "center": {
+    "lat": -33.5250120,
+    "lon": -70.7716827
+  },
+  "tags": {
+    "addr:housenumber": "1044",
+    "addr:street": "Avenida Nueva San Martín",
+    "amenity": "place_of_worship",
+    "building": "church",
+    "name": "Iglesia Evangélica Pentecostal"
+  }
+},
+{
+  "type": "way",
+  "id": 1271292182,
+  "center": {
+    "lat": -33.5096762,
+    "lon": -70.7540585
+  },
+  "tags": {
+    "amenity": "townhall",
+    "building": "yes",
+    "building:levels": "3",
+    "height": "5",
+    "name": "Alcaldía",
+    "townhall:type": "municipality"
+  }
+},
+{
+  "type": "way",
+  "id": 1276525540,
+  "center": {
+    "lat": -33.5280925,
+    "lon": -70.7601239
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "name": "Sede Social Goodyear"
+  }
+},
+{
+  "type": "way",
+  "id": 1276525541,
+  "center": {
+    "lat": -33.5269021,
+    "lon": -70.7599900
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Club Deportivo Goodyear"
+  }
+},
+{
+  "type": "way",
+  "id": 1281167794,
+  "center": {
+    "lat": -36.8529195,
+    "lon": -57.8684278
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Tiro Federal Maipú",
+    "sport": "shooting"
+  }
+},
+{
+  "type": "way",
+  "id": 1281452961,
+  "center": {
+    "lat": -33.5097286,
+    "lon": -70.7563843
+  },
+  "tags": {
+    "alt_name": "Plaza de Armas de Maipú",
+    "leisure": "park",
+    "name": "Plaza Mayor de Maipú"
+  }
+},
+{
+  "type": "way",
+  "id": 1288949737,
+  "center": {
+    "lat": -33.4953835,
+    "lon": -70.7802066
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1253",
+    "addr:street": "Isabel Riquelme",
+    "amenity": "police",
+    "barrier": "fence",
+    "building": "no",
+    "check_date": "2025-07-10",
+    "name": "29 Comisaría Sector La Farfana",
+    "opening_date": "2025",
+    "opening_hours": "24/7",
+    "operator": "Carabineros de Chile",
+    "operator:wikidata": "Q2317752",
+    "start_date": "2025"
+  }
+},
+{
+  "type": "way",
+  "id": 1303758412,
+  "center": {
+    "lat": -33.5154900,
+    "lon": -70.7977493
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Seminario Oriente"
+  }
+},
+{
+  "type": "way",
+  "id": 1304858524,
+  "center": {
+    "lat": -33.5115886,
+    "lon": -70.7858898
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "name": "Sede Vecinal Villa San luis"
+  }
+},
+{
+  "type": "way",
+  "id": 1304878148,
+  "center": {
+    "lat": -33.5109927,
+    "lon": -70.7983294
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Plaza Regimiento Buín"
+  }
+},
+{
+  "type": "way",
+  "id": 1308335644,
+  "center": {
+    "lat": -33.5081557,
+    "lon": -70.7788556
+  },
+  "tags": {
+    "amenity": "community_centre",
+    "building": "yes",
+    "building:levels": "3",
+    "community_centre": "youth_centre",
+    "height": "15",
+    "name": "Centro de Recreación Juvenil Rinconada"
+  }
+},
+{
+  "type": "way",
+  "id": 1315240902,
+  "center": {
+    "lat": -33.5068512,
+    "lon": -70.7847207
+  },
+  "tags": {
+    "amenity": "library",
+    "building": "yes",
+    "name": "Biblioteca Comunitaria Rinconada"
+  }
+},
+{
+  "type": "way",
+  "id": 1315853240,
+  "center": {
+    "lat": -33.5109000,
+    "lon": -70.7563906
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "087",
+    "addr:postcode": "9251819",
+    "addr:street": "Avenida Esquina Blanca",
+    "amenity": "clinic",
+    "building": "yes",
+    "building:levels": "4",
+    "healthcare": "clinic",
+    "height": "9",
+    "name": "Clínica Cruz Nacional"
+  }
+},
+{
+  "type": "way",
+  "id": 1332065292,
+  "center": {
+    "lat": -33.4943765,
+    "lon": -70.7361758
+  },
+  "tags": {
+    "amenity": "marketplace",
+    "name": "Feria Lumen",
+    "opening_hours": "We,Sa 08:30-15:00"
+  }
+},
+{
+  "type": "way",
+  "id": 1348903645,
+  "center": {
+    "lat": -33.5318238,
+    "lon": -70.7743060
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:street": "Avenida 3 Poniente",
+    "amenity": "community_centre",
+    "building": "yes",
+    "community_centre": "community_hall",
+    "name": "Centro Comunitario Los Héroes",
+    "website": "https://www.municipalidadmaipu.cl/"
+  }
+},
+{
+  "type": "way",
+  "id": 1415888079,
+  "center": {
+    "lat": -33.4909548,
+    "lon": -70.7714723
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "1400",
+    "addr:street": "Avenida La Farfana",
+    "name": "Centro Comercial Paseo El Rosal",
+    "shop": "mall"
+  }
+},
+{
+  "type": "relation",
+  "id": 3241911,
+  "center": {
+    "lat": -33.5335127,
+    "lon": -70.7673846
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque El Ferrocarril 2",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 3636838,
+  "center": {
+    "lat": -33.5595714,
+    "lon": -70.7834457
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Rotonda Alcalde José Luis Infante Larraín",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 6022242,
+  "center": {
+    "lat": -33.5228781,
+    "lon": -70.7336869
+  },
+  "tags": {
+    "addr:city": "Maipú",
+    "addr:housenumber": "943",
+    "addr:street": "Avenida Lo Espejo",
+    "building": "yes",
+    "layer": "1",
+    "name": "Patio Outlet Maipú",
+    "old_name": "Vivo Outlet Maipú",
+    "operator": "Grupo Patio",
+    "shop": "mall",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 7732423,
+  "center": {
+    "lat": -33.5152824,
+    "lon": -70.7786544
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Tres Poniente",
+    "source": "Reconocimiento cartográfico 2016 por KG",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 11243448,
+  "center": {
+    "lat": -33.5146026,
+    "lon": -70.7783785
+  },
+  "tags": {
+    "leisure": "sports_centre",
+    "name": "Polideportivo Martín Vargas",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 14316751,
+  "center": {
+    "lat": -33.5084552,
+    "lon": -70.7718753
+  },
+  "tags": {
+    "amenity": "hospital",
+    "healthcare": "hospital",
+    "name": "CRS",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 14361043,
+  "center": {
+    "lat": -33.4789989,
+    "lon": -70.7517321
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Santa Elena de Maipú",
+    "type": "multipolygon"
+  }
+},
+{
+  "type": "relation",
+  "id": 16011063,
+  "center": {
+    "lat": -33.5400263,
+    "lon": -70.7762544
+  },
+  "tags": {
+    "leisure": "park",
+    "name": "Parque Ferrocarril",
+    "source": "http://sitmaipu.maipu.cl/flexviewers/AVerdes/",
+    "type": "multipolygon"
+  }
+}
+
+  ]
+}
